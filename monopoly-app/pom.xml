@@ -5,11 +5,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>pl.kpierczyk.monopoly</groupId>
-  <artifactId>monopoly-viewer</artifactId>
+  <artifactId>monopoly-app</artifactId>
   <version>1.0-SNAPSHOT</version>
 
-  <name>monopoly-viewer</name>
-  <description>MVC viewer of the "Monopoly" project</description>
+  <name>monopoly-app</name>
+  <description>Completed App of the "Monopoly" project</description>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

@@ -1,4 +1,4 @@
-package pl.kpierczyk.monopoly.viewer;
+package pl.kpierczyk.monopoly.view;
 
 /**
  * Hello world!

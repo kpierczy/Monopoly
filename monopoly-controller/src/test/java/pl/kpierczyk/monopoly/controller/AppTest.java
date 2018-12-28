@@ -1,4 +1,4 @@
-package pl.kpierczyk.monopoly.model;
+package pl.kpierczyk.monopoly.controller;
 
 import static org.junit.Assert.assertTrue;
 
