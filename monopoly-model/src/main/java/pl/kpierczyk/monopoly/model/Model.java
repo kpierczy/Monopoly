@@ -141,7 +141,7 @@ public class Model
     public int[] getResolution() { return resolution; }
     public boolean setSourcesHome(int resolution_t[]) {
         if(resolution_t.length == 2){
-            resolution = resolution; 
+            resolution = resolution_t; 
             return true;
         }
         else
