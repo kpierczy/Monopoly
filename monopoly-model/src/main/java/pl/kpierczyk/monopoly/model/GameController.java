@@ -1,6 +1,6 @@
 package pl.kpierczyk.monopoly.model;
 
-class GameController 
+public class GameController 
 {
     GameController()
     {
