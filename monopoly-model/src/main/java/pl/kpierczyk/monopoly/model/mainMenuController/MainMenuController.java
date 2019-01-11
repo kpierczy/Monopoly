@@ -55,6 +55,11 @@ public class MainMenuController{
     public MainMenuController(String textPath){
         mainMenu = new Menu(textPath, 6);
         state = MainMenuState._default;
+
+        loadingController = null;
+        optionsController = null;
+        titlesControlleler = null;
+        instructionController = null;
     }
 
 
@@ -66,18 +71,33 @@ public class MainMenuController{
     /* Getters & setters */
     /*****************************************/
 
-    public MainMenuState getMenuState() {
+    public MainMenuState getState() {
         return state;
     }
-    private void setMenuState(MainMenuState state) {
+    public void setState(MainMenuState state) {
         this.state = state;
     }
+
 
     public Menu getMainMenu() {
         return mainMenu;
     }
     public void setMainMenu(Menu mainMenu) {
         this.mainMenu = mainMenu;
+    }
+
+
+    public InstructionController getInstructionController() {
+        return instructionController;
+    }
+    public LoadingController getLoadingController() {
+        return loadingController;
+    }
+    public OptionsController getOptionsController() {
+        return optionsController;
+    }
+    public TitlesController getTitlesControlleler() {
+        return titlesControlleler;
     }
 
 
@@ -89,27 +109,27 @@ public class MainMenuController{
     /*****************************************/
 
     public void openLoadingList(String savesHome, String textPath){
-        setMenuState(MainMenuState.loading);
-        loadingController = new LoadingController(savesHome, textPath);
+        setState(MainMenuState.loading);
+        this.loadingController = new LoadingController(savesHome, textPath);
     }
 
     public void openOptions(Settings settings, String textPath){
-        setMenuState(MainMenuState.options);
-        optionsController = new OptionsController(settings, textPath);
+        setState(MainMenuState.options);
+        this.optionsController = new OptionsController(settings, textPath);
     }
 
     public void openTitles(String titlesPath){
-        setMenuState(MainMenuState.titles);
-        titlesControlleler = new TitlesController(titlesPath);
+        setState(MainMenuState.titles);
+        this.titlesControlleler = new TitlesController(titlesPath);
     }
 
     public void openInstruction(String instructionPath){
-        setMenuState(MainMenuState.instruction);
-        instructionController = new InstructionController(instructionPath);
+        setState(MainMenuState.instruction);
+        this.instructionController = new InstructionController(instructionPath);
     }
 
     public void closeChild(){
-        setMenuState(MainMenuState._default);
+        setState(MainMenuState._default);
         loadingController = null;
         optionsController = null;
         titlesControlleler = null;

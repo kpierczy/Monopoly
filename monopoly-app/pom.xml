@@ -6,7 +6,7 @@
 
   <groupId>pl.kpierczyk.monopoly</groupId>
   <artifactId>monopoly-app</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0.0</version>
 
   <name>monopoly-app</name>
   <description>Completed App of the "Monopoly" project</description>
@@ -22,6 +22,21 @@
       <version>4.11</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+			<groupId>pl.kpierczyk.monopoly</groupId>
+			<artifactId>monopoly-model</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+    <dependency>
+			<groupId>pl.kpierczyk.monopoly</groupId>
+			<artifactId>monopoly-view</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+    <dependency>
+			<groupId>pl.kpierczyk.monopoly</groupId>
+			<artifactId>monopoly-controller</artifactId>
+			<version>1.0.0</version>
+		</dependency>
   </dependencies>
 
   <build>
@@ -39,6 +54,20 @@
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-surefire-plugin</artifactId>
           <version>2.22.0</version>
+        </plugin>
+        <plugin>
+          <!-- Build an executable JAR -->
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-jar-plugin</artifactId>
+          <version>3.1.0</version>
+          <configuration>
+            <archive>
+              <manifest>
+                <addClasspath>true</addClasspath>
+                <mainClass>pl.kpierczyk.monopoly.app.App</mainClass>
+              </manifest>
+            </archive>
+          </configuration>
         </plugin>
       </plugins>
     </pluginManagement>

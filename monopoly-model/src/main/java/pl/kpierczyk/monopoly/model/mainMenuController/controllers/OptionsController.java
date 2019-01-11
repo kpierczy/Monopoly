@@ -1,5 +1,4 @@
 package pl.kpierczyk.monopoly.model.mainMenuController.controllers;
-import pl.kpierczyk.monopoly.model.utilities.*;
 import pl.kpierczyk.monopoly.model.utilities.settings.*;
 import java.io.*;
 

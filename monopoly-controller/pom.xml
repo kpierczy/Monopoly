@@ -6,7 +6,7 @@
 
   <groupId>pl.kpierczyk.monopoly</groupId>
   <artifactId>monopoly-controller</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0.0</version>
 
   <name>monopoly-controller</name>
   <description>MVC controller of the "Monopoly" project</description>
@@ -22,6 +22,16 @@
       <version>4.11</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+			<groupId>pl.kpierczyk.monopoly</groupId>
+			<artifactId>monopoly-model</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+    <dependency>
+			<groupId>pl.kpierczyk.monopoly</groupId>
+			<artifactId>monopoly-view</artifactId>
+			<version>1.0.0</version>
+		</dependency>
   </dependencies>
 
   <build>
