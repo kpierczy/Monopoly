@@ -23,10 +23,10 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-			<groupId>pl.kpierczyk.monopoly</groupId>
-			<artifactId>monopoly-model</artifactId>
-			<version>1.0.0</version>
-		</dependency>
+      <groupId>pl.kpierczyk.monopoly</groupId>
+      <artifactId>monopoly-model</artifactId>
+      <version>1.0.0</version>
+    </dependency>
   </dependencies>
 
   <build>
