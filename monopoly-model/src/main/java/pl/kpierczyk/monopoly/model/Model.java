@@ -25,7 +25,6 @@ import pl.kpierczyk.monopoly.model.utilities.settings.*;
 public class Model {
 
 
-
     public enum AppState {
         beggining, mainMenu, inGame, quitting
     }
@@ -45,7 +44,8 @@ public class Model {
 
     private Settings settings;
 
-
+    private String begginingMoviePath;
+    private String quittingMoviePath;
 
 
 
@@ -68,6 +68,9 @@ public class Model {
 
         /* initializing mainMenuController */
         gameController = new GameController();
+
+        begginingMoviePath = settings.getGameHome() + "movies\\begginingMovie.wave";
+        quittingMoviePath = settings.getGameHome() + "movies\\quittingMovie.wave";
     }
 
 
@@ -99,11 +102,27 @@ public class Model {
         this.settings = settings;
     }
 
-
+    public String getBegginingMoviePath() {
+        return begginingMoviePath;
+    }
+    public String getQuittingMoviePath() {
+        return quittingMoviePath;
+    }
 
 
     
     /*****************************************/
     /*              Utilities                */
     /*****************************************/
+
+    public void finishBeggining(){
+        setState(AppState.mainMenu);
+    }
+
+    public void startGame(){
+
+    }
+    public void loadGame(){
+        
+    }
 }
