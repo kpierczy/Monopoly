@@ -10,7 +10,7 @@ public class App
 {
     public static void main( String[] args )
     {
-        Model model  = new Model("F:\\VS Code Projects\\Java\\Monopoly\\monopoly-model\\src\\main\\java\\pl\\sources\\config.txt");
+        Model model  = new Model("F:\\VS Code Projects\\Java\\Monopoly\\monopoly-model\\src\\main\\java\\pl\\config.txt");
         Viewer view = new View(model);
         Controller controller = new Controller(model, view);
     }

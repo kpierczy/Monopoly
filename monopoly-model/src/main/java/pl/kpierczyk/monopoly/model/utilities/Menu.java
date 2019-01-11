@@ -1,7 +1,20 @@
-package pl.kpierczyk.monopoly.model.mainMenu;
+package pl.kpierczyk.monopoly.model.utilities;
 import java.io.*;
 
-public class MenuController {
+
+
+
+//*******************************************//
+//
+//
+//
+//
+//
+//
+//
+//*******************************************//
+
+public class Menu {
 
 
     /*****************************************/
@@ -11,13 +24,15 @@ public class MenuController {
     private final MenuField menuFields[];
     
 
+
     /*****************************************/
     /*              Constructor              */
     /*****************************************/
 
-    public MenuController(String textPath_t, int fieldsNumber) {
+    public Menu(String textPath_t, int fieldsNumber) {
         
         menuFields = new MenuField[fieldsNumber];
+
         try {
             FileReader fileReader = 
                 new FileReader(textPath_t);
@@ -62,31 +77,3 @@ public class MenuController {
     }
 }
 
-
-class MenuField {
-
-    /*****************************************/
-    /*             Class Fields              */
-    /*****************************************/
-
-    private final String fieldText;
-    private boolean active;
-
-    /*****************************************/
-    /*              Constructor              */
-    /*****************************************/
-
-    MenuField(String fieldText_t) {
-        fieldText = fieldText_t;
-        active = true;
-    }
-
-    /*****************************************/
-    /*          Getters & setters            */
-    /*****************************************/
-
-    public String getFieldText() { return fieldText; }
-
-    public boolean isActive() { return active;}
-    public void setActive(boolean active_t) { active = active_t;}
-}

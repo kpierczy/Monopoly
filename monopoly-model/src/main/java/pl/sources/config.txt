@@ -1,7 +1,0 @@
-en
-F:\\VS Code Projects\\Java\\Monopoly\\monopoly-model\\src\\main\\java\\pl\\sources
-1920
-1080
-off
-50
-
