@@ -1,16 +1,35 @@
 package pl.kpierczyk.monopoly.model.mainMenuController;
 import pl.kpierczyk.monopoly.model.utilities.*;
+import pl.kpierczyk.monopoly.model.utilities.settings.*;
 import pl.kpierczyk.monopoly.model.mainMenuController.controllers.*;
+
+
+
+//*******************************************//
+//
+//
+//
+//
+//
+//
+//
+//*******************************************//
+
 
 public class MainMenuController{
     
-    enum MainMenuState{
+
+    public enum MainMenuState{
         _default,
         loading,
         options,
         titles,
         instruction
     }
+
+
+
+
 
     /*****************************************/
     /*        Invisible Class Fields         */
@@ -26,6 +45,9 @@ public class MainMenuController{
     private InstructionController instructionController;
 
 
+
+
+
     /*****************************************/
     /*              Constructor              */
     /*****************************************/
@@ -36,11 +58,15 @@ public class MainMenuController{
     }
 
 
+
+
+
+
     /*****************************************/
     /* Getters & setters */
     /*****************************************/
 
-    private MainMenuState getMenuState() {
+    public MainMenuState getMenuState() {
         return state;
     }
     private void setMenuState(MainMenuState state) {
@@ -55,23 +81,26 @@ public class MainMenuController{
     }
 
 
+
+
+
     /*****************************************/
     /*              Utilities                */
     /*****************************************/
 
-    public void openLoadingList(String savesHome){
+    public void openLoadingList(String savesHome, String textPath){
         setMenuState(MainMenuState.loading);
-        loadingController = new LoadingController(savesHome);
+        loadingController = new LoadingController(savesHome, textPath);
     }
 
-    public void openOptions(){
+    public void openOptions(Settings settings, String textPath){
         setMenuState(MainMenuState.options);
-        optionsController = new OptionsController();
+        optionsController = new OptionsController(settings, textPath);
     }
 
-    public void openTitles(){
+    public void openTitles(String titlesPath){
         setMenuState(MainMenuState.titles);
-        titlesControlleler = new TitlesController();
+        titlesControlleler = new TitlesController(titlesPath);
     }
 
     public void openInstruction(String instructionPath){

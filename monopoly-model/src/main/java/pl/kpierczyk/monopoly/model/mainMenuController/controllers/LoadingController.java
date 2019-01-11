@@ -22,6 +22,8 @@ public class LoadingController {
 
     final private String savesHome;
     final private String savesNames[];
+    final private String loadButtonText;
+    final private String backButtonText;
     private int checkedSave;
 
 
@@ -30,7 +32,7 @@ public class LoadingController {
     /*              Constructor              */
     /*****************************************/
 
-    public LoadingController(String savesHome) {
+    public LoadingController(String savesHome, String textPath) {
         this.savesHome = savesHome;
 
         File folder = new File(savesHome);
@@ -40,6 +42,29 @@ public class LoadingController {
         for (int i = 0; i < listOfFiles.length; i++) {
             this.savesNames[i] = listOfFiles[i].getName();
         }
+
+
+        String loadButtonText;
+        String backButtonText;
+
+        try {
+            FileReader fileReader = 
+                new FileReader(textPath);
+            BufferedReader bufferedReader =
+                new BufferedReader(fileReader);
+
+            loadButtonText = bufferedReader.readLine();
+            backButtonText = bufferedReader.readLine();
+            bufferedReader.close();
+        }
+        catch (IOException ex) {
+            System.out.println("Couldn't read buttons text from" + textPath);
+            loadButtonText = "???";
+            backButtonText = "???";
+        }
+
+        this.loadButtonText = loadButtonText;
+        this.backButtonText = backButtonText;
 
         checkedSave = 0;
     }
@@ -56,7 +81,13 @@ public class LoadingController {
     public String[] getSavesNames() {
         return savesNames;
     }
-    
+    public String getBackButtonText() {
+        return backButtonText;
+    }
+    public String getLoadButtonText() {
+        return loadButtonText;
+    }
+
     public int getCheckedSave() {
         return checkedSave;
     }
