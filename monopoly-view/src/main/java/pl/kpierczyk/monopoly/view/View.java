@@ -26,6 +26,10 @@ public class View extends JFrame{
 
     Model model;
 
+
+
+
+
     /*****************************************/
     /*             Constructor               */
     /*****************************************/
@@ -35,13 +39,22 @@ public class View extends JFrame{
         this.model = model;
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setSize(this.model.getSettings().getResolution()[0], this.model.getSettings().getResolution()[1]);
         this.setVisible(true);
     }
+
+
+
 
 
     /*****************************************/
     /*          Getters & setters            */
     /*****************************************/
+
+
+
+
+
 
 
     /*****************************************/
@@ -51,7 +64,7 @@ public class View extends JFrame{
 
     public boolean udate(){
         switch(model.getState()){
-            case beggining:
+            case intro:
             
             break;
             case mainMenu:
@@ -66,7 +79,7 @@ public class View extends JFrame{
     }
 
     public boolean serveBeggining(){
-        String begginingMovie = this.model.getBegginingMoviePath();
+        String begginingMovie = this.model.getIntroController().getIntroMoviePath();
 
         return true;
     }

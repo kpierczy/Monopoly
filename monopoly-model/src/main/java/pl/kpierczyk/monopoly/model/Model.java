@@ -48,7 +48,7 @@ public class Model {
 
         /* initializing settings */
         this.settings = new Settings();
-        this.settings.readFromFile("config.txt");
+        this.settings.readFromFile("/config.txt");
 
         /* initializing begginingController */
         String introMoviePath = "/lang/" + this.settings.getLanguage() + "/movies/begginingMovie.mp4";

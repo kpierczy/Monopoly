@@ -18,15 +18,15 @@ public class IntroController{
     /*            Class Fields               */
     /*****************************************/
 
-    final String begginingMoviePath;
+    final String introMoviePath;
     final String ommitButtonText;
 
     /*****************************************/
     /*             Constructor               */
     /*****************************************/
 
-    public IntroController(String begginingMoviePath, String ommitButtonPath){
-        this.begginingMoviePath = begginingMoviePath;
+    public IntroController(String introMoviePath, String ommitButtonPath){
+        this.introMoviePath = introMoviePath;
         this.ommitButtonText = ommitButtonPath;
     }
 
@@ -35,8 +35,8 @@ public class IntroController{
     /*          Getters & setters            */
     /*****************************************/
 
-    public String getBegginingMoviePath() {
-        return begginingMoviePath;
+    public String getIntroMoviePath() {
+        return introMoviePath;
     }
     public String getOmmitButtonText() {
         return ommitButtonText;
