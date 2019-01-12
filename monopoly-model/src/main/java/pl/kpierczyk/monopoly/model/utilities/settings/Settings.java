@@ -163,10 +163,9 @@ public class Settings {
     public boolean readFromFile(String configPath) {
 
         try {
-            FileReader fileReader = 
-                new FileReader(configPath);
             BufferedReader bufferedReader =
-                new BufferedReader(fileReader);
+                new BufferedReader(new InputStreamReader(getClass().getResourceAsStream(configPath)));
+
 
             // tmp string for reading language version from config.txt
             String line = null;

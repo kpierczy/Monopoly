@@ -25,9 +25,9 @@ public class IntroController{
     /*             Constructor               */
     /*****************************************/
 
-    public IntroController(String introMoviePath, String ommitButtonPath){
+    public IntroController(String introMoviePath, String ommitButtonText){
         this.introMoviePath = introMoviePath;
-        this.ommitButtonText = ommitButtonPath;
+        this.ommitButtonText = ommitButtonText;
     }
 
 

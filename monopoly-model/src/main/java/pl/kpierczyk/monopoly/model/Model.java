@@ -3,8 +3,13 @@ package pl.kpierczyk.monopoly.model;
 import pl.kpierczyk.monopoly.model.mainMenuController.*;
 import pl.kpierczyk.monopoly.model.gameController.*;
 import pl.kpierczyk.monopoly.model.utilities.settings.*;
-import java.net.*;
 import java.io.*;
+
+
+
+
+
+
 
 //*******************************************//
 //
@@ -50,10 +55,26 @@ public class Model {
         this.settings = new Settings();
         this.settings.readFromFile("/config.txt");
 
-        /* initializing begginingController */
-        String introMoviePath = "/lang/" + this.settings.getLanguage() + "/movies/begginingMovie.mp4";
-        String introOmmitButtron = "/lang/ommitIntroButton.txt";
-        introController = new IntroController(introMoviePath, introOmmitButtron);
+        /* initializing introController */
+        String introMoviePath = "/lang/" + this.settings.getLanguage() + "/movies/introMovie.mp4";
+        String ommitButtonText = "???";
+       
+        try{
+            BufferedReader bufferedReader =
+                new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/lang/" + this.settings.getLanguage() + "/ommitIntroButton.txt")));
+        
+            String line = null;
+            if((line = bufferedReader.readLine()) != null)
+                ommitButtonText = line;
+        }
+        catch(IOException ex){
+            System.out.println("Couldn't read ommitButtonText.");
+        }
+        catch(NullPointerException ex){
+            System.out.println("Couldn't open file");
+        }
+        
+        introController = new IntroController(introMoviePath, ommitButtonText);
 
 
         /* initializing mainMenuController */

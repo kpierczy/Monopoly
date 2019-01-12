@@ -1,8 +1,6 @@
 package pl.kpierczyk.monopoly.model.mainMenuController.controllers;
-import pl.kpierczyk.monopoly.model.*;
 import java.io.*;
 
-import pl.kpierczyk.monopoly.model.gameController.GameController;
 
 //*******************************************//
 //

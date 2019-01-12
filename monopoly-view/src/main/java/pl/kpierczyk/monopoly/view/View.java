@@ -1,6 +1,5 @@
 package pl.kpierczyk.monopoly.view;
 import pl.kpierczyk.monopoly.model.*;
-import java.awt.event.*;
 import javax.swing.*;
 
 

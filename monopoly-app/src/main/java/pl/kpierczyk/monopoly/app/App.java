@@ -1,10 +1,8 @@
 package pl.kpierczyk.monopoly.app;
 import pl.kpierczyk.monopoly.model.*;
 import pl.kpierczyk.monopoly.view.*;
-import java.awt.event.*;
-import javax.swing.*;
-
 import pl.kpierczyk.monopoly.controller.*;
+
 
 // Starting Module
 

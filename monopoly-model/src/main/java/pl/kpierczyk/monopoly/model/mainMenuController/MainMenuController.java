@@ -3,7 +3,6 @@ package pl.kpierczyk.monopoly.model.mainMenuController;
 import pl.kpierczyk.monopoly.model.utilities.*;
 import pl.kpierczyk.monopoly.model.utilities.settings.*;
 import pl.kpierczyk.monopoly.model.mainMenuController.controllers.*;
-import java.util.ArrayList;
 import java.io.*;
 
 
@@ -56,22 +55,25 @@ public class MainMenuController {
     /*****************************************/
 
     public MainMenuController(Settings settingsHanger) {
+        
+        /*Utilities initializing*/
         this.state = MainMenuState._default;
         this.settingsHanger = settingsHanger;
         this.savesPath = "/saves";
 
+        /*Controlers initializing*/
         this.loadingController = null;
         this.optionsController = null;
         this.titlesControlleler = null;
         this.instructionController = null;
 
+        /*Menu initializing*/
         String textPath = "/lang/" + this.settingsHanger.getLanguage() + "/mainMenu.txt";
         String fieldsText[] = new String[6];
+
         try {
-            FileReader fileReader = 
-                new FileReader(textPath);
             BufferedReader bufferedReader =
-                new BufferedReader(fileReader);
+                new BufferedReader(new InputStreamReader(getClass().getResourceAsStream(textPath)));
 
             String line;
             for(int i = 0; i < fieldsText.length; i++){
@@ -85,9 +87,9 @@ public class MainMenuController {
         catch (IOException ex) {
             System.out.println("Error reading file '" + textPath + "'");
         }
-        this.mainMenu = new Menu(fieldsText, 6);
 
-        this.backgroundImagePath = "/lang/" + this.settingsHanger.getLanguage() + "/mainMenu.txt";
+        this.mainMenu = new Menu(fieldsText, 6);
+        this.backgroundImagePath = "/img/menuBackground.png";
     }
 
 
