@@ -1,11 +1,9 @@
 package pl.kpierczyk.monopoly.view;
+
 import pl.kpierczyk.monopoly.model.*;
+import pl.kpierczyk.monopoly.view.panes.menu.*;
 import javax.swing.*;
-
-
-
-
-
+import java.io.*;
 //*******************************************//
 //
 //
@@ -16,70 +14,97 @@ import javax.swing.*;
 //
 //*******************************************//
 
-public class View extends JFrame{
-
+public class View extends JFrame {
 
     /*****************************************/
-    /*            Class Fields               */
+    /* Class Fields */
     /*****************************************/
 
     Model model;
 
+    /* Main Menu sceneries */
 
+    IntroPanel introPanel;
+    // MainMenuPanel mainMenuPanel;
+    // LoadingGamePanel loadingGamePanel;
+    // OptionsPanel optionsPanel;
+    // InstructionPanel instructionPanel;
+    // TitlesPanel titlesPanel;
 
+    /* inGame sceneries */
 
-
-    /*****************************************/
-    /*             Constructor               */
-    /*****************************************/
-
-    public View(Model model){
-        super("Monopoly the boardgame");
-        this.model = model;
-
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(this.model.getSettings().getResolution()[0], this.model.getSettings().getResolution()[1]);
-        this.setVisible(true);
-    }
-
-
-
-
-
-    /*****************************************/
-    /*          Getters & setters            */
-    /*****************************************/
-
-
+    // MainGamePanel mainGamePanel;
+    //
+    //
+    //
+    //
 
 
 
 
 
     /*****************************************/
-    /*              Utilities                */
+    /* Constructor */
     /*****************************************/
 
+    public View(Model model) {
+        super("Monopoly the board game");
 
-    public boolean udate(){
-        switch(model.getState()){
-            case intro:
-            
-            break;
-            case mainMenu:
 
-            break;
-            case inGame:
+        /* Checking window's size */
+        if (!model.getSettings().isFullscreen()) {
+            this.setSize(model.getSettings().getResolution()[0],
+                         model.getSettings().getResolution()[1]);
 
-            break;
+            this.introPanel = new IntroPanel(model.getSettings().getResolution(),
+                                             model.getIntroController().getIntroPosterPath());
+        } 
+        else {
+            this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+            this.setUndecorated(true);
+            Integer paneSize[] = new Integer[] {this.getSize().width, this.getSize().height};
+            this.introPanel = new IntroPanel(paneSize, model.getIntroController().getIntroPosterPath());
         }
-
-        return true;
+        this.setResizable(false);
+        
+        this.getContentPane().add(this.introPanel);      
+        this.setVisible(true);        
     }
 
-    public boolean serveBeggining(){
-        String begginingMovie = this.model.getIntroController().getIntroMoviePath();
 
-        return true;
+
+
+
+
+    /*****************************************/
+    /* Getters & setters */
+    /*****************************************/
+
+    public IntroPanel getIntroPanel() {
+        return introPanel;
+    }
+    /*
+     * public MainMenuPanel getMainMenuPanel() { return mainMenuPanel; } public
+     * LoadingGamePanel getLoadingGamePanel() { return loadingGamePanel; } public
+     * OptionsPanel getOptionsPanel() { return optionsPanel; } public
+     * InstructionPanel getInstructionPanel() { return instructionPanel; } public
+     * TitlesPanel getTitlesPanel() { return titlesPanel; }
+     * 
+     * 
+     * 
+     * public MainGamePanel getMainGamePanel() { return mainGamePanel; }
+     */
+
+
+
+
+
+    
+    /*****************************************/
+    /* Utilities */
+    /*****************************************/
+
+    public void finishIntro(){
+
     }
 }

@@ -1,0 +1,6 @@
+New game
+Load game
+Settings
+Instruction
+Titles
+Quit

@@ -1,8 +1,8 @@
 package pl.kpierczyk.monopoly.app;
+
 import pl.kpierczyk.monopoly.model.*;
 import pl.kpierczyk.monopoly.view.*;
 import pl.kpierczyk.monopoly.controller.*;
-
 
 // Starting Module
 

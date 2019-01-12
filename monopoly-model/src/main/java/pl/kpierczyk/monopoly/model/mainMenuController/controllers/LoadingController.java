@@ -1,7 +1,9 @@
 package pl.kpierczyk.monopoly.model.mainMenuController.controllers;
-import java.io.*;
 
+import java.io.*;
 import pl.kpierczyk.monopoly.model.gameController.GameController;
+import pl.kpierczyk.monopoly.model.*;
+
 
 //*******************************************//
 //
@@ -35,7 +37,7 @@ public class LoadingController {
 
     public LoadingController(String textPath) {
         ClassLoader classLoader = getClass().getClassLoader();
-        String savesHome = classLoader.getResource("saves").getPath();
+        String savesHome = Model.convert(classLoader.getResource("saves").getPath());
         File folder = new File(savesHome);
         File[] listOfFiles = folder.listFiles();
         this.savesNames = new String[listOfFiles.length];

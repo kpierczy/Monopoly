@@ -89,7 +89,8 @@ public class MainMenuController {
         }
 
         this.mainMenu = new Menu(fieldsText, 6);
-        this.backgroundImagePath = "/img/menuBackground.png";
+        this.backgroundImagePath = "/lang/" + settingsHanger.getLanguage() +
+                                   "/img/menuBackgrounds/menuBackground_1.png";
     }
 
 

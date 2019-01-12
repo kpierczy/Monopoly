@@ -1,5 +1,6 @@
 package pl.kpierczyk.monopoly.model.utilities.settings;
 
+import pl.kpierczyk.monopoly.model.*;
 import java.io.*;
 
 // *******************************************//
@@ -81,11 +82,11 @@ public class Settings {
         String height = "";
 
         if (this.resolution.getValue().indexOf("x") == 3) {
-            width = this.resolution.getValue().substring(0, 2);
+            width = this.resolution.getValue().substring(0, 3);
             height = this.resolution.getValue().substring(4, 6);
         } else if (this.resolution.getValue().indexOf("x") == 4) {
-            width = this.resolution.getValue().substring(0, 3);
-            height = this.resolution.getValue().substring(4, 8);
+            width = this.resolution.getValue().substring(0, 4);
+            height = this.resolution.getValue().substring(5, 9);
         }
 
         return new Integer[] { Integer.parseInt(width), Integer.parseInt(height) };
@@ -230,7 +231,7 @@ public class Settings {
 
         try {
             ClassLoader classLoader = getClass().getClassLoader();
-            String configPath = classLoader.getResource("config.txt").getPath();
+            String configPath = Model.convert(classLoader.getResource("config.txt").getPath());
             FileWriter fileWriter = new FileWriter(configPath);
             PrintWriter printWriter = new PrintWriter(fileWriter);
 

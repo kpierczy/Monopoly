@@ -5,12 +5,6 @@ import pl.kpierczyk.monopoly.model.gameController.*;
 import pl.kpierczyk.monopoly.model.utilities.settings.*;
 import java.io.*;
 
-
-
-
-
-
-
 //*******************************************//
 //
 //
@@ -33,14 +27,12 @@ public class Model {
 
     private AppState state; // state of the whole app
 
+    private final int introTime = 4;
     private IntroController introController;
     private MainMenuController mainMenuController; // controller responsible for main menu
     private GameController gameController; // controller responsible for in-game simulation
 
     final private Settings settings;
-
-
-
 
     /*****************************************/
     /* Constructor */
@@ -56,25 +48,11 @@ public class Model {
         this.settings.readFromFile("/config.txt");
 
         /* initializing introController */
-        String introMoviePath = "/lang/" + this.settings.getLanguage() + "/movies/introMovie.mp4";
-        String ommitButtonText = "???";
-       
-        try{
-            BufferedReader bufferedReader =
-                new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/lang/" + this.settings.getLanguage() + "/ommitIntroButton.txt")));
-        
-            String line = null;
-            if((line = bufferedReader.readLine()) != null)
-                ommitButtonText = line;
-        }
-        catch(IOException ex){
-            System.out.println("Couldn't read ommitButtonText.");
-        }
-        catch(NullPointerException ex){
-            System.out.println("Couldn't open file");
-        }
-        
-        introController = new IntroController(introMoviePath, ommitButtonText);
+        String relativeIntroPosterPath = "/lang/" + settings.getLanguage() + "/img/intro/introPoster_" +
+                                         settings.getResolutionSetting().toString() + ".png";
+        String introPosterPath = this.convert(getClass().getResource(relativeIntroPosterPath).getPath());
+
+        introController = new IntroController(introPosterPath);
 
 
         /* initializing mainMenuController */
@@ -85,11 +63,6 @@ public class Model {
 
     }
 
-
-
-
-
-
     /*****************************************/
     /* Getters & setters */
     /*****************************************/
@@ -97,6 +70,7 @@ public class Model {
     public AppState getState() {
         return state;
     }
+
     private void setState(AppState state) {
         this.state = state;
     }
@@ -104,71 +78,69 @@ public class Model {
     public MainMenuController getMainMenuController() {
         return mainMenuController;
     }
+
     public GameController getGameController() {
         return gameController;
     }
+
     public IntroController getIntroController() {
         return introController;
+    }
+
+    public int getIntroTime() {
+        return introTime;
     }
 
     public Settings getSettings() {
         return settings;
     }
 
-
-
-
-
-
-
     /*****************************************/
     /* Utilities */
     /*****************************************/
 
+    public static String convert(String url){
+        String uri = url.replaceAll("%20", " ");
+        return uri;
+    }
+
     public boolean finishBeggining() {
-        if(getState() == AppState.intro){
+        if (getState() == AppState.intro) {
             setState(AppState.mainMenu);
             this.introController = null;
             this.mainMenuController = new MainMenuController(settings);
             return true;
-        }
-        else
+        } else
             return false;
     }
 
-
     public boolean quitGame() {
-        if(getState() == AppState.inGame){
+        if (getState() == AppState.inGame) {
             setState(AppState.mainMenu);
             this.gameController = null;
             this.mainMenuController = new MainMenuController(settings);
             return true;
-        }
-        else
+        } else
             return false;
     }
 
-
     public boolean startGame() {
-        if(getState() == AppState.mainMenu){
+        if (getState() == AppState.mainMenu) {
             setState(AppState.inGame);
             this.mainMenuController = null;
             this.gameController = new GameController();
             return true;
-        }
-        else
+        } else
             return false;
     }
 
-
     public boolean loadGame(GameController gameController) {
-        if(getState() == AppState.mainMenu){
+        if (getState() == AppState.mainMenu) {
             setState(AppState.inGame);
             this.mainMenuController = null;
             this.gameController = gameController;
             return true;
-        }
-        else
+        } else
             return false;
     }
 }
