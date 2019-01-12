@@ -22,33 +22,35 @@ public class OptionsController{
     /*            Class Fields               */
     /*****************************************/
 
-    final Settings settings;
+    /*Invisible*/
+    final Settings settingsHanger;
+    final String configPath;
+
+    /*Visible*/
     final String submitButtonText;
+    final String backButtonText;
+    final String optionsTexts[];
+    String optionsValues[];
+
+
 
     
     /*****************************************/
     /*             Constructor               */
     /*****************************************/
 
-    public OptionsController(Settings settings, String textPath){
-        this.settings = settings;
-
-        String submitButtonText;
-        try {
-            FileReader fileReader = 
-                new FileReader(textPath);
-            BufferedReader bufferedReader =
-                new BufferedReader(fileReader);
-
-            submitButtonText = bufferedReader.readLine();
-            bufferedReader.close();
-        }
-        catch (IOException ex) {
-            System.out.println("Couldn't read buttons text from" + textPath);
-            submitButtonText = "???";
-        }
-
+    public OptionsController(String submitButtonText, String backButtonText, String optionsTexts[],
+                             Settings settingsHanger, String configPath){
         this.submitButtonText = submitButtonText;
+        this.backButtonText = backButtonText;
+        this.optionsTexts = optionsTexts;
+
+        this.settingsHanger = settingsHanger;
+        this.configPath = configPath;
+        
+        for(int i = 0; i < this.settingsHanger.getSettingsNumber(); i++){
+            this.optionsValues[i] = settingsHanger.getValueOf(i);
+        }
     }
 
 
@@ -56,10 +58,57 @@ public class OptionsController{
     /*          Getters & setters            */
     /*****************************************/
 
-    public Settings getSettings() {
-        return settings;
+
+    public Settings getSettingsHanger() {
+        return settingsHanger;
     }
+    public String getConfigPath() {
+        return configPath;
+    }
+
+    
     public String getSubmitButtonText() {
         return submitButtonText;
+    }
+    public String getBackButtonText() {
+        return backButtonText;
+    }
+    public String[] getOptionsTexts() {
+        return optionsTexts;
+    }
+    public String[] getOptionsValues() {
+        return optionsValues;
+    }
+
+
+
+    /*****************************************/
+    /*              Utilities                */
+    /*****************************************/
+
+    public boolean previousLanguage(){
+        return this.settingsHanger.getLanguageSetting().nextValue();
+    }
+    public boolean nextLanguage(){
+        return this.settingsHanger.getLanguageSetting().previousValue();
+    }
+
+    public boolean previousResolution(){
+        return this.settingsHanger.getResolutionSetting().nextValue();
+    }
+    public boolean nextResolution(){
+        return this.settingsHanger.getResolutionSetting().previousValue();
+    }
+
+    public void switchFullscreen(){
+        this.settingsHanger.getFullscreenSetting().switchValue();
+    }
+
+    public void setVolume(int volumeValue){
+        this.settingsHanger.getSoundSetting().setValue(volumeValue);
+    }
+
+    public boolean saveChanges(){
+        return this.settingsHanger.writeToFile();
     }
 }

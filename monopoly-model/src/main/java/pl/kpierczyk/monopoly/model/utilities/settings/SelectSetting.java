@@ -83,4 +83,9 @@ public class SelectSetting implements Setting{
         else
             return false;
     }
+
+    @Override
+    public String toString() {
+        return this.possibleValues[this.value];
+    }
 }

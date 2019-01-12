@@ -74,6 +74,7 @@ public class InRangeSetting implements Setting{
             return false;
     }
 
+
     public boolean previousValue(){
         if(this.value > this.possibleValues[0]){
             this.value = this.value - 1;
@@ -81,5 +82,11 @@ public class InRangeSetting implements Setting{
         }
         else
             return false;
+    }
+
+
+    @Override
+    public String toString() {
+        return Integer.toString(this.value);
     }
 }

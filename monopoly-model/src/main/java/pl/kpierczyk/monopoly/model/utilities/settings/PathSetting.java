@@ -63,4 +63,9 @@ public class PathSetting implements Setting{
     public boolean previousValue(){
         return true;
     }
+
+    @Override
+    public String toString() {
+        return this. value;
+    }
 }

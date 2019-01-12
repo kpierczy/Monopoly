@@ -1,6 +1,6 @@
 package pl.kpierczyk.monopoly.view;
 import pl.kpierczyk.monopoly.model.*;
-import java.awt.*;
+import java.awt.event.*;
 import javax.swing.*;
 
 
@@ -17,7 +17,7 @@ import javax.swing.*;
 //
 //*******************************************//
 
-public class View{
+public class View extends JFrame{
 
 
     /*****************************************/
@@ -31,7 +31,11 @@ public class View{
     /*****************************************/
 
     public View(Model model){
+        super("Monopoly the boardgame");
         this.model = model;
+
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setVisible(true);
     }
 
 
@@ -54,9 +58,6 @@ public class View{
 
             break;
             case inGame:
-
-            break;
-            case quitting:
 
             break;
         }

@@ -17,6 +17,8 @@ package pl.kpierczyk.monopoly.model.utilities.settings;
 
 public class SettingsWarnings {
 
+
+
     /*****************************************/
     /* Class Fields */
     /*****************************************/
@@ -24,6 +26,8 @@ public class SettingsWarnings {
     boolean languageWarning;
     boolean resolutionWarning;
     boolean soundLevelWarning;
+
+
 
     /*****************************************/
     /* Constructor */
@@ -44,6 +48,10 @@ public class SettingsWarnings {
         soundLevelWarning = soundLevelWarning_t;
     }
 
+
+
+
+
     /*****************************************/
     /* Getters & setters */
     /*****************************************/
@@ -51,32 +59,33 @@ public class SettingsWarnings {
     public boolean isLanguageWarning() {
         return languageWarning;
     }
-
-    public void setLanguageWarning(boolean languageWarning) {
-        this.languageWarning = languageWarning;
-    }
-
     public boolean isResolutionWarning() {
         return resolutionWarning;
     }
-
-    public void setResolutionWarning(boolean resolutionWarning) {
-        this.resolutionWarning = resolutionWarning;
-    }
-
     public boolean isSoundLevelWarning() {
         return soundLevelWarning;
     }
 
+
+    public void setLanguageWarning(boolean languageWarning) {
+        this.languageWarning = languageWarning;
+    }
+    public void setResolutionWarning(boolean resolutionWarning) {
+        this.resolutionWarning = resolutionWarning;
+    }
     public void setSoundLevelWarning(boolean soundLevelWarning) {
         this.soundLevelWarning = soundLevelWarning;
     }
+
+
+
+
 
     /*****************************************/
     /*              Utilities                */
     /*****************************************/
 
-    public void clear() {
+    public void clearFlags() {
         this.languageWarning = false;
         this.resolutionWarning = false;
         this.soundLevelWarning = false;

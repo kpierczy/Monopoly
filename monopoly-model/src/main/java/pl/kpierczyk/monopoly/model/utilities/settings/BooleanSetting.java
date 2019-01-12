@@ -74,4 +74,19 @@ public class BooleanSetting implements Setting{
             this.value = false;
         return true;
     }
+
+    public void switchValue(){
+        if(this.value == false)
+            this.value = true;
+        else
+            this.value = false;
+    }
+
+    @Override
+    public String toString() {
+        if(this.value == true)
+            return "on";
+        else
+            return "off";
+    }
 }

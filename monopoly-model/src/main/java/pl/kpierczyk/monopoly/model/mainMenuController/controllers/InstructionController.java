@@ -1,5 +1,8 @@
 package pl.kpierczyk.monopoly.model.mainMenuController.controllers;
+import pl.kpierczyk.monopoly.model.*;
 import java.io.*;
+
+import pl.kpierczyk.monopoly.model.gameController.GameController;
 
 //*******************************************//
 //
@@ -19,21 +22,31 @@ public class InstructionController {
     /* Class Fields */
     /*****************************************/
 
+    /*Invisible*/
     private final int pagesNumber; // number of pages
     private int actualPage; // actual displayed page
-    private String pagesHome; // path to the folder with pages
+    private final String instructionHome; // path to the folder with pages
 
+    /*Visible*/
+    private String actualPagePath;
+    private final String backButtonText;
+
+    
 
 
     /*****************************************/
     /* Constructor */
     /*****************************************/
 
-    public InstructionController(String pagesHome) {
-        pagesNumber = new File(pagesHome).listFiles().length;
+    public InstructionController(String instructionHome, String backButtonText) {
+        pagesNumber = new File(instructionHome).listFiles().length;
         actualPage = 1;
-        this.pagesHome = pagesHome;
+        this.instructionHome = instructionHome;
+
+        this.actualPagePath = this.instructionHome + "/" + Integer.toString(this.actualPage);
+        this.backButtonText = backButtonText;
     }
+
 
 
 
@@ -41,39 +54,29 @@ public class InstructionController {
     /* Getters & setters */
     /*****************************************/
 
-    public int getActualPage() {
-        return actualPage;
+    public String getActualPagePath() {
+        return actualPagePath;
     }
-    public boolean setActualPage(int actualPage_t) {
-        if (actualPage_t > 0 && actualPage_t <= pagesNumber) {
-            this.actualPage = actualPage_t;
-            return true;
-        } else
-            return false;
+    public String getBackButtonText() {
+        return backButtonText;
     }
-
-    public String getPagesHome() {
-        return pagesHome;
-    }
-    public void setPagesHome(String pagesHome) {
-        this.pagesHome = pagesHome;
-    }
-
 
     
     /*****************************************/
     /*               Utilities               */
     /*****************************************/
 
-    public int nextPage() {
+    public String nextPage() {
         if (actualPage < pagesNumber)
             actualPage++;
-        return actualPage;
+        this.actualPagePath = this.instructionHome + "/" + Integer.toString(this.actualPage);
+        return this.actualPagePath;
     }
 
-    public int previousPage() {
+    public String previousPage() {
         if (actualPage > 1)
             actualPage--;
-        return actualPage;
+        this.actualPagePath = this.instructionHome + "/" + Integer.toString(this.actualPage);
+        return this.actualPagePath;
     }
 }

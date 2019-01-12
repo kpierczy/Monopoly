@@ -18,11 +18,14 @@ import java.io.*;
 public class Menu {
 
 
+
+
     /*****************************************/
     /*            Class Fields               */
     /*****************************************/
     
     private final MenuField menuFields[];
+    private final int positionNumbers;
     
 
 
@@ -30,38 +33,23 @@ public class Menu {
     /*              Constructor              */
     /*****************************************/
 
-    public Menu(String textPath_t, int fieldsNumber) {
+    public Menu(String fieldsText[], int positionNumbers) {
         
-        menuFields = new MenuField[fieldsNumber];
-
-        try {
-            FileReader fileReader = 
-                new FileReader(textPath_t);
-            BufferedReader bufferedReader =
-                new BufferedReader(fileReader);
-
-            String line = null;
-            for (int i = 0; i < menuFields.length; i++) {
-                if((line = bufferedReader.readLine()) != null){
-                    menuFields[i] = new MenuField(line);
-                }
-            }
-
-            bufferedReader.close();
+        this.menuFields = new MenuField[fieldsText.length];
+        for(int i = 0; i < positionNumbers; i++){
+            this.menuFields[i] = new MenuField(fieldsText[i]);
         }
-        catch (FileNotFoundException ex) {
-            System.out.println("Unable to open file '" + textPath_t + "'");
-            for (int i = 0; i < menuFields.length; i++) {
-                menuFields[i] = new MenuField("???");
-            }
-        } 
-        catch (IOException ex) {
-            System.out.println("Error reading file '" + textPath_t + "'");
-            for (int i = 0; i < menuFields.length; i++) {
-                menuFields[i] = new MenuField("???");
-            }
-        }
+        this.positionNumbers = positionNumbers;
     }
+
+
+
+
+
+
+
+
+        
 
 
 
@@ -75,6 +63,9 @@ public class Menu {
             return null;
         else
             return menuFields[fieldNumber];  
+    }
+    public int getPositionNumbers() {
+        return positionNumbers;
     }
 }
 

@@ -2,13 +2,6 @@ package pl.kpierczyk.monopoly.model.utilities.settings;
 
 import java.io.*;
 
-
-
-
-
-
-
-
 // *******************************************//
 // Setting class contains all setting
 // which can be set during app is runinng.
@@ -18,27 +11,22 @@ import java.io.*;
 
 public class Settings {
 
-
     /*****************************************/
     /* Class Fields */
     /*****************************************/
 
-    private PathSetting gameHome; // path to the main game folder
+    private final int settingsNumber = 4;
+
     private SelectSetting language;
     private SelectSetting resolution;
     private BooleanSetting fullscreen;
     private InRangeSetting soundLevel;
+
     private SettingsWarnings registeredWarnings;
-
-
-
-
 
     /*****************************************/
     /* Constructor */
     /*****************************************/
-
-
 
     // default constructor
     public Settings() {
@@ -46,17 +34,15 @@ public class Settings {
         this.resolution = new SelectSetting(0, new String[] { "1920x1080", "800x600" });
         this.fullscreen = new BooleanSetting(false);
         this.soundLevel = new InRangeSetting(50, new Integer[] { 0, 100 });
+
+        this.registeredWarnings = new SettingsWarnings();
     }
 
-
-
     // full specified constructor
-    public Settings(String gameHome, Integer language, Integer resolution,
-                    Boolean fullscreen, Integer soundLevel) {
+    public Settings(String gameHome, Integer language, Integer resolution, Boolean fullscreen, Integer soundLevel) {
 
         SettingsWarnings warnings = new SettingsWarnings();
 
-        this.gameHome = new PathSetting(gameHome);
         this.language = new SelectSetting(0, new String[] { "en", "pl" });
         this.resolution = new SelectSetting(0, new String[] { "1920x1080", "800x600" });
         this.fullscreen = new BooleanSetting(false);
@@ -82,27 +68,14 @@ public class Settings {
         this.registeredWarnings = warnings;
     }
 
-
-
-
-
-
-
-
     /*****************************************/
     /* Getters & setters */
     /*****************************************/
 
 
-
     public String getLanguage() {
         return language.getValue();
     }
-
-    public boolean setLanguage(Integer language) {
-        return this.language.setValue(language);
-    }
-
     public Integer[] getResolution() {
         String width = "";
         String height = "";
@@ -117,89 +90,84 @@ public class Settings {
 
         return new Integer[] { Integer.parseInt(width), Integer.parseInt(height) };
     }
-
-    public boolean setResolution(Integer resolution) {
-        return this.resolution.setValue(resolution);
-    }
-
     public boolean isFullscreen() {
         return this.fullscreen.getValue();
     }
-
-    public boolean setFullscreen(Boolean fullscreen) {
-        return this.fullscreen.setValue(fullscreen);
-    }
-
     public Integer getSoundLevel() {
         return soundLevel.getValue();
     }
 
+
+    public SelectSetting getLanguageSetting(){
+        return this.language;
+    }
+    public SelectSetting getResolutionSetting(){
+        return this.resolution;
+    }
+    public BooleanSetting getFullscreenSetting(){
+        return this.fullscreen;
+    }
+    public InRangeSetting getSoundSetting(){
+        return this.soundLevel;
+    }
+
+    public boolean setLanguage(Integer language) {
+        return this.language.setValue(language);
+    }
+    public boolean setResolution(Integer resolution) {
+        return this.resolution.setValue(resolution);
+    }
+    public boolean setFullscreen(Boolean fullscreen) {
+        return this.fullscreen.setValue(fullscreen);
+    }
     public Boolean setSoundLevel(Integer soundLevel) {
         return this.soundLevel.setValue(soundLevel);
     }
 
-    public String getGameHome() {
-        return this.gameHome.getValue();
-    }
 
-    public boolean setGameHome(String gameHome) {
-        return this.gameHome.setValue(gameHome);
-    }
 
     public SettingsWarnings getRegisteredWarnings() {
         return registeredWarnings;
     }
-
     public void setRegisteredWarnings(SettingsWarnings registeredWarnings) {
         this.registeredWarnings = registeredWarnings;
     }
 
 
-
-
-
-
-
-
-
-
-
+    public int getSettingsNumber() {
+        return settingsNumber;
+    }
+    public String getValueOf(int settingNumber){
+        if(settingNumber <= 0)
+            return this.language.toString();
+        else if(settingNumber == 1)
+            return this.resolution.toString();
+        else if(settingNumber == 2)
+            return this.fullscreen.toString();
+        else
+            return this.soundLevel.toString();
+    }
 
     /*****************************************/
     /* Utilities */
     /*****************************************/
 
-
-
-
     public void reset() {
-        this.gameHome.setValue("");
         this.language.setValue(0);
         this.resolution.setValue(0);
         this.fullscreen.setValue(false);
         this.soundLevel.setValue(50);
-        this.registeredWarnings.clear();
+        this.registeredWarnings.clearFlags();
     }
 
-
-
-
-
-
-    public boolean readFromFile(String gameHome) {
-
-        String filePath = gameHome + "\\config.txt";
-
+    public boolean readFromFile(String configPath) {
         try {
-            FileReader fileReader = new FileReader(filePath);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            InputStream is = getClass().getResourceAsStream(configPath);
+            InputStreamReader isr = new InputStreamReader(is);
+            BufferedReader bufferedReader = new BufferedReader(isr);
 
             // tmp string for reading language version from config.txt
             String line = null;
-
-            // source path initialization
-            this.gameHome.setValue(gameHome);
-
 
             // language initialization
             if ((line = bufferedReader.readLine()) != null) {
@@ -244,12 +212,12 @@ public class Settings {
 
             bufferedReader.close();
         } catch (FileNotFoundException ex) {
-            System.out.println("Unable to open file '" + filePath + "'");
+            System.out.println("Unable to open file '" + configPath + "'");
             // default settings
             this.reset();
             return false;
         } catch (IOException ex) {
-            System.out.println("Error reading file '" + filePath + "'");
+            System.out.println("Error reading file '" + configPath + "'");
             // default settings
             this.reset();
             return false;
@@ -257,26 +225,19 @@ public class Settings {
         return true;
     }
 
-
-
-
-
-
     public boolean writeToFile() {
 
-        String filePath = this.gameHome.getValue() + "\\config.txt";
-
         try {
-            FileWriter fileWriter = new FileWriter(filePath);
+            ClassLoader classLoader = getClass().getClassLoader();
+            String configPath = classLoader.getResource("config.txt").getPath();
+            FileWriter fileWriter = new FileWriter(configPath);
             PrintWriter printWriter = new PrintWriter(fileWriter);
 
-            printWriter.print(this.getGameHome());
             printWriter.print(this.getLanguage());
             printWriter.print(this.getResolution());
             printWriter.print(this.isFullscreen());
-            printWriter.print(this.getGameHome());            
             printWriter.print(this.getSoundLevel());
-                
+
             printWriter.close();
         } catch (FileNotFoundException ex) {
             return false;
@@ -286,4 +247,36 @@ public class Settings {
 
         return true;
     }
+}
+
+
+
+
+//*******************************************//
+//
+//
+//
+//
+//
+//
+//
+//*******************************************//
+
+interface Setting {
+
+    /*****************************************/
+    /* Getters & setters */
+    /*****************************************/
+
+    Object getValue();
+    boolean setValue(Object value);
+    Object[] getPossibleValues();
+
+
+    /*****************************************/
+    /*              Utilities                */
+    /*****************************************/
+
+    boolean nextValue();
+    boolean previousValue();
 }

@@ -1,6 +1,8 @@
 package pl.kpierczyk.monopoly.model.mainMenuController.controllers;
 import java.io.*;
 
+import pl.kpierczyk.monopoly.model.gameController.GameController;
+
 //*******************************************//
 //
 //
@@ -20,7 +22,6 @@ public class LoadingController {
     /*             Class Fields              */
     /*****************************************/
 
-    final private String savesHome;
     final private String savesNames[];
     final private String loadButtonText;
     final private String backButtonText;
@@ -32,9 +33,9 @@ public class LoadingController {
     /*              Constructor              */
     /*****************************************/
 
-    public LoadingController(String savesHome, String textPath) {
-        this.savesHome = savesHome;
-
+    public LoadingController(String textPath) {
+        ClassLoader classLoader = getClass().getClassLoader();
+        String savesHome = classLoader.getResource("saves").getPath();
         File folder = new File(savesHome);
         File[] listOfFiles = folder.listFiles();
         this.savesNames = new String[listOfFiles.length];
@@ -75,9 +76,6 @@ public class LoadingController {
     /*          Getters & setters            */
     /*****************************************/
 
-    public String getSavesHome() {
-        return savesHome;
-    }
     public String[] getSavesNames() {
         return savesNames;
     }
@@ -112,5 +110,12 @@ public class LoadingController {
 
     public void uncheckSave(){
         setCheckedSave(0);
+    }
+
+
+
+    /*!!!!!!!!!!!!!DOKOŃCZYĆ WCZYTYWANIE!!!!!!!!!!! */
+    public GameController loadActualSave(){
+        return new GameController();
     }
 }
