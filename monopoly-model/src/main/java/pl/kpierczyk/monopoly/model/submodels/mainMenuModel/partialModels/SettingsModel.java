@@ -174,7 +174,7 @@ public class SettingsModel{
     }
 
 
-    public void discardChanges(){
+    public void backToMainMenu(){
         this.model.getMainMenuModel().closeChild();
     }
 

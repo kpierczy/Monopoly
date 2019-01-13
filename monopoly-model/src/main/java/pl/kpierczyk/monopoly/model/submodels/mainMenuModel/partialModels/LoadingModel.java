@@ -26,7 +26,7 @@ public class LoadingModel {
     /* Invisible */
 
     Model model;
-    String savesPath;
+    String savesHome;
 
     /* Visible */
     final private String savesNames[];
@@ -40,14 +40,14 @@ public class LoadingModel {
     /* Constructor */
     /*****************************************/
 
-    public LoadingModel(Model model, String savesPath, String buttonsPath[]) {
+    public LoadingModel(Model model, String savesHome, String buttonsPath[]) {
 
         /* Model's hanger initialization */
         this.model = model;
-        this.savesPath = savesPath;
+        this.savesHome = savesHome;
 
         /* Saves list initialization */
-        File folder = new File(savesPath);
+        File folder = new File(savesHome);
         File[] listOfFiles = folder.listFiles();
         this.savesNames = new String[listOfFiles.length];
         for (int i = 0; i < listOfFiles.length; i++) {
@@ -137,7 +137,7 @@ public class LoadingModel {
         GameSaveInfo gameSaveInfo = new GameSaveInfo();
         //Here change save state from empty to not empty - difference between loaded game and new game
         
-        String savePath = this.savesPath +
+        String savePath = this.savesHome +
                           this.savesNames[checkedSave];
         try {
             FileReader fileReader = 

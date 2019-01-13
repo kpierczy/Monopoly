@@ -160,9 +160,12 @@ public class MainMenuModel {
             this.state = MainMenuState.loading;
 
             //check if getResource can find it!
-            String relativeSavesPath = "/saves";
-            String savesPath = Util.convert(getClass().getResource(relativeSavesPath).getPath());
+            /*Getting saves home path*/
+            String relativeSavesHome = "/saves";
+            String savesHome = 
+                Util.convert(getClass().getResource(relativeSavesHome).getPath());
 
+            /*Getting buttons text files paths*/
             String relativeButtonsPath[] = new String[] {
                 "/lang/" + this.model.getSettings().getLanguage() + "/okButton.txt",
                 "/lang/" + this.model.getSettings().getLanguage() + "/backButton.txt"
@@ -173,8 +176,9 @@ public class MainMenuModel {
                 Util.convert(getClass().getResource(relativeButtonsPath[1]).getPath())
             };
 
+            /*Initializing loadingModel*/
             this.loadingModel = new LoadingModel(this.model,
-                                                 savesPath,
+                                                 savesHome,
                                                  buttonsPath);
         }
     }
@@ -184,10 +188,10 @@ public class MainMenuModel {
         if(getState() == MainMenuState._default){
             this.state = MainMenuState.options;
             
-            //check if getResource can find it!
             /*Getting config file path*/
             String relativeConfigPath = "/config.txt";
-            String configPath = Util.convert(getClass().getResource(relativeConfigPath).getPath());
+            String configPath = 
+                Util.convert(getClass().getResource(relativeConfigPath).getPath());
 
             /*Getting buttons text files paths*/
             String relativeButtonsPath[] = new String[] {
@@ -204,14 +208,43 @@ public class MainMenuModel {
             String relativeSettingsTextPath = "/lang/" +
                                               this.model.getSettings().getLanguage() + 
                                               "/optionsMenu.txt";
-            String settingsTextPath = Util.convert(getClass().getResource(relativeSettingsTextPath).getPath());
+            String settingsTextPath = 
+                Util.convert(getClass().getResource(relativeSettingsTextPath).getPath());
 
 
-
-            this.settingsModel = new SettingsModel(model,
+            /*Initializing settingsModel*/
+            this.settingsModel = new SettingsModel(this.model,
                                                    configPath,
                                                    buttonsPath,
                                                    settingsTextPath);
+        }
+    }
+
+    public void openInstruction() {
+        if (getState() == MainMenuState._default) {
+            this.state = MainMenuState.instruction;
+            
+            //check if getResources can find it!
+            /*Getting instruction home path*/
+            String relativeInstructionHome = "lang/" +
+                                             this.model.getSettings().getLanguage() +
+                                             "/img/instruction";                
+            String instructionHome = 
+                Util.convert(getClass().getResource(relativeInstructionHome).getPath());
+   
+
+            /*Getting backButton text file path*/
+            String relativeBackButtonPath = "/lang/" +
+                                            this.model.getSettings().getLanguage() +
+                                            "/backButton.txt";
+            String backButtonText = 
+                Util.convert(getClass().getResource(relativeBackButtonPath).getPath());
+            
+
+            /*Initializing instructionModel*/
+            this.instructionModel = new InstructionModel(this.model,
+                                                         instructionHome,
+                                                         backButtonText);
         }
     }
 
@@ -220,22 +253,6 @@ public class MainMenuModel {
 
 
 
-
-
-
-
-
-
-    public boolean openInstruction() {
-        if (getState() == MainMenuState._default) {
-            this.state = MainMenuState.instruction;
-            String instructionHome = "lang/" + this.model.getSettings().getLanguage() + "/instruction";
-            String backButtonText = "lang/" + this.model.getSettings().getLanguage() + "/backButton.txt";
-            this.instructionModel = new InstructionModel(instructionHome, backButtonText);
-            return true;
-        } else
-            return false;
-    }
 
     public boolean openTitles() {
         if (getState() == MainMenuState._default) {

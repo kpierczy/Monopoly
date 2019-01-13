@@ -40,7 +40,7 @@ public class Settings {
         this.language = new SelectSetting(0, new String[] { "en", "pl" });
         this.resolution = new SelectSetting(0, new String[] { "1920x1080", "800x600" });
         this.fullscreen = new BooleanSetting(false);
-        this.soundLevel = new InRangeSetting(50, new Integer[] { 0, 100 });
+        this.soundLevel = new InRangeSetting(50, new int[] { 0, 100 });
 
         this.registeredWarnings = new SettingsWarnings();
     }
@@ -53,7 +53,7 @@ public class Settings {
         this.language = new SelectSetting(0, new String[] { "en", "pl" });
         this.resolution = new SelectSetting(0, new String[] { "1920x1080", "800x600" });
         this.fullscreen = new BooleanSetting(false);
-        this.soundLevel = new InRangeSetting(50, new Integer[] { 0, 100 });
+        this.soundLevel = new InRangeSetting(50, new int[] { 0, 100 });
 
         if (!this.language.setValue(language)) {
             warnings.setLanguageWarning(true);
