@@ -229,27 +229,28 @@ public class MainMenuModel {
         if (getState() == MainMenuState._default) {
             this.state = MainMenuState.instruction;
             
-            //check if getResources can find it!
+
             /*Getting instruction home path*/
-            String relativeInstructionHome = "lang/" +
+            String relativeInstructionFirstSlidePath = "/lang/" +
                                              this.model.getSettings().getLanguage() +
-                                             "/img/instruction";                
-            String instructionHome = 
-                Util.convert(getClass().getResource(relativeInstructionHome).getPath());
-   
+                                             "/img/instruction/1.png";                
+            String instructionFirstSlidePath = 
+                Util.convert(getClass().getResource(relativeInstructionFirstSlidePath).getPath());
+            File firstSlide = new File(instructionFirstSlidePath);
+            String instructionHome = firstSlide.getParent();
 
             /*Getting backButton text file path*/
             String relativeBackButtonPath = "/lang/" +
                                             this.model.getSettings().getLanguage() +
                                             "/backButton.txt";
-            String backButtonText = 
+            String backButtonTextPath = 
                 Util.convert(getClass().getResource(relativeBackButtonPath).getPath());
             
 
             /*Initializing instructionModel*/
             this.instructionModel = new InstructionModel(this.model,
                                                          instructionHome,
-                                                         backButtonText);
+                                                         backButtonTextPath);
         }
     }
 

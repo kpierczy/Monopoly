@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
 import pl.kpierczyk.monopoly.controller.Controller;
+import pl.kpierczyk.monopoly.controller.subcontrollers.mainMenuController.partialControllers.InstructionController;
 import pl.kpierczyk.monopoly.controller.subcontrollers.mainMenuController.partialControllers.TitlesController;
 import pl.kpierczyk.monopoly.view.subviews.mainMenuView.MainMenuView;
 
@@ -43,7 +44,7 @@ public class MainMenuController{
 
     //private LoadingController loadigController;
     //private SettingsController settingsController;
-    //private InstructionController instructionController;
+    private InstructionController instructionController;
     private TitlesController titlesController;
 
 
@@ -80,9 +81,9 @@ public class MainMenuController{
     //    return settingsController;
     //}
 
-    //public InstructionController getInstructionController() {
-    //    return instructionController;
-    //}
+    public InstructionController getInstructionController() {
+        return instructionController;
+    }
 
     public TitlesController getTitlesController() {
         return titlesController;
@@ -111,7 +112,14 @@ public class MainMenuController{
     }
 
     public void openInstruction(){
-
+        if(this.mainMenuListener != null){
+            this.controller.getModel().getMainMenuModel().openInstruction();
+            this.controller.getView().getMainMenuView().openInstruction();
+        
+            this.mainMenuListener = null;
+            this.instructionController =
+                new InstructionController(this.controller);
+        }
     }
 
     public void openTitles(){
@@ -130,7 +138,7 @@ public class MainMenuController{
 
             //this.loadingController = null;
             //this.settingsController = null;
-            //this.instructionController = null;
+            this.instructionController = null;
             this.titlesController = null;
 
             this.mainMenuListener =
@@ -198,31 +206,31 @@ class MainMenuListener implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        String buttonsName = ( (JButton) e.getSource()).getText();
-        String possibleButtonsNames[] = this.controller.getModel().getMainMenuModel().getMainMenu().getMenuText();
+        JButton buttonSource = (JButton) e.getSource();
+
 
         //New game
-        if(buttonsName == possibleButtonsNames[0]){
+        if(buttonSource == this.controller.getView().getMainMenuView().getMainMenuButton(0)){
 
         }
         //Load game
-        else if(buttonsName == possibleButtonsNames[1]){
+        else if(buttonSource == this.controller.getView().getMainMenuView().getMainMenuButton(1)){
             
         }
         //Settings
-        else if(buttonsName == possibleButtonsNames[2]){
+        else if(buttonSource == this.controller.getView().getMainMenuView().getMainMenuButton(2)){
             
         }
         //Instruction
-        else if(buttonsName == possibleButtonsNames[3]){
-            
+        else if(buttonSource == this.controller.getView().getMainMenuView().getMainMenuButton(3)){
+            this.controller.getMainMenuController().openInstruction();
         }
         //Titles
-        else if(buttonsName == possibleButtonsNames[4]){
+        else if(buttonSource == this.controller.getView().getMainMenuView().getMainMenuButton(4)){
             this.controller.getMainMenuController().openTitles();
         }
         //Quit app
-        else if(buttonsName == possibleButtonsNames[5]){
+        else if(buttonSource == this.controller.getView().getMainMenuView().getMainMenuButton(5)){
          this.controller.quitApp();   
         }
     }

@@ -52,7 +52,7 @@ public class InstructionModel {
 
     public InstructionModel(Model model,
                             String instructionHome,
-                            String backButtonText) {
+                            String backButtonTextPath) {
         
         /*Initializing invisible elements*/
 
@@ -64,7 +64,22 @@ public class InstructionModel {
         this.instructionHome = instructionHome;
         
 
-        /*Initializing visible elements*/
+        /*Reading back button's text*/
+        String backButtonText;
+
+        try {
+            FileReader fileReader =
+                new FileReader(backButtonTextPath);
+            BufferedReader bufferedReader =
+                new BufferedReader(fileReader);
+
+            backButtonText = bufferedReader.readLine();
+            bufferedReader.close();
+        } catch (IOException ex) {
+            System.out.println("Couldn't read buttons text from" + backButtonTextPath);
+            backButtonText = "???";
+        }
+
         this.backButtonText = backButtonText;
     }
 
@@ -77,7 +92,9 @@ public class InstructionModel {
 
     public String getActualPagePath() {
         return instructionHome +
-               Integer.toString(actualPage);
+               "/" +
+               Integer.toString(actualPage) +
+               ".png";
     }
 
     public String getBackButtonText() {

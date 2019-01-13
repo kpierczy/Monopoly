@@ -14,6 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import pl.kpierczyk.monopoly.view.View;
+import pl.kpierczyk.monopoly.view.subviews.mainMenuView.partialViews.InstructionView;
 import pl.kpierczyk.monopoly.view.subviews.mainMenuView.partialViews.TitlesView;
 
 //*******************************************//
@@ -46,7 +47,7 @@ public class MainMenuView extends JPanel {
 
     //private LoadingView loadingView;
     //private SettingsView settingsView;
-    //private InstructionView instructionView;
+    private InstructionView instructionView;
     private TitlesView titlesView;
 
 
@@ -116,9 +117,9 @@ public class MainMenuView extends JPanel {
     //    return settingsView;
     //}
 
-    //public InstructionView getInstructionView() {
-    //    return instructionView;
-    //}
+    public InstructionView getInstructionView() {
+        return instructionView;
+    }
 
     public TitlesView getTitlesView() {
         return titlesView;
@@ -173,15 +174,15 @@ public class MainMenuView extends JPanel {
 
     public void openInstruction(){
         if(this.mainMenuPanel != null){
-            //this.remove(this.mainMenuPanel);
-            //this.mainMenuPanel = null;
+            this.remove(this.mainMenuPanel);
+            this.mainMenuPanel = null;
             
-            //this.instructionView =
-            //    new InstructionView(this.view);
-            //this.add(this.instructionView);
+            this.instructionView =
+                new InstructionView(this.view);
+            this.add(this.instructionView);
 
-            //this.view.revalidate();
-            //this.view.repaint();
+            this.view.revalidate();
+            this.view.repaint();
         }
     }
 
@@ -211,10 +212,10 @@ public class MainMenuView extends JPanel {
             //    this.settingsView = null;
             //}
 
-            //if(this.instructionView != null){
-            //    this.remove(this.instructionView);
-            //    this.instructionView = null;
-            //}
+            if(this.instructionView != null){
+                this.remove(this.instructionView);
+                this.instructionView = null;
+            }
 
             if(this.titlesView != null){
                 this.remove(this.titlesView);

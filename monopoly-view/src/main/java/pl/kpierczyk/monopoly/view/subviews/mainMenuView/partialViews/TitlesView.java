@@ -49,7 +49,9 @@ public class TitlesView extends JPanel{
 
     private final Font font = new Font("Arial", Font.BOLD, 18);
     private final Border border = BorderFactory.createBevelBorder(BevelBorder.RAISED);
-    private Image backgroundImage;
+    
+    private Image titlesImage;
+    
     private JButton backButton;
 
     /*****************************************/
@@ -62,24 +64,24 @@ public class TitlesView extends JPanel{
 
         /*Main menu's bacground image initialization*/
         try {
-            backgroundImage = 
+            titlesImage = 
                 ImageIO.read(new File(this.view.getModel().getMainMenuModel().getTitlesModel().getTitlesPath()));
         }
         catch (IOException ex) {
             System.out.println("Couldn't open mainMenu's background image from " + 
-                                this.view.getModel().getMainMenuModel().getBackgroundImagePath());
+                                this.view.getModel().getMainMenuModel().getTitlesModel().getTitlesPath());
         }
 
 
         /*Main menu's size and layout initialization*/
         this.setPreferredSize(new Dimension(
-            this.backgroundImage.getWidth(new ImageObserver(){
+            this.titlesImage.getWidth(new ImageObserver(){
                 @Override
                 public boolean imageUpdate(Image img, int infoflags, int x, int y, int width, int height) {
                     return false;
                 }
             } ),
-            this.backgroundImage.getHeight(new ImageObserver(){
+            this.titlesImage.getHeight(new ImageObserver(){
                 @Override
                 public boolean imageUpdate(Image img, int infoflags, int x, int y, int width, int height) {
                     return false;
@@ -114,7 +116,7 @@ public class TitlesView extends JPanel{
     /*Graphical utilities*/
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawImage(backgroundImage, 0, 0, this);
+        g.drawImage(titlesImage, 0, 0, this);
     }
 
     /*Logical utilities*/
