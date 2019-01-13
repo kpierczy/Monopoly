@@ -2,6 +2,7 @@ package pl.kpierczyk.monopoly.view.panes.menu;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridBagLayout;
 import java.awt.Image;
@@ -80,11 +81,12 @@ class ButtonBox extends JPanel {
     /* Class Fields */
     /*****************************************/
 
-    final int buttonWidth = 200;
-    final int buttonHeight = 50;
-    final int buttonsNumber = 6;
+    private final int buttonWidth = 300;
+    private final int buttonHeight = 75;
+    private final Font font = new Font("Arial", Font.BOLD, 18);
 
     private JButton buttons[];
+
 
 
 
@@ -93,17 +95,19 @@ class ButtonBox extends JPanel {
     /*****************************************/
 
     public ButtonBox(Model model) {
-        this.setPreferredSize(new Dimension(this.buttonWidth, this.buttonsNumber * this.buttonHeight));
+        int buttonsNumber = model.getMainMenuController().getMainMenu().getMenuFields().length;
+        this.setPreferredSize(new Dimension(this.buttonWidth, buttonsNumber * this.buttonHeight));
         
         this.setLayout(new FlowLayout());
         FlowLayout layout = (FlowLayout) this.getLayout();
         layout.setVgap(0);
 
-        this.buttons = new JButton[this.buttonsNumber];
-        for (int i = 0; i < this.buttonsNumber; i++) {
+        this.buttons = new JButton[buttonsNumber];
+        for (int i = 0; i < buttonsNumber; i++) {
             this.buttons[i] = new JButton(
                     model.getMainMenuController().getMainMenu().getMenuField(i).getFieldText());
             this.buttons[i].setPreferredSize(new Dimension(this.buttonWidth, this.buttonHeight));
+            this.buttons[i].setFont(font);
             this.add(this.buttons[i]);
         }
 
