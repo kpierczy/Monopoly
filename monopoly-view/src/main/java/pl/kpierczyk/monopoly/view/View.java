@@ -3,7 +3,15 @@ package pl.kpierczyk.monopoly.view;
 import pl.kpierczyk.monopoly.model.*;
 import pl.kpierczyk.monopoly.view.panes.menu.*;
 import javax.swing.*;
-import java.io.*;
+
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+
+
+
+
+
+
 //*******************************************//
 //
 //
@@ -36,10 +44,10 @@ public class View extends JFrame {
     /* inGame sceneries */
 
     // MainGamePanel mainGamePanel;
-    //
-    //
-    //
-    //
+    
+    
+    
+    
 
 
 
@@ -56,21 +64,21 @@ public class View extends JFrame {
 
         /* Checking window's size */
         if (!model.getSettings().isFullscreen()) {
-            this.setSize(model.getSettings().getResolution()[0],
-                         model.getSettings().getResolution()[1]);
-
-            this.introPane = new IntroPane(model);
+            this.setSize(new Dimension(model.getSettings().getResolution()[0],
+                         model.getSettings().getResolution()[1]));
         } 
-        else {
+        else { 
             this.setExtendedState(JFrame.MAXIMIZED_BOTH);
             this.setUndecorated(true);
-            Integer paneSize[] = new Integer[] {this.getSize().width, this.getSize().height};
-            this.introPane = new IntroPane(model);
-            this.introPane.setSize(paneSize[0], paneSize[1]);
         }
+        this.setLocation(0, 0);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
-        
-        this.getContentPane().add(this.introPane);
+        this.setLayout(new BorderLayout());
+
+        this.introPane = new IntroPane(model);
+        this.getContentPane().add(this.introPane, BorderLayout.CENTER);
+        this.pack();
         this.setVisible(true);        
     }
 
@@ -116,11 +124,12 @@ public class View extends JFrame {
 
     public void finishIntro(){
         if(this.introPane != null){
-            this.getContentPane().removeAll();
+            this.getContentPane().remove(this.introPane);
             this.introPane = null;
 
             this.mainMenuPane = new MainMenuPane(this.model);
             this.getContentPane().add(mainMenuPane);
+            this.revalidate();
             this.repaint();
         }
     }

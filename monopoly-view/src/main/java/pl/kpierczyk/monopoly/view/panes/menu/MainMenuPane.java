@@ -1,7 +1,6 @@
 package pl.kpierczyk.monopoly.view.panes.menu;
 
-import java.awt.BorderLayout;
-import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.GridBagLayout;
@@ -10,7 +9,6 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
@@ -37,8 +35,6 @@ public class MainMenuPane extends JPanel {
     private Image backgroundImage;
     private ButtonBox buttonBox;
 
-
-
     /*****************************************/
     /* Constructor */
     /*****************************************/
@@ -46,10 +42,9 @@ public class MainMenuPane extends JPanel {
     public MainMenuPane(Model model) {
         super();
         this.model = model;
-        this.setSize(model.getSettings().getResolution()[0], model.getSettings().getResolution()[1]);
-        FlowLayout flowLayout= new FlowLayout();
-        flowLayout.setAlignment(FlowLayout.CENTER);
-        this.setLayout(flowLayout);
+        this.setLayout(new GridBagLayout());
+        this.setPreferredSize(
+                new Dimension(model.getSettings().getResolution()[0], model.getSettings().getResolution()[1]));
 
         try {
             backgroundImage = ImageIO.read(new File(model.getMainMenuController().getBackgroundImagePath()));
@@ -85,34 +80,38 @@ class ButtonBox extends JPanel {
     /* Class Fields */
     /*****************************************/
 
-    Model model;
-
-    final int buttonWidth = 400;
-    final int buttonHeight = 100;
+    final int buttonWidth = 200;
+    final int buttonHeight = 50;
     final int buttonsNumber = 6;
 
     private JButton buttons[];
+
+
 
     /*****************************************/
     /* Constructor */
     /*****************************************/
 
     public ButtonBox(Model model) {
-        this.model = model;
-        this.setSize(this.buttonWidth, this.buttonsNumber * this.buttonHeight);
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.setPreferredSize(new Dimension(this.buttonWidth, this.buttonsNumber * this.buttonHeight));
+        
+        this.setLayout(new FlowLayout());
+        FlowLayout layout = (FlowLayout) this.getLayout();
+        layout.setVgap(0);
 
         this.buttons = new JButton[this.buttonsNumber];
-
         for (int i = 0; i < this.buttonsNumber; i++) {
             this.buttons[i] = new JButton(
-                    this.model.getMainMenuController().getMainMenu().getMenuField(i).getFieldText());
-            this.buttons[i].setSize(this.buttonWidth, this.buttonHeight);
-            this.buttons[i].setAlignmentX(Component.CENTER_ALIGNMENT);
+                    model.getMainMenuController().getMainMenu().getMenuField(i).getFieldText());
+            this.buttons[i].setPreferredSize(new Dimension(this.buttonWidth, this.buttonHeight));
             this.add(this.buttons[i]);
         }
 
     }
+
+
+
+
 
     /*****************************************/
     /* Getters & setters */
@@ -121,7 +120,6 @@ class ButtonBox extends JPanel {
     public JButton[] getButtons() {
         return buttons;
     }
-
     public JButton getButtons(int buttonNumber) {
         if (buttonNumber >= 0 && buttonNumber < 6) {
             return this.buttons[buttonNumber];
