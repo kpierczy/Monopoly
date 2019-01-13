@@ -1,8 +1,8 @@
 package pl.kpierczyk.monopoly.controller;
 
-import pl.kpierczyk.monopoly.controller.menu.MainMenuController;
+import pl.kpierczyk.monopoly.controller.subcontrollers.IntroController;
+import pl.kpierczyk.monopoly.controller.subcontrollers.mainMenuController.MainMenuController;
 import pl.kpierczyk.monopoly.model.*;
-import pl.kpierczyk.monopoly.model.mainMenuModel.MainMenuModel;
 import pl.kpierczyk.monopoly.view.*;
 
 

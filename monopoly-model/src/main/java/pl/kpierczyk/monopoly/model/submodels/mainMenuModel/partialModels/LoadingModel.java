@@ -1,8 +1,8 @@
-package pl.kpierczyk.monopoly.model.mainMenuModel.models;
+package pl.kpierczyk.monopoly.model.submodels.mainMenuModel.partialModels;
 
 import java.io.*;
-import pl.kpierczyk.monopoly.model.gameModel.GameModel;
 import pl.kpierczyk.monopoly.model.*;
+import pl.kpierczyk.monopoly.model.submodels.gameModel.*;
 
 
 //*******************************************//

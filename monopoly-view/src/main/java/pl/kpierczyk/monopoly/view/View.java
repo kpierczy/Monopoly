@@ -1,7 +1,9 @@
 package pl.kpierczyk.monopoly.view;
 
 import pl.kpierczyk.monopoly.model.*;
-import pl.kpierczyk.monopoly.view.panes.menu.*;
+import pl.kpierczyk.monopoly.view.subviews.IntroView;
+import pl.kpierczyk.monopoly.view.subviews.mainMenuView.MainMenuView;
+
 import javax.swing.*;
 
 import java.awt.BorderLayout;
@@ -32,8 +34,8 @@ public class View extends JFrame {
 
     /* Main Menu sceneries */
 
-    private IntroPane introPane;
-    private MainMenuPane mainMenuPane;
+    private IntroView introPane;
+    private MainMenuView mainMenuPane;
 
 
     // LoadingGamePanel loadingGamePanel;
@@ -76,7 +78,7 @@ public class View extends JFrame {
         this.setResizable(false);
         this.setLayout(new BorderLayout());
 
-        this.introPane = new IntroPane(model);
+        this.introPane = new IntroView(model);
         this.getContentPane().add(this.introPane, BorderLayout.CENTER);
         this.pack();
         this.setVisible(true);        
@@ -91,10 +93,10 @@ public class View extends JFrame {
     /* Getters & setters */
     /*****************************************/
 
-    public IntroPane getIntroPane() {
+    public IntroView getIntroPane() {
         return introPane;
     }
-    public MainMenuPane getMainMenuPane() {
+    public MainMenuView getMainMenuPane() {
         return mainMenuPane;
     }
 
@@ -127,35 +129,12 @@ public class View extends JFrame {
             this.getContentPane().remove(this.introPane);
             this.introPane = null;
 
-            this.mainMenuPane = new MainMenuPane(this.model);
+            this.mainMenuPane = new MainMenuView(this.model);
             this.getContentPane().add(mainMenuPane);
             this.revalidate();
             this.repaint();
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     public void quitApp() {
         this.mainMenuPane = null;

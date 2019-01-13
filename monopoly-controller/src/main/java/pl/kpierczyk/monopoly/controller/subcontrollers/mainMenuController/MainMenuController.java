@@ -1,4 +1,4 @@
-package pl.kpierczyk.monopoly.controller.menu;
+package pl.kpierczyk.monopoly.controller.subcontrollers.mainMenuController;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -86,5 +86,28 @@ public class MainMenuController implements ActionListener{
         else if(buttonsName == possibleButtonsNames[5]){
          this.controller.quitApp();   
         }
+    }
+
+
+
+    
+    public void newGame(){
+
+    }
+
+    public void openLoadingMenu(){
+
+    }
+
+    public void openOptionsMenu(){
+
+    }
+
+    public void openInstruction(){
+
+    }
+
+    public void closeChild(){
+        
     }
 }

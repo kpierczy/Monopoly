@@ -1,7 +1,8 @@
 package pl.kpierczyk.monopoly.model;
 
-import pl.kpierczyk.monopoly.model.mainMenuModel.*;
-import pl.kpierczyk.monopoly.model.gameModel.*;
+import pl.kpierczyk.monopoly.model.submodels.IntroModel;
+import pl.kpierczyk.monopoly.model.submodels.gameModel.GameModel;
+import pl.kpierczyk.monopoly.model.submodels.mainMenuModel.MainMenuModel;
 import pl.kpierczyk.monopoly.model.utilities.settings.*;
 
 
@@ -130,7 +131,7 @@ public class Model {
             return false;
     }
 
-    public boolean startGame() {
+    public boolean newGame() {
         if (getState() == AppState.mainMenu) {
             setState(AppState.inGame);
             this.mainMenuModel = null;

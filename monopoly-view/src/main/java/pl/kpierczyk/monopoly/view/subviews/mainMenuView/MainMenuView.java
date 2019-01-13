@@ -1,4 +1,4 @@
-package pl.kpierczyk.monopoly.view.panes.menu;
+package pl.kpierczyk.monopoly.view.subviews.mainMenuView;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -25,7 +25,7 @@ import pl.kpierczyk.monopoly.model.Model;
 //
 //*******************************************//
 
-public class MainMenuPane extends JPanel {
+public class MainMenuView extends JPanel {
 
     /*****************************************/
     /* Class Fields */
@@ -41,7 +41,7 @@ public class MainMenuPane extends JPanel {
     /* Constructor */
     /*****************************************/
 
-    public MainMenuPane(Model model) {
+    public MainMenuView(Model model) {
         super();
         this.model = model;
         this.setLayout(new GridBagLayout());
@@ -82,6 +82,14 @@ public class MainMenuPane extends JPanel {
             return null;
     }
 
+
+
+
+
+
+
+    
+
     /*****************************************/
     /* Utilities */
     /*****************************************/
@@ -89,6 +97,27 @@ public class MainMenuPane extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.drawImage(backgroundImage, 0, 0, this);
+    }
+
+
+    public void newGame(){
+
+    }
+
+    public void openLoadingMenu(){
+
+    }
+
+    public void openOptionsMenu(){
+
+    }
+
+    public void openInstruction(){
+
+    }
+
+    public void closeChild(){
+        
     }
 }
 

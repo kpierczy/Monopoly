@@ -1,4 +1,4 @@
-package pl.kpierczyk.monopoly.view.panes.menu;
+package pl.kpierczyk.monopoly.view.subviews;
 
 import pl.kpierczyk.monopoly.model.Model;
 
@@ -21,7 +21,7 @@ import javax.swing.*;
 //
 //*******************************************//
 
-public class IntroPane extends JPanel {
+public class IntroView extends JPanel {
 
     private Image backgroundImage;
 
@@ -29,7 +29,7 @@ public class IntroPane extends JPanel {
     /* Constructor */
     /*****************************************/
 
-    public IntroPane(Model model) {
+    public IntroView(Model model) {
         super();
         this.setPreferredSize(
                 new Dimension(model.getSettings().getResolution()[0], model.getSettings().getResolution()[1]));

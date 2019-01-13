@@ -1,9 +1,13 @@
-package pl.kpierczyk.monopoly.model.mainMenuModel;
+package pl.kpierczyk.monopoly.model.submodels.mainMenuModel;
 
 import pl.kpierczyk.monopoly.model.utilities.*;
 import pl.kpierczyk.monopoly.model.utilities.settings.*;
 import pl.kpierczyk.monopoly.model.Model;
-import pl.kpierczyk.monopoly.model.mainMenuModel.models.*;
+import pl.kpierczyk.monopoly.model.submodels.mainMenuModel.partialModels.InstructionModel;
+import pl.kpierczyk.monopoly.model.submodels.mainMenuModel.partialModels.LoadingModel;
+import pl.kpierczyk.monopoly.model.submodels.mainMenuModel.partialModels.OptionsModel;
+import pl.kpierczyk.monopoly.model.submodels.mainMenuModel.partialModels.TitlesModel;
+
 import java.io.*;
 
 
@@ -136,7 +140,7 @@ public class MainMenuModel {
     /* Utilities */
     /*****************************************/
 
-    public boolean openLoadingList() {
+    public boolean openLoadingMenu() {
         if (getState() == MainMenuState._default) {
             this.state = MainMenuState.loading;
             this.loadingModel = new LoadingModel(this.savesPath);
@@ -212,6 +216,16 @@ public class MainMenuModel {
             return false;
     }
 
+    public boolean openInstruction() {
+        if (getState() == MainMenuState._default) {
+            this.state = MainMenuState.instruction;
+            String instructionHome = "lang/" + this.settingsHanger.getLanguage() + "/instruction";
+            String backButtonText = "lang/" + this.settingsHanger.getLanguage() + "/backButton.txt";
+            this.instructionModel = new InstructionModel(instructionHome, backButtonText);
+            return true;
+        } else
+            return false;
+    }
 
     public boolean openTitles() {
         if (getState() == MainMenuState._default) {
@@ -219,17 +233,6 @@ public class MainMenuModel {
             String titlesPath = "lang/" + this.settingsHanger.getLanguage() + "/titles.png";
             String backButtonText = "lang/" + this.settingsHanger.getLanguage() + "/backButton.txt";
             this.titlesModel = new TitlesModel(titlesPath, backButtonText);
-            return true;
-        } else
-            return false;
-    }
-
-    public boolean openInstruction() {
-        if (getState() == MainMenuState._default) {
-            this.state = MainMenuState.instruction;
-            String instructionHome = "lang/" + this.settingsHanger.getLanguage() + "/instruction";
-            String backButtonText = "lang/" + this.settingsHanger.getLanguage() + "/backButton.txt";
-            this.instructionModel = new InstructionModel(instructionHome, backButtonText);
             return true;
         } else
             return false;

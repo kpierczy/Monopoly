@@ -1,8 +1,9 @@
-package pl.kpierczyk.monopoly.controller;
+package pl.kpierczyk.monopoly.controller.subcontrollers;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import pl.kpierczyk.monopoly.controller.Controller;
 import pl.kpierczyk.monopoly.model.*;
 import pl.kpierczyk.monopoly.view.*;
 

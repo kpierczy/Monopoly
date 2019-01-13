@@ -1,4 +1,4 @@
-package pl.kpierczyk.monopoly.model.mainMenuModel.models;
+package pl.kpierczyk.monopoly.model.submodels.mainMenuModel.partialModels;
 
 
 
