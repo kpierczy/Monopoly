@@ -133,4 +133,31 @@ public class View extends JFrame {
             this.repaint();
         }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public void quitGame() {
+        
+    }
 }

@@ -1,4 +1,12 @@
-package pl.kpierczyk.monopoly.model;
+package pl.kpierczyk.monopoly.controller.menu;
+
+import pl.kpierczyk.monopoly.controller.Controller;
+
+
+
+
+
+
 
 
 
@@ -12,20 +20,21 @@ package pl.kpierczyk.monopoly.model;
 //
 //*******************************************//
 
-public class IntroController{
+public class MainMenuController{
+
 
     /*****************************************/
     /*            Class Fields               */
     /*****************************************/
 
-    final String introPosterPath;
+    private Controller controller;
 
     /*****************************************/
     /*             Constructor               */
     /*****************************************/
 
-    public IntroController(String introPosterPath){
-        this.introPosterPath = introPosterPath;
+    public MainMenuController(Controller controller){
+        this.controller = controller;
     }
 
 
@@ -33,9 +42,6 @@ public class IntroController{
     /*          Getters & setters            */
     /*****************************************/
 
-    public String getIntroPosterPath() {
-        return introPosterPath;
-    }
 
     /*****************************************/
     /*              Utilities                */

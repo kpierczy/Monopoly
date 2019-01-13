@@ -1,4 +1,4 @@
-package pl.kpierczyk.monopoly.model.mainMenuController.controllers;
+package pl.kpierczyk.monopoly.model.mainMenuModel.models;
 import pl.kpierczyk.monopoly.model.utilities.settings.*;
 
 
@@ -15,7 +15,7 @@ import pl.kpierczyk.monopoly.model.utilities.settings.*;
 //
 //*******************************************//
 
-public class OptionsController{
+public class OptionsModel{
 
     /*****************************************/
     /*            Class Fields               */
@@ -38,7 +38,7 @@ public class OptionsController{
     /*             Constructor               */
     /*****************************************/
 
-    public OptionsController(String submitButtonText, String backButtonText, String optionsTexts[],
+    public OptionsModel(String submitButtonText, String backButtonText, String optionsTexts[],
                              Settings settingsHanger, String configPath){
         this.submitButtonText = submitButtonText;
         this.backButtonText = backButtonText;

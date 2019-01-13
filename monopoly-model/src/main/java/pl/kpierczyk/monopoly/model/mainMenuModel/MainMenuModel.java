@@ -1,9 +1,9 @@
-package pl.kpierczyk.monopoly.model.mainMenuController;
+package pl.kpierczyk.monopoly.model.mainMenuModel;
 
 import pl.kpierczyk.monopoly.model.utilities.*;
 import pl.kpierczyk.monopoly.model.utilities.settings.*;
 import pl.kpierczyk.monopoly.model.Model;
-import pl.kpierczyk.monopoly.model.mainMenuController.controllers.*;
+import pl.kpierczyk.monopoly.model.mainMenuModel.models.*;
 import java.io.*;
 
 
@@ -22,7 +22,7 @@ import java.io.*;
 //
 //*******************************************//
 
-public class MainMenuController {
+public class MainMenuModel {
 
 
     public enum MainMenuState {
@@ -39,10 +39,10 @@ public class MainMenuController {
     private final Settings settingsHanger;
     private final String savesPath;
 
-    private LoadingController loadingController;
-    private OptionsController optionsController;
-    private TitlesController titlesControlleler;
-    private InstructionController instructionController;
+    private LoadingModel loadingModel;
+    private OptionsModel optionsModel;
+    private TitlesModel titlesModel;
+    private InstructionModel instructionModel;
 
     /* Visible */
     private Menu mainMenu;
@@ -55,18 +55,18 @@ public class MainMenuController {
     /* Constructor */
     /*****************************************/
 
-    public MainMenuController(Settings settingsHanger) {
+    public MainMenuModel(Settings settingsHanger) {
         
         /*Utilities initializing*/
         this.state = MainMenuState._default;
         this.settingsHanger = settingsHanger;
         this.savesPath = "/saves";
 
-        /*Controlers initializing*/
-        this.loadingController = null;
-        this.optionsController = null;
-        this.titlesControlleler = null;
-        this.instructionController = null;
+        /*Models initializing*/
+        this.loadingModel = null;
+        this.optionsModel = null;
+        this.titlesModel = null;
+        this.instructionModel = null;
 
         /*Menu initializing*/
         String textPath = "/lang/" + this.settingsHanger.getLanguage() + "/mainMenu.txt";
@@ -116,17 +116,17 @@ public class MainMenuController {
     }
 
 
-    public InstructionController getInstructionController() {
-        return instructionController;
+    public InstructionModel getInstructionModel() {
+        return instructionModel;
     }
-    public LoadingController getLoadingController() {
-        return loadingController;
+    public LoadingModel getLoadingModel() {
+        return loadingModel;
     }
-    public OptionsController getOptionsController() {
-        return optionsController;
+    public OptionsModel getOptionsModel() {
+        return optionsModel;
     }
-    public TitlesController getTitlesControlleler() {
-        return titlesControlleler;
+    public TitlesModel getTitlesModel() {
+        return titlesModel;
     }
 
 
@@ -139,7 +139,7 @@ public class MainMenuController {
     public boolean openLoadingList() {
         if (getState() == MainMenuState._default) {
             this.state = MainMenuState.loading;
-            this.loadingController = new LoadingController(this.savesPath);
+            this.loadingModel = new LoadingModel(this.savesPath);
             return true;
         } else
             return false;
@@ -204,7 +204,7 @@ public class MainMenuController {
                 System.out.println("Couln't read backButton.txt");
             } 
 
-            this.optionsController = new OptionsController(submitButtonText, backButtonText,
+            this.optionsModel = new OptionsModel(submitButtonText, backButtonText,
                                                            optionsTexts, settingsHanger, configPath);
             return true;
         }
@@ -218,7 +218,7 @@ public class MainMenuController {
             this.state = MainMenuState.titles;
             String titlesPath = "lang/" + this.settingsHanger.getLanguage() + "/titles.png";
             String backButtonText = "lang/" + this.settingsHanger.getLanguage() + "/backButton.txt";
-            this.titlesControlleler = new TitlesController(titlesPath, backButtonText);
+            this.titlesModel = new TitlesModel(titlesPath, backButtonText);
             return true;
         } else
             return false;
@@ -229,7 +229,7 @@ public class MainMenuController {
             this.state = MainMenuState.instruction;
             String instructionHome = "lang/" + this.settingsHanger.getLanguage() + "/instruction";
             String backButtonText = "lang/" + this.settingsHanger.getLanguage() + "/backButton.txt";
-            this.instructionController = new InstructionController(instructionHome, backButtonText);
+            this.instructionModel = new InstructionModel(instructionHome, backButtonText);
             return true;
         } else
             return false;
@@ -238,10 +238,10 @@ public class MainMenuController {
     public boolean closeChild() {
         if (getState() != MainMenuState._default) {
             this.state = MainMenuState._default;
-            loadingController = null;
-            optionsController = null;
-            titlesControlleler = null;
-            instructionController = null;
+            loadingModel = null;
+            optionsModel = null;
+            titlesModel = null;
+            instructionModel = null;
             return true;
         } else
             return false;

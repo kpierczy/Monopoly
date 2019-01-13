@@ -1,6 +1,8 @@
 package pl.kpierczyk.monopoly.controller;
 
+import pl.kpierczyk.monopoly.controller.menu.MainMenuController;
 import pl.kpierczyk.monopoly.model.*;
+import pl.kpierczyk.monopoly.model.mainMenuModel.MainMenuModel;
 import pl.kpierczyk.monopoly.view.*;
 
 
@@ -28,6 +30,7 @@ public class Controller{
     private View view;
 
     private IntroController introductionController;
+    private MainMenuController mainMenuController;
 
     /*****************************************/
     /*             Constructor               */
@@ -37,7 +40,7 @@ public class Controller{
         this.model = model;
         this.view = view;
         
-        this.introductionController = new IntroController(model, view);
+        this.introductionController = new IntroController(this);
     }
 
 
@@ -45,9 +48,22 @@ public class Controller{
     /*          Getters & setters            */
     /*****************************************/
 
+    public Model getModel() {
+        return this.model;
+    }
+    public View getView() {
+        return this.view;
+    }
 
     /*****************************************/
     /*              Utilities                */
     /*****************************************/
+
+    public synchronized void finishIntro(){
+        model.finishIntro();
+        view.finishIntro();
+        this.introductionController = null;
+        this.mainMenuController = new MainMenuController(this);
+    }
 
 }

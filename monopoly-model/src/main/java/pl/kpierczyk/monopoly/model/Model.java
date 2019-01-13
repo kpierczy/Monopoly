@@ -1,7 +1,7 @@
 package pl.kpierczyk.monopoly.model;
 
-import pl.kpierczyk.monopoly.model.mainMenuController.*;
-import pl.kpierczyk.monopoly.model.gameController.*;
+import pl.kpierczyk.monopoly.model.mainMenuModel.*;
+import pl.kpierczyk.monopoly.model.gameModel.*;
 import pl.kpierczyk.monopoly.model.utilities.settings.*;
 
 
@@ -33,9 +33,9 @@ public class Model {
     private AppState state; // state of the whole app
 
     private final int introTime = 4000;
-    private IntroController introController;
-    private MainMenuController mainMenuController; // controller responsible for main menu
-    private GameController gameController; // controller responsible for in-game simulation
+    private IntroModel introModel;
+    private MainMenuModel mainMenuModel; // Model responsible for main menu
+    private GameModel gameModel; // Model responsible for in-game simulation
 
     final private Settings settings;
 
@@ -52,19 +52,19 @@ public class Model {
         this.settings = new Settings();
         this.settings.readFromFile("/config.txt");
 
-        /* initializing introController */
+        /* initializing introModel */
         String relativeIntroPosterPath = "/lang/" + settings.getLanguage() + "/img/intro/introPoster_" +
                                          settings.getResolutionSetting().toString() + ".png";
         String introPosterPath = this.convert(getClass().getResource(relativeIntroPosterPath).getPath());
 
-        introController = new IntroController(introPosterPath);
+        introModel = new IntroModel(introPosterPath);
 
 
-        /* initializing mainMenuController */
-        this.mainMenuController = new MainMenuController(settings);
+        /* initializing mainMenuModel */
+        this.mainMenuModel = new MainMenuModel(settings);
 
-        /* initializing mainMenuController */
-        gameController = new GameController();
+        /* initializing mainMenuModel */
+        gameModel = new GameModel();
 
     }
 
@@ -80,16 +80,16 @@ public class Model {
         this.state = state;
     }
 
-    public MainMenuController getMainMenuController() {
-        return mainMenuController;
+    public MainMenuModel getMainMenuModel() {
+        return mainMenuModel;
     }
 
-    public GameController getGameController() {
-        return gameController;
+    public GameModel getGameModel() {
+        return gameModel;
     }
 
-    public IntroController getIntroController() {
-        return introController;
+    public IntroModel getIntroModel() {
+        return introModel;
     }
 
     public int getIntroTime() {
@@ -113,8 +113,8 @@ public class Model {
     public boolean finishIntro() {
         if (getState() == AppState.intro) {
             setState(AppState.mainMenu);
-            this.introController = null;
-            this.mainMenuController = new MainMenuController(settings);
+            this.introModel = null;
+            this.mainMenuModel = new MainMenuModel(settings);
             return true;
         } else
             return false;
@@ -123,8 +123,8 @@ public class Model {
     public boolean quitGame() {
         if (getState() == AppState.inGame) {
             setState(AppState.mainMenu);
-            this.gameController = null;
-            this.mainMenuController = new MainMenuController(settings);
+            this.gameModel = null;
+            this.mainMenuModel = new MainMenuModel(settings);
             return true;
         } else
             return false;
@@ -133,18 +133,18 @@ public class Model {
     public boolean startGame() {
         if (getState() == AppState.mainMenu) {
             setState(AppState.inGame);
-            this.mainMenuController = null;
-            this.gameController = new GameController();
+            this.mainMenuModel = null;
+            this.gameModel = new GameModel();
             return true;
         } else
             return false;
     }
 
-    public boolean loadGame(GameController gameController) {
+    public boolean loadGame(GameModel gameModel) {
         if (getState() == AppState.mainMenu) {
             setState(AppState.inGame);
-            this.mainMenuController = null;
-            this.gameController = gameController;
+            this.mainMenuModel = null;
+            this.gameModel = gameModel;
             return true;
         } else
             return false;

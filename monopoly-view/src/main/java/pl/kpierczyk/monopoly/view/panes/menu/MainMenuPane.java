@@ -48,7 +48,7 @@ public class MainMenuPane extends JPanel {
                 new Dimension(model.getSettings().getResolution()[0], model.getSettings().getResolution()[1]));
 
         try {
-            backgroundImage = ImageIO.read(new File(model.getMainMenuController().getBackgroundImagePath()));
+            backgroundImage = ImageIO.read(new File(model.getMainMenuModel().getBackgroundImagePath()));
         } catch (IOException ex) {
             System.out.println("Couldn't open mainMenu's background image");
         }
@@ -95,7 +95,7 @@ class ButtonBox extends JPanel {
     /*****************************************/
 
     public ButtonBox(Model model) {
-        int buttonsNumber = model.getMainMenuController().getMainMenu().getMenuFields().length;
+        int buttonsNumber = model.getMainMenuModel().getMainMenu().getMenuFields().length;
         this.setPreferredSize(new Dimension(this.buttonWidth, buttonsNumber * this.buttonHeight));
         
         this.setLayout(new FlowLayout());
@@ -105,7 +105,7 @@ class ButtonBox extends JPanel {
         this.buttons = new JButton[buttonsNumber];
         for (int i = 0; i < buttonsNumber; i++) {
             this.buttons[i] = new JButton(
-                    model.getMainMenuController().getMainMenu().getMenuField(i).getFieldText());
+                    model.getMainMenuModel().getMainMenu().getMenuField(i).getFieldText());
             this.buttons[i].setPreferredSize(new Dimension(this.buttonWidth, this.buttonHeight));
             this.buttons[i].setFont(font);
             this.add(this.buttons[i]);

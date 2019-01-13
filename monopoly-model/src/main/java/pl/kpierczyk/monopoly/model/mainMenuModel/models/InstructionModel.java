@@ -1,4 +1,4 @@
-package pl.kpierczyk.monopoly.model.mainMenuController.controllers;
+package pl.kpierczyk.monopoly.model.mainMenuModel.models;
 import java.io.*;
 
 
@@ -13,7 +13,7 @@ import java.io.*;
 //*******************************************//
 
 
-public class InstructionController {
+public class InstructionModel {
 
 
     /*****************************************/
@@ -36,7 +36,7 @@ public class InstructionController {
     /* Constructor */
     /*****************************************/
 
-    public InstructionController(String instructionHome, String backButtonText) {
+    public InstructionModel(String instructionHome, String backButtonText) {
         pagesNumber = new File(instructionHome).listFiles().length;
         actualPage = 1;
         this.instructionHome = instructionHome;

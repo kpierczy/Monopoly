@@ -1,4 +1,4 @@
-package pl.kpierczyk.monopoly.model.mainMenuController.controllers;
+package pl.kpierczyk.monopoly.model.mainMenuModel.models;
 
 
 
@@ -16,7 +16,7 @@ package pl.kpierczyk.monopoly.model.mainMenuController.controllers;
 //
 //*******************************************//
 
-public class TitlesController{
+public class TitlesModel{
 
 
     /*****************************************/
@@ -34,7 +34,7 @@ public class TitlesController{
     /* Constructor */
     /*****************************************/
 
-    public TitlesController(String titlesPath, String backButtonText) {
+    public TitlesModel(String titlesPath, String backButtonText) {
         this.titlesPath= titlesPath;
         this.backButtonText = backButtonText;
         

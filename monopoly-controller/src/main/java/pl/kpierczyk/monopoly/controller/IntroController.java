@@ -22,8 +22,7 @@ public class IntroController {
     /* Class Fields */
     /*****************************************/
 
-    private Model model;
-    private View view;
+    private Controller controller;
 
     private CLoseIntroController closeIntroController;
     private SkipIntroController skipIntroController;
@@ -32,15 +31,18 @@ public class IntroController {
     /* Constructor */
     /*****************************************/
 
-    public IntroController(Model model, View view) {
-        this.model = model;
-        this.view = view;
-        this.closeIntroController = new CLoseIntroController(this.model, this.view);
-        this.skipIntroController = new SkipIntroController(this.model, this.view);
+    public IntroController(Controller controller) {
+        this.controller = controller;
+        this.closeIntroController = new CLoseIntroController(controller);
+        this.skipIntroController = new SkipIntroController(controller);
 
-        view.addKeyListener(skipIntroController);
+        controller.getView().addKeyListener(skipIntroController);
     }
 }
+
+
+
+
 
 class CLoseIntroController {
 
@@ -48,63 +50,44 @@ class CLoseIntroController {
     /* Class Fields */
     /*****************************************/
 
-    Model model;
-    View view;
+    Controller controller;
+
+    /*****************************************/
+    /* Constructor */
+    /*****************************************/
+
+    public CLoseIntroController(Controller controller) {
+        this.controller = controller;
+
+        long targetTime = controller.getModel().getIntroTime();
+        new java.util.Timer().schedule(new java.util.TimerTask() {
+            @Override
+            public void run() {
+                controller.finishIntro();
+            }
+        }, targetTime);
+
+    }
+}
+
+class SkipIntroController implements KeyListener {
+    
+    
+    /*****************************************/
+    /* Class Fields */
+    /*****************************************/
+
+    private Controller controller;
 
 
 
     /*****************************************/
     /* Constructor */
     /*****************************************/
-
-    public CLoseIntroController(Model model, View view) {
-        this.model = model;
-        this.view = view;
-
-        long targetTime = model.getIntroTime();
-        new java.util.Timer().schedule( 
-        new java.util.TimerTask() {
-            @Override
-            public void run() {
-                finishIntro();
-            }
-        }, targetTime);
-
-    }
-
-
-    /*****************************************/
-    /* Utilities */
-    /*****************************************/
-
-    private synchronized void finishIntro() {
-        model.finishIntro();
-        view.finishIntro();
-    }
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-class SkipIntroController implements KeyListener {
-
-    private Model model;
-    private View view;
-
-    SkipIntroController(Model model, View view) {
-        this.model = model;
-        this.view = view;
+    
+    
+    SkipIntroController(Controller controller) {
+        this.controller = controller;
     }
 
     @Override
@@ -115,8 +98,7 @@ class SkipIntroController implements KeyListener {
     @Override
     public void keyReleased(KeyEvent keyEvent) {
         if (keyEvent.getKeyCode() == KeyEvent.VK_SPACE) {
-            model.finishIntro();
-            view.finishIntro();
+            controller.finishIntro();
         } else
             keyEvent.consume();
     }

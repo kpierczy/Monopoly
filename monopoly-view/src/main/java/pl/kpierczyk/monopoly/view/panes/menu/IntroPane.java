@@ -35,7 +35,7 @@ public class IntroPane extends JPanel {
                 new Dimension(model.getSettings().getResolution()[0], model.getSettings().getResolution()[1]));
 
         try {
-            backgroundImage = ImageIO.read(new File(model.getMainMenuController().getBackgroundImagePath()));
+            backgroundImage = ImageIO.read(new File(model.getMainMenuModel().getBackgroundImagePath()));
         } catch (IOException ex) {
             System.out.println("Couldn't open mainMenu's background image");
         }
