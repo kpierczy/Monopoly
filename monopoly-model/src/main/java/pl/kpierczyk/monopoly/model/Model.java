@@ -3,7 +3,12 @@ package pl.kpierczyk.monopoly.model;
 import pl.kpierczyk.monopoly.model.mainMenuController.*;
 import pl.kpierczyk.monopoly.model.gameController.*;
 import pl.kpierczyk.monopoly.model.utilities.settings.*;
-import java.io.*;
+
+
+
+
+
+
 
 //*******************************************//
 //
@@ -27,7 +32,7 @@ public class Model {
 
     private AppState state; // state of the whole app
 
-    private final int introTime = 4;
+    private final int introTime = 4000;
     private IntroController introController;
     private MainMenuController mainMenuController; // controller responsible for main menu
     private GameController gameController; // controller responsible for in-game simulation
@@ -104,7 +109,8 @@ public class Model {
         return uri;
     }
 
-    public boolean finishBeggining() {
+
+    public boolean finishIntro() {
         if (getState() == AppState.intro) {
             setState(AppState.mainMenu);
             this.introController = null;

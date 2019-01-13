@@ -20,12 +20,14 @@ public class View extends JFrame {
     /* Class Fields */
     /*****************************************/
 
-    Model model;
+    private Model model;
 
     /* Main Menu sceneries */
 
-    IntroPanel introPanel;
-    // MainMenuPanel mainMenuPanel;
+    private IntroPane introPane;
+    private MainMenuPane mainMenuPane;
+
+
     // LoadingGamePanel loadingGamePanel;
     // OptionsPanel optionsPanel;
     // InstructionPanel instructionPanel;
@@ -49,25 +51,26 @@ public class View extends JFrame {
 
     public View(Model model) {
         super("Monopoly the board game");
-
+        
+        this.model = model;
 
         /* Checking window's size */
         if (!model.getSettings().isFullscreen()) {
             this.setSize(model.getSettings().getResolution()[0],
                          model.getSettings().getResolution()[1]);
 
-            this.introPanel = new IntroPanel(model.getSettings().getResolution(),
-                                             model.getIntroController().getIntroPosterPath());
+            this.introPane = new IntroPane(model);
         } 
         else {
             this.setExtendedState(JFrame.MAXIMIZED_BOTH);
             this.setUndecorated(true);
             Integer paneSize[] = new Integer[] {this.getSize().width, this.getSize().height};
-            this.introPanel = new IntroPanel(paneSize, model.getIntroController().getIntroPosterPath());
+            this.introPane = new IntroPane(model);
+            this.introPane.setSize(paneSize[0], paneSize[1]);
         }
         this.setResizable(false);
         
-        this.getContentPane().add(this.introPanel);      
+        this.getContentPane().add(this.introPane);
         this.setVisible(true);        
     }
 
@@ -80,11 +83,18 @@ public class View extends JFrame {
     /* Getters & setters */
     /*****************************************/
 
-    public IntroPanel getIntroPanel() {
-        return introPanel;
+    public IntroPane getIntroPane() {
+        return introPane;
     }
+    public MainMenuPane getMainMenuPane() {
+        return mainMenuPane;
+    }
+
+
+
+
+
     /*
-     * public MainMenuPanel getMainMenuPanel() { return mainMenuPanel; } public
      * LoadingGamePanel getLoadingGamePanel() { return loadingGamePanel; } public
      * OptionsPanel getOptionsPanel() { return optionsPanel; } public
      * InstructionPanel getInstructionPanel() { return instructionPanel; } public
@@ -105,6 +115,13 @@ public class View extends JFrame {
     /*****************************************/
 
     public void finishIntro(){
+        if(this.introPane != null){
+            this.getContentPane().removeAll();
+            this.introPane = null;
 
+            this.mainMenuPane = new MainMenuPane(this.model);
+            this.getContentPane().add(mainMenuPane);
+            this.repaint();
+        }
     }
 }

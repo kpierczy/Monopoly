@@ -2,6 +2,7 @@ package pl.kpierczyk.monopoly.model.mainMenuController;
 
 import pl.kpierczyk.monopoly.model.utilities.*;
 import pl.kpierczyk.monopoly.model.utilities.settings.*;
+import pl.kpierczyk.monopoly.model.Model;
 import pl.kpierczyk.monopoly.model.mainMenuController.controllers.*;
 import java.io.*;
 
@@ -89,8 +90,10 @@ public class MainMenuController {
         }
 
         this.mainMenu = new Menu(fieldsText, 6);
-        this.backgroundImagePath = "/lang/" + settingsHanger.getLanguage() +
-                                   "/img/menuBackgrounds/menuBackground_1.png";
+       
+        String backgroundImageRelativePath = 
+                "/img/" + settingsHanger.getResolutionSetting().toString() + "/menuBackgrounds/menuBackground_1.png";
+        this.backgroundImagePath = Model.convert(getClass().getResource(backgroundImageRelativePath).getPath());
     }
 
 

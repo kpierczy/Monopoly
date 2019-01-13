@@ -1,7 +1,7 @@
 package pl.kpierczyk.monopoly.view.panes.menu;
 
+import pl.kpierczyk.monopoly.model.Model;
 import java.io.File;
-
 import javax.swing.*;
 
 //*******************************************//
@@ -14,19 +14,23 @@ import javax.swing.*;
 //
 //*******************************************//
 
-public class IntroPanel extends JPanel {
+public class IntroPane extends JPanel {
 
+
+    private JLabel label;
 
     /*****************************************/
     /* Constructor */
     /*****************************************/
 
-    public IntroPanel(Integer resolution[], String introPosterPath) {
+    public IntroPane(Model model) {
         super();
-        this.setSize(resolution[0], resolution[1]);
+        this.setSize(model.getSettings().getResolution()[0],
+                     model.getSettings().getResolution()[1]);
 
-        ImageIcon icon = new ImageIcon(introPosterPath);
-        JLabel label = new JLabel();
+        ImageIcon icon = 
+            new ImageIcon(model.getIntroController().getIntroPosterPath());
+        label = new JLabel();
         label.setIcon(icon);
         this.add(label);       
     }
