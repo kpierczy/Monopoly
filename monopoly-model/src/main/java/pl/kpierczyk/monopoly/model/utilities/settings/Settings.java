@@ -1,7 +1,5 @@
 package pl.kpierczyk.monopoly.model.utilities.settings;
 
-import pl.kpierczyk.monopoly.model.*;
-import pl.kpierczyk.monopoly.model.utilities.Util;
 import pl.kpierczyk.monopoly.model.utilities.settings.settingUtilities.SettingsWarnings;
 import pl.kpierczyk.monopoly.model.utilities.settings.settingsKinds.BooleanSetting;
 import pl.kpierczyk.monopoly.model.utilities.settings.settingsKinds.InRangeSetting;
