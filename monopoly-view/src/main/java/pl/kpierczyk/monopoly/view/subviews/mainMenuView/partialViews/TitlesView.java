@@ -15,6 +15,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.border.BevelBorder;
+import javax.swing.border.Border;
 
 import pl.kpierczyk.monopoly.view.View;
 
@@ -47,6 +48,7 @@ public class TitlesView extends JPanel{
     private View view;
 
     private final Font font = new Font("Arial", Font.BOLD, 18);
+    private final Border border = BorderFactory.createBevelBorder(BevelBorder.RAISED);
     private Image backgroundImage;
     private JButton backButton;
 
@@ -87,7 +89,7 @@ public class TitlesView extends JPanel{
 
 
         this.setLayout(new BorderLayout());
-        this.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+        this.setBorder(border);
 
         /*Main menu buttons panel adding*/
         this.backButton = 
