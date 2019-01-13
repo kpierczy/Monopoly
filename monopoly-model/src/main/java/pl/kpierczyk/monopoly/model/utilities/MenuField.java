@@ -22,7 +22,7 @@ public class MenuField {
     /*             Class Fields              */
     /*****************************************/
 
-    private String fieldText;
+    private final String fieldText;
     private boolean active;
 
 

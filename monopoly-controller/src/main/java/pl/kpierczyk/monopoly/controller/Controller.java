@@ -66,4 +66,15 @@ public class Controller{
         this.mainMenuController = new MainMenuController(this);
     }
 
+
+
+
+
+
+
+    public void quitApp() {
+        this.model = null;
+        this.view.quitApp();;
+        System.exit(0);
+    }
 }

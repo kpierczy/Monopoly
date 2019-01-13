@@ -35,6 +35,7 @@ public class MainMenuPane extends JPanel {
 
     private Image backgroundImage;
     private ButtonBox buttonBox;
+    private int buttonsNumber;
 
     /*****************************************/
     /* Constructor */
@@ -54,6 +55,7 @@ public class MainMenuPane extends JPanel {
         }
 
         this.buttonBox = new ButtonBox(this.model);
+        this.buttonsNumber = getButtons().length;
         this.add(this.buttonBox);
     }
 
@@ -65,6 +67,21 @@ public class MainMenuPane extends JPanel {
         return buttonBox;
     }
 
+    public int getButtonsNumber() {
+        return buttonsNumber;
+    }
+
+    public JButton[] getButtons() {
+        return this.buttonBox.getButtons();
+    }
+
+    public JButton getButton(int buttonNumber) {
+        if (buttonNumber >= 0 && buttonNumber < this.buttonsNumber) {
+            return getButtons()[buttonNumber];
+        } else
+            return null;
+    }
+
     /*****************************************/
     /* Utilities */
     /*****************************************/
@@ -74,6 +91,9 @@ public class MainMenuPane extends JPanel {
         g.drawImage(backgroundImage, 0, 0, this);
     }
 }
+
+
+
 
 class ButtonBox extends JPanel {
 
@@ -115,20 +135,11 @@ class ButtonBox extends JPanel {
 
 
 
-
-
     /*****************************************/
     /* Getters & setters */
     /*****************************************/
 
     public JButton[] getButtons() {
-        return buttons;
+        return this.buttons;
     }
-    public JButton getButtons(int buttonNumber) {
-        if (buttonNumber >= 0 && buttonNumber < 6) {
-            return this.buttons[buttonNumber];
-        } else
-            return null;
-    }
-
 }

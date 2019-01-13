@@ -43,7 +43,7 @@ public class View extends JFrame {
 
     /* inGame sceneries */
 
-    // MainGamePanel mainGamePanel;
+    // GamePanel mainGamePanel;
     
     
     
@@ -157,7 +157,9 @@ public class View extends JFrame {
 
 
 
-    public void quitGame() {
-        
+    public void quitApp() {
+        this.mainMenuPane = null;
+        //this.GamePane = null
+        this.dispose();
     }
 }
