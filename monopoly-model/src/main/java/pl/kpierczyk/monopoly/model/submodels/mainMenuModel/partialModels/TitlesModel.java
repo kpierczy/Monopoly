@@ -1,10 +1,6 @@
 package pl.kpierczyk.monopoly.model.submodels.mainMenuModel.partialModels;
 
-
-
-
-
-
+import pl.kpierczyk.monopoly.model.Model;
 
 //*******************************************//
 //
@@ -23,8 +19,9 @@ public class TitlesModel{
     /* Class Fields */
     /*****************************************/
 
-    /*Visible*/
-    private final String titlesPath; // path to the folder with pages
+    Model model;
+
+    private final String titlesPath; 
     private final String backButtonText;
 
 
@@ -34,7 +31,11 @@ public class TitlesModel{
     /* Constructor */
     /*****************************************/
 
-    public TitlesModel(String titlesPath, String backButtonText) {
+    public TitlesModel(Model model,
+                       String titlesPath,
+                       String backButtonText) {
+        
+        this.model = model;
         this.titlesPath= titlesPath;
         this.backButtonText = backButtonText;
         
@@ -51,5 +52,15 @@ public class TitlesModel{
     }
     public String getBackButtonText() {
         return backButtonText;
+    }
+
+    
+    
+    /*****************************************/
+    /* Utilities */
+    /*****************************************/
+
+    public void backToMainMenu(){
+        this.model.getMainMenuModel().closeChild();
     }
 }

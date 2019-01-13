@@ -248,32 +248,40 @@ public class MainMenuModel {
         }
     }
 
-
-
-
-
-
-
-    public boolean openTitles() {
+    public void openTitles() {
         if (getState() == MainMenuState._default) {
             this.state = MainMenuState.titles;
-            String titlesPath = "lang/" + this.model.getSettings().getLanguage() + "/titles.png";
-            String backButtonText = "lang/" + this.model.getSettings().getLanguage() + "/backButton.txt";
-            this.titlesModel = new TitlesModel(titlesPath, backButtonText);
-            return true;
-        } else
-            return false;
+
+            /*Getting backButton text file path*/
+            String relativeTitlesPath = "lang/" +
+                                        this.model.getSettings().getLanguage() +
+                                        "/titles.png";
+            String titlesPath = 
+            Util.convert(getClass().getResource(relativeTitlesPath).getPath());
+
+            /*Getting backButton text file path*/
+            String relativeBackButtonPath = "/lang/" +
+                                            this.model.getSettings().getLanguage() +
+                                            "/backButton.txt";
+            String backButtonText = 
+                Util.convert(getClass().getResource(relativeBackButtonPath).getPath());
+
+            /*Initializing titlesModel*/
+            this.titlesModel = new TitlesModel(this.model,
+                                               titlesPath,
+                                               backButtonText);
+        }
     }
 
-    public boolean closeChild() {
+
+    public void closeChild() {
         if (getState() != MainMenuState._default) {
             this.state = MainMenuState._default;
-            loadingModel = null;
-            settingsModel = null;
-            titlesModel = null;
-            instructionModel = null;
-            return true;
-        } else
-            return false;
+            
+            this.loadingModel = null;
+            this.settingsModel = null;
+            this.titlesModel = null;
+            this.instructionModel = null;
+        }
     }
 }
