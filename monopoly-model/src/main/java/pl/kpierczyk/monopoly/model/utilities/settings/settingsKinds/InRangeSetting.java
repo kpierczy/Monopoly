@@ -1,5 +1,6 @@
-package pl.kpierczyk.monopoly.model.utilities.settings;
+package pl.kpierczyk.monopoly.model.utilities.settings.settingsKinds;
 
+import pl.kpierczyk.monopoly.model.utilities.settings.Setting;
 
 //*******************************************//
 //
@@ -17,8 +18,8 @@ public class InRangeSetting implements Setting{
     /*            Class Fields               */
     /*****************************************/
 
-    Integer value;
-    final Integer possibleValues[];
+    int value;
+    final int possibleValues[];
 
 
 
@@ -26,10 +27,17 @@ public class InRangeSetting implements Setting{
     /*             Constructor               */
     /*****************************************/
 
-    public InRangeSetting(Integer value, Integer possibleValues[]){
+    public InRangeSetting(int value, int possibleValues[]){
         this.value = value;
         this.possibleValues = possibleValues;
     }
+
+    public InRangeSetting(InRangeSetting inRangeSetting){
+        this.value = inRangeSetting.value;
+        this.possibleValues = inRangeSetting.possibleValues.clone();
+    }
+
+
 
 
     /*****************************************/
@@ -57,7 +65,11 @@ public class InRangeSetting implements Setting{
 
     @Override
     public Integer[] getPossibleValues() {
-        return possibleValues;
+        Integer possibleValues[] = new Integer[this.possibleValues.length];
+        for(int i = 0; i < possibleValues.length; i++){
+            possibleValues[i] = Integer.valueOf(this.possibleValues[i]);
+       }
+       return possibleValues;
     }
 
 

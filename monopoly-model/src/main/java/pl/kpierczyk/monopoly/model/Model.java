@@ -2,7 +2,9 @@ package pl.kpierczyk.monopoly.model;
 
 import pl.kpierczyk.monopoly.model.submodels.IntroModel;
 import pl.kpierczyk.monopoly.model.submodels.gameModel.GameModel;
+import pl.kpierczyk.monopoly.model.submodels.gameModel.GameSaveInfo;
 import pl.kpierczyk.monopoly.model.submodels.mainMenuModel.MainMenuModel;
+import pl.kpierczyk.monopoly.model.utilities.Util;
 import pl.kpierczyk.monopoly.model.utilities.settings.*;
 
 
@@ -27,18 +29,26 @@ public class Model {
         intro, mainMenu, inGame
     }
 
+
+
+
+
     /*****************************************/
     /* Class Fields */
     /*****************************************/
 
     private AppState state; // state of the whole app
 
-    private final int introTime = 4000;
+    final private Settings settings;
+    
     private IntroModel introModel;
     private MainMenuModel mainMenuModel; // Model responsible for main menu
     private GameModel gameModel; // Model responsible for in-game simulation
 
-    final private Settings settings;
+
+
+
+
 
     /*****************************************/
     /* Constructor */
@@ -53,21 +63,29 @@ public class Model {
         this.settings = new Settings();
         this.settings.readFromFile("/config.txt");
 
-        /* initializing introModel */
-        String relativeIntroPosterPath = "/lang/" + settings.getLanguage() + "/img/intro/introPoster_" +
-                                         settings.getResolutionSetting().toString() + ".png";
-        String introPosterPath = this.convert(getClass().getResource(relativeIntroPosterPath).getPath());
 
+
+        /* initializing introModel */
+        String relativeIntroPosterPath = "/lang/" +
+                                         settings.getLanguage() +
+                                         "/img/intro/introPoster_" +
+                                         settings.getResolutionSetting().toString() +
+                                         ".png";
+
+        String introPosterPath = Util.convert(getClass().getResource(relativeIntroPosterPath).getPath());
         introModel = new IntroModel(introPosterPath);
 
+        /* initializing mainMenuModel */
+        this.mainMenuModel = new MainMenuModel(this);
 
         /* initializing mainMenuModel */
-        this.mainMenuModel = new MainMenuModel(settings);
-
-        /* initializing mainMenuModel */
-        gameModel = new GameModel();
+        gameModel = new GameModel(this);
 
     }
+
+
+
+
 
     /*****************************************/
     /* Getters & setters */
@@ -77,24 +95,14 @@ public class Model {
         return state;
     }
 
-    private void setState(AppState state) {
-        this.state = state;
-    }
-
     public MainMenuModel getMainMenuModel() {
         return mainMenuModel;
     }
-
     public GameModel getGameModel() {
         return gameModel;
     }
-
     public IntroModel getIntroModel() {
         return introModel;
-    }
-
-    public int getIntroTime() {
-        return introTime;
     }
 
     public Settings getSettings() {
@@ -105,49 +113,31 @@ public class Model {
     /* Utilities */
     /*****************************************/
 
-    public static String convert(String url){
-        String uri = url.replaceAll("%20", " ");
-        return uri;
-    }
 
-
-    public boolean finishIntro() {
+    public void finishIntro() {
         if (getState() == AppState.intro) {
-            setState(AppState.mainMenu);
+            this.state = AppState.mainMenu;
             this.introModel = null;
-            this.mainMenuModel = new MainMenuModel(settings);
-            return true;
-        } else
-            return false;
+            this.mainMenuModel = new MainMenuModel(this);
+        }
     }
 
-    public boolean quitGame() {
+    public void runNewGame(GameSaveInfo gameSaveInfo){
+        //starting new game should dispose of mainMenuModel
+    }
+
+    public void quitGame() {
         if (getState() == AppState.inGame) {
-            setState(AppState.mainMenu);
+            this.state = AppState.mainMenu;
             this.gameModel = null;
-            this.mainMenuModel = new MainMenuModel(settings);
-            return true;
-        } else
-            return false;
+            this.mainMenuModel = new MainMenuModel(this);
+            
+        }
     }
 
-    public boolean newGame() {
-        if (getState() == AppState.mainMenu) {
-            setState(AppState.inGame);
-            this.mainMenuModel = null;
-            this.gameModel = new GameModel();
-            return true;
-        } else
-            return false;
-    }
-
-    public boolean loadGame(GameModel gameModel) {
-        if (getState() == AppState.mainMenu) {
-            setState(AppState.inGame);
-            this.mainMenuModel = null;
-            this.gameModel = gameModel;
-            return true;
-        } else
-            return false;
+    public void quitApp(){
+        this.introModel = null;
+        this.mainMenuModel = null;
+        this.gameModel = null;
     }
 }

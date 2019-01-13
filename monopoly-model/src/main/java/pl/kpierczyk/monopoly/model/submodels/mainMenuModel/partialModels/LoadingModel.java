@@ -5,6 +5,8 @@ import pl.kpierczyk.monopoly.model.*;
 import pl.kpierczyk.monopoly.model.submodels.gameModel.*;
 
 
+
+
 //*******************************************//
 //
 //
@@ -14,110 +16,150 @@ import pl.kpierczyk.monopoly.model.submodels.gameModel.*;
 //
 //
 //*******************************************//
-
-
 
 public class LoadingModel {
 
-
     /*****************************************/
-    /*             Class Fields              */
+    /* Class Fields */
     /*****************************************/
 
+    /* Invisible */
+
+    Model model;
+    String savesPath;
+
+    /* Visible */
     final private String savesNames[];
-    final private String loadButtonText;
+
+    final private String okButtonText;
     final private String backButtonText;
+
     private int checkedSave;
 
-
-
     /*****************************************/
-    /*              Constructor              */
+    /* Constructor */
     /*****************************************/
 
-    public LoadingModel(String textPath) {
-        ClassLoader classLoader = getClass().getClassLoader();
-        String savesHome = Model.convert(classLoader.getResource("saves").getPath());
-        File folder = new File(savesHome);
+    public LoadingModel(Model model, String savesPath, String buttonsPath[]) {
+
+        /* Model's hanger initialization */
+        this.model = model;
+        this.savesPath = savesPath;
+
+        /* Saves list initialization */
+        File folder = new File(savesPath);
         File[] listOfFiles = folder.listFiles();
         this.savesNames = new String[listOfFiles.length];
-
         for (int i = 0; i < listOfFiles.length; i++) {
             this.savesNames[i] = listOfFiles[i].getName();
         }
 
-
-        String loadButtonText;
+        /* Buttons' texts initialization */
+        String okButtonText;
         String backButtonText;
 
         try {
-            FileReader fileReader = 
-                new FileReader(textPath);
-            BufferedReader bufferedReader =
-                new BufferedReader(fileReader);
+            FileReader fileReader = new FileReader(buttonsPath[0]);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
 
-            loadButtonText = bufferedReader.readLine();
+            okButtonText = bufferedReader.readLine();
+            bufferedReader.close();
+        } catch (IOException ex) {
+            System.out.println("Couldn't read buttons text from" + buttonsPath[0]);
+            okButtonText = "???";
+        }
+
+        try {
+            FileReader fileReader = new FileReader(buttonsPath[1]);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+
             backButtonText = bufferedReader.readLine();
             bufferedReader.close();
-        }
-        catch (IOException ex) {
-            System.out.println("Couldn't read buttons text from" + textPath);
-            loadButtonText = "???";
+        } catch (IOException ex) {
+            System.out.println("Couldn't read buttons text from" + buttonsPath[0]);
             backButtonText = "???";
         }
 
-        this.loadButtonText = loadButtonText;
+        this.okButtonText = okButtonText;
         this.backButtonText = backButtonText;
 
-        checkedSave = 0;
+        /* Checked save position initialization */
+        this.checkedSave = 0;
     }
 
-
-
     /*****************************************/
-    /*          Getters & setters            */
+    /* Getters & setters */
     /*****************************************/
 
     public String[] getSavesNames() {
         return savesNames;
     }
+
     public String getBackButtonText() {
         return backButtonText;
     }
-    public String getLoadButtonText() {
-        return loadButtonText;
+
+    public String getokButtonText() {
+        return okButtonText;
     }
 
     public int getCheckedSave() {
         return checkedSave;
     }
-    public void setCheckedSave(int checkedSave) {
-        this.checkedSave = checkedSave;
-    }
 
-
-
-    /*****************************************/
-    /*              Utilities                */
-    /*****************************************/
-
-    public boolean checkSave(int saveNumber){
-        if(saveNumber > 0 && saveNumber <= savesNames.length){
-            this.checkedSave = saveNumber;
+    public boolean setCheckedSave(int checkedSave) {
+        if (checkedSave > 0 && checkedSave <= savesNames.length) {
+            this.checkedSave = checkedSave;
             return true;
-        }
-        else
+        } else
             return false;
     }
 
-    public void uncheckSave(){
+    /*****************************************/
+    /* Utilities */
+    /*****************************************/
+
+    public boolean checkSave(int saveNumber) {
+        return setCheckedSave(saveNumber);
+    }
+
+    public void uncheckSave() {
         setCheckedSave(0);
     }
 
+    public void backToMainMenu() {
+
+        this.model.getMainMenuModel().closeChild();
+    }
+
+    public boolean loadActualSave() {        
+        
+        GameSaveInfo gameSaveInfo = new GameSaveInfo();
+        //Here change save state from empty to not empty - difference between loaded game and new game
+        
+        String savePath = this.savesPath +
+                          this.savesNames[checkedSave];
+        try {
+            FileReader fileReader = 
+                new FileReader(savePath);
+
+            BufferedReader bufferedReader = 
+                new BufferedReader(fileReader);
+
+            //Here happens whole gameSaveInfoSetting;
 
 
-    /*!!!!!!!!!!!!!DOKOŃCZYĆ WCZYTYWANIE!!!!!!!!!!! */
-    public GameModel loadActualSave(){
-        return new GameModel();
+            bufferedReader.close();
+        } 
+        catch (IOException ex) {
+            System.out.println("Couldn't read buttons text from " + savePath);
+            return false;
+        }
+
+        //Not sure if i should close loadModel before running new game
+        this.model.getMainMenuModel().closeChild();
+        this.model.runNewGame(gameSaveInfo);
+        //Not sure if return happens - probably yes, because Model is automat of states, but not sure
+        return true;
     }
 }

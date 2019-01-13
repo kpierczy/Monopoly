@@ -1,5 +1,6 @@
-package pl.kpierczyk.monopoly.model.utilities.settings;
+package pl.kpierczyk.monopoly.model.utilities.settings.settingsKinds;
 
+import pl.kpierczyk.monopoly.model.utilities.settings.Setting;
 
 //*******************************************//
 //
@@ -10,24 +11,25 @@ package pl.kpierczyk.monopoly.model.utilities.settings;
 //
 //*******************************************//
 
-public class BooleanSetting implements Setting{
+public class PathSetting implements Setting{
 
     /*****************************************/
     /*            Class Fields               */
     /*****************************************/
 
-    Boolean value;
-    final Boolean possibleValues[];
-
+    String value;
 
 
     /*****************************************/
     /*             Constructor               */
     /*****************************************/
 
-    public BooleanSetting(Boolean value){
+    public PathSetting(String value){
         this.value = value;
-        this.possibleValues = new Boolean[] {true, false};
+    }
+
+    public PathSetting(PathSetting pathSetting){
+        this.value = new String(pathSetting.value);
     }
 
 
@@ -36,13 +38,13 @@ public class BooleanSetting implements Setting{
     /*****************************************/
 
     @Override
-    public Boolean getValue() {
+    public String getValue() {
         return value;
     }
     @Override
     public boolean setValue(Object value) {
-        if(value instanceof Boolean){
-            this.value = (Boolean) value;
+        if(value instanceof String){
+            this.value = (String) value;
             return true;
         }
         else
@@ -50,8 +52,8 @@ public class BooleanSetting implements Setting{
     }
 
     @Override
-    public Boolean[] getPossibleValues() {
-        return possibleValues;
+    public Object[] getPossibleValues() {
+        return null;
     }
 
 
@@ -60,33 +62,15 @@ public class BooleanSetting implements Setting{
     /*****************************************/
 
     public boolean nextValue(){
-        if(this.value == false)
-            this.value = true;
-        else
-            this.value = false;
         return true;
     }
 
     public boolean previousValue(){
-        if(this.value == false)
-            this.value = true;
-        else
-            this.value = false;
         return true;
-    }
-
-    public void switchValue(){
-        if(this.value == false)
-            this.value = true;
-        else
-            this.value = false;
     }
 
     @Override
     public String toString() {
-        if(this.value == true)
-            return "on";
-        else
-            return "off";
+        return this. value;
     }
 }

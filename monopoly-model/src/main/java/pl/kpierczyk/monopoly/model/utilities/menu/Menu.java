@@ -1,4 +1,4 @@
-package pl.kpierczyk.monopoly.model.utilities;
+package pl.kpierczyk.monopoly.model.utilities.menu;
 
 
 

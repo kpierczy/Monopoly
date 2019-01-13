@@ -1,6 +1,12 @@
 package pl.kpierczyk.monopoly.model.utilities.settings;
 
 import pl.kpierczyk.monopoly.model.*;
+import pl.kpierczyk.monopoly.model.utilities.Util;
+import pl.kpierczyk.monopoly.model.utilities.settings.settingUtilities.SettingsWarnings;
+import pl.kpierczyk.monopoly.model.utilities.settings.settingsKinds.BooleanSetting;
+import pl.kpierczyk.monopoly.model.utilities.settings.settingsKinds.InRangeSetting;
+import pl.kpierczyk.monopoly.model.utilities.settings.settingsKinds.SelectSetting;
+
 import java.io.*;
 
 // *******************************************//
@@ -67,6 +73,17 @@ public class Settings {
         }
 
         this.registeredWarnings = warnings;
+    }
+
+
+    //Copy constructor
+    public Settings(Settings settings){
+        this.language = new SelectSetting(settings.getLanguageSetting());
+        this.resolution = new SelectSetting(settings.getResolutionSetting());
+        this.fullscreen = new BooleanSetting(settings.getFullscreenSetting());
+        this.soundLevel = new InRangeSetting(settings.getSoundSetting());
+        
+        this.registeredWarnings = new SettingsWarnings(settings.getRegisteredWarnings());
     }
 
     /*****************************************/
@@ -231,7 +248,7 @@ public class Settings {
 
         try {
             ClassLoader classLoader = getClass().getClassLoader();
-            String configPath = Model.convert(classLoader.getResource("config.txt").getPath());
+            String configPath = Util.convert(classLoader.getResource("config.txt").getPath());
             FileWriter fileWriter = new FileWriter(configPath);
             PrintWriter printWriter = new PrintWriter(fileWriter);
 
@@ -249,36 +266,4 @@ public class Settings {
 
         return true;
     }
-}
-
-
-
-
-//*******************************************//
-//
-//
-//
-//
-//
-//
-//
-//*******************************************//
-
-interface Setting {
-
-    /*****************************************/
-    /* Getters & setters */
-    /*****************************************/
-
-    Object getValue();
-    boolean setValue(Object value);
-    Object[] getPossibleValues();
-
-
-    /*****************************************/
-    /*              Utilities                */
-    /*****************************************/
-
-    boolean nextValue();
-    boolean previousValue();
 }

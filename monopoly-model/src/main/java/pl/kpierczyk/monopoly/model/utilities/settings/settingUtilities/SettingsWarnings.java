@@ -1,4 +1,4 @@
-package pl.kpierczyk.monopoly.model.utilities.settings;
+package pl.kpierczyk.monopoly.model.utilities.settings.settingUtilities;
 
 
 
@@ -48,6 +48,12 @@ public class SettingsWarnings {
         soundLevelWarning = soundLevelWarning_t;
     }
 
+    //copy constructor
+    public SettingsWarnings(SettingsWarnings settingsWarnings){
+        this.languageWarning = settingsWarnings.languageWarning;
+        this.resolutionWarning = settingsWarnings.resolutionWarning;
+        this.soundLevelWarning = settingsWarnings.soundLevelWarning;
+    }
 
 
 

@@ -1,6 +1,6 @@
-package pl.kpierczyk.monopoly.model.utilities.settings;
+package pl.kpierczyk.monopoly.model.utilities.settings.settingsKinds;
 
-
+import pl.kpierczyk.monopoly.model.utilities.settings.Setting;
 
 //*******************************************//
 //
@@ -18,7 +18,7 @@ public class SelectSetting implements Setting{
     /*            Class Fields               */
     /*****************************************/
 
-    Integer value;
+    int value;
     final String possibleValues[];
 
 
@@ -31,6 +31,11 @@ public class SelectSetting implements Setting{
         this.possibleValues = possibleValues;
         if(value >= 0  && value < this.possibleValues.length)
             this.value = value;
+    }
+
+    public SelectSetting(SelectSetting selectSetting){
+        this.value = selectSetting.value;
+        this.possibleValues = selectSetting.possibleValues.clone();
     }
 
 

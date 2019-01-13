@@ -1,11 +1,12 @@
 package pl.kpierczyk.monopoly.model.submodels.mainMenuModel;
 
 import pl.kpierczyk.monopoly.model.utilities.*;
-import pl.kpierczyk.monopoly.model.utilities.settings.*;
+import pl.kpierczyk.monopoly.model.utilities.menu.Menu;
 import pl.kpierczyk.monopoly.model.Model;
+import pl.kpierczyk.monopoly.model.submodels.gameModel.GameSaveInfo;
 import pl.kpierczyk.monopoly.model.submodels.mainMenuModel.partialModels.InstructionModel;
 import pl.kpierczyk.monopoly.model.submodels.mainMenuModel.partialModels.LoadingModel;
-import pl.kpierczyk.monopoly.model.submodels.mainMenuModel.partialModels.OptionsModel;
+import pl.kpierczyk.monopoly.model.submodels.mainMenuModel.partialModels.SettingsModel;
 import pl.kpierczyk.monopoly.model.submodels.mainMenuModel.partialModels.TitlesModel;
 
 import java.io.*;
@@ -30,7 +31,7 @@ public class MainMenuModel {
 
 
     public enum MainMenuState {
-        _default, loading, options, titles, instruction
+        _default, loading, options, instruction, titles
     }
 
 
@@ -40,11 +41,11 @@ public class MainMenuModel {
 
     /* Invisible */
     private MainMenuState state;
-    private final Settings settingsHanger;
-    private final String savesPath;
+
+    private Model model;
 
     private LoadingModel loadingModel;
-    private OptionsModel optionsModel;
+    private SettingsModel settingsModel;
     private TitlesModel titlesModel;
     private InstructionModel instructionModel;
 
@@ -59,21 +60,23 @@ public class MainMenuModel {
     /* Constructor */
     /*****************************************/
 
-    public MainMenuModel(Settings settingsHanger) {
+    public MainMenuModel(Model model) {
         
         /*Utilities initializing*/
         this.state = MainMenuState._default;
-        this.settingsHanger = settingsHanger;
-        this.savesPath = "/saves";
+        this.model = model;
 
         /*Models initializing*/
         this.loadingModel = null;
-        this.optionsModel = null;
+        this.settingsModel = null;
         this.titlesModel = null;
         this.instructionModel = null;
 
         /*Menu initializing*/
-        String textPath = "/lang/" + this.settingsHanger.getLanguage() + "/mainMenu.txt";
+        String textPath = "/lang/" +
+                           this.model.getSettings().getLanguage() +
+                           "/mainMenu.txt";
+
         String fieldsText[] = new String[6];
 
         try {
@@ -95,9 +98,14 @@ public class MainMenuModel {
 
         this.mainMenu = new Menu(fieldsText, 6);
        
+
+        /*Menu's background image initialization*/
         String backgroundImageRelativePath = 
-                "/img/" + settingsHanger.getResolutionSetting().toString() + "/menuBackgrounds/menuBackground_1.png";
-        this.backgroundImagePath = Model.convert(getClass().getResource(backgroundImageRelativePath).getPath());
+                "/img/" +
+                this.model.getSettings().getResolutionSetting().toString() +
+                "/menuBackgrounds/menuBackground_1.png";
+
+        this.backgroundImagePath = Util.convert(getClass().getResource(backgroundImageRelativePath).getPath());
     }
 
 
@@ -106,17 +114,18 @@ public class MainMenuModel {
     /*****************************************/
     /* Getters & setters */
     /*****************************************/
-
+    
+    
+    public MainMenuState getState() {
+        return state;
+    }
+    
+    
     public Menu getMainMenu() {
         return mainMenu;
     }
     public String getBackgroundImagePath() {
         return backgroundImagePath;
-    }
-
-
-    public MainMenuState getState() {
-        return state;
     }
 
 
@@ -126,8 +135,8 @@ public class MainMenuModel {
     public LoadingModel getLoadingModel() {
         return loadingModel;
     }
-    public OptionsModel getOptionsModel() {
-        return optionsModel;
+    public SettingsModel getOptionsModel() {
+        return settingsModel;
     }
     public TitlesModel getTitlesModel() {
         return titlesModel;
@@ -140,28 +149,49 @@ public class MainMenuModel {
     /* Utilities */
     /*****************************************/
 
-    public boolean openLoadingMenu() {
-        if (getState() == MainMenuState._default) {
-            this.state = MainMenuState.loading;
-            this.loadingModel = new LoadingModel(this.savesPath);
-            return true;
-        } else
-            return false;
+    public void newGame(){
+        GameSaveInfo emptyGameInfo = new GameSaveInfo();
+        this.model.runNewGame(emptyGameInfo);
     }
 
 
-    public boolean openOptions(){
+    public void openLoadingMenu() {
+        if (getState() == MainMenuState._default) {
+            this.state = MainMenuState.loading;
+
+            String relativeSavesPath = "/saves";
+            String savesPath = Util.convert(getClass().getResource(relativeSavesPath).getPath());
+
+            String relativeButtonsPath[] = new String[] {
+                "/lang/" + this.model.getSettings().getLanguage() + "/okButton.txt",
+                "/lang/" + this.model.getSettings().getLanguage() + "/backButton.txt"
+            };
+
+            String buttonsPath[] = new String[]{
+                Util.convert(getClass().getResource(relativeButtonsPath[0]).getPath()),
+                Util.convert(getClass().getResource(relativeButtonsPath[1]).getPath())
+            };
+
+            this.loadingModel = new LoadingModel(this.model,
+                                                 savesPath,
+                                                 buttonsPath);
+        }
+    }
+
+
+    public boolean openSettings(){
         if(getState() == MainMenuState._default){
             this.state = MainMenuState.options;
             
+
             String submitButtonText = "???";
             String backButtonText = "???";
-            String optionsTexts[] = new String[this.settingsHanger.getSettingsNumber()];
+            String optionsTexts[] = new String[this.model.getSettings().getSettingsNumber()];
             String configPath = "/config.txt";
 
             try{
                 FileReader fileReader = 
-                    new FileReader("/lang/" + this.settingsHanger.getLanguage() + "/submitButtonText.txt");
+                    new FileReader("/lang/" + this.model.getSettings().getLanguage() + "/submitButtonText.txt");
                 BufferedReader bufferedReader =
                     new BufferedReader(fileReader);
 
@@ -177,7 +207,7 @@ public class MainMenuModel {
 
             try{
                 FileReader fileReader = 
-                    new FileReader("/lang/" + this.settingsHanger.getLanguage() + "/backButtonText.txt");
+                    new FileReader("/lang/" + this.model.getSettings().getLanguage() + "/backButtonText.txt");
                 BufferedReader bufferedReader =
                     new BufferedReader(fileReader);
 
@@ -193,11 +223,11 @@ public class MainMenuModel {
 
             try{
                 FileReader fileReader = 
-                    new FileReader("/lang/" + this.settingsHanger.getLanguage() + "/optionsMenu.txt");
+                    new FileReader("/lang/" + this.model.getSettings().getLanguage() + "/optionsMenu.txt");
                 BufferedReader bufferedReader =
                     new BufferedReader(fileReader);
 
-                for(int i = 0; i < this.settingsHanger.getSettingsNumber(); i++){
+                for(int i = 0; i < this.model.getSettings().getSettingsNumber(); i++){
                     if((optionsTexts[i] = bufferedReader.readLine()) == null)
                         backButtonText = "???";
                 }
@@ -208,8 +238,8 @@ public class MainMenuModel {
                 System.out.println("Couln't read backButton.txt");
             } 
 
-            this.optionsModel = new OptionsModel(submitButtonText, backButtonText,
-                                                           optionsTexts, settingsHanger, configPath);
+            this.settingsModel = new SettingsModel(this.model,
+                                                   , buttonsPath, SettingsTextsPath);
             return true;
         }
         else
@@ -219,8 +249,8 @@ public class MainMenuModel {
     public boolean openInstruction() {
         if (getState() == MainMenuState._default) {
             this.state = MainMenuState.instruction;
-            String instructionHome = "lang/" + this.settingsHanger.getLanguage() + "/instruction";
-            String backButtonText = "lang/" + this.settingsHanger.getLanguage() + "/backButton.txt";
+            String instructionHome = "lang/" + this.model.getSettings().getLanguage() + "/instruction";
+            String backButtonText = "lang/" + this.model.getSettings().getLanguage() + "/backButton.txt";
             this.instructionModel = new InstructionModel(instructionHome, backButtonText);
             return true;
         } else
@@ -230,8 +260,8 @@ public class MainMenuModel {
     public boolean openTitles() {
         if (getState() == MainMenuState._default) {
             this.state = MainMenuState.titles;
-            String titlesPath = "lang/" + this.settingsHanger.getLanguage() + "/titles.png";
-            String backButtonText = "lang/" + this.settingsHanger.getLanguage() + "/backButton.txt";
+            String titlesPath = "lang/" + this.model.getSettings().getLanguage() + "/titles.png";
+            String backButtonText = "lang/" + this.model.getSettings().getLanguage() + "/backButton.txt";
             this.titlesModel = new TitlesModel(titlesPath, backButtonText);
             return true;
         } else
