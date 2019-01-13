@@ -13,7 +13,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import pl.kpierczyk.monopoly.model.Model;
+import pl.kpierczyk.monopoly.view.View;
 
 //*******************************************//
 //
@@ -27,61 +27,87 @@ import pl.kpierczyk.monopoly.model.Model;
 
 public class MainMenuView extends JPanel {
 
+
     /*****************************************/
     /* Class Fields */
     /*****************************************/
 
-    private Model model;
+    private View view;
 
+
+    /*Main Menu elements*/
     private Image backgroundImage;
-    private ButtonBox buttonBox;
-    private int buttonsNumber;
+    private MainMenuPanel mainMenuPanel;
+
+
+    /*Submenus views (panels)*/
+
+
+
+
+
+
 
     /*****************************************/
     /* Constructor */
     /*****************************************/
 
-    public MainMenuView(Model model) {
+    public MainMenuView(View view) {
         super();
-        this.model = model;
-        this.setLayout(new GridBagLayout());
-        this.setPreferredSize(
-                new Dimension(model.getSettings().getResolution()[0], model.getSettings().getResolution()[1]));
+        this.view = view;
 
+        /*Main menu's size and layout initialization*/
+        this.setPreferredSize(new Dimension(this.view.getModel().getSettings().getResolution()[0],
+                                            this.view.getModel().getSettings().getResolution()[1]));
+        
+        this.setLayout(new GridBagLayout());
+               
+        /*Main menu's bacground image initialization*/
         try {
-            backgroundImage = ImageIO.read(new File(model.getMainMenuModel().getBackgroundImagePath()));
-        } catch (IOException ex) {
-            System.out.println("Couldn't open mainMenu's background image");
+            backgroundImage = 
+                ImageIO.read(new File(this.view.getModel().getMainMenuModel().getBackgroundImagePath()));
+        }
+        catch (IOException ex) {
+            System.out.println("Couldn't open mainMenu's background image from " + 
+                                this.view.getModel().getMainMenuModel().getBackgroundImagePath());
         }
 
-        this.buttonBox = new ButtonBox(this.model);
-        this.buttonsNumber = getButtons().length;
-        this.add(this.buttonBox);
+        /*Main menu buttons panel adding*/
+        this.mainMenuPanel =
+            new MainMenuPanel(this.view);
+        this.add(this.mainMenuPanel);
     }
+
+
+
 
     /*****************************************/
     /* Getters & setters */
     /*****************************************/
 
-    public ButtonBox getButtonBox() {
-        return buttonBox;
+    /*Main menu elements methods*/
+
+    public int getMainMenuButtonsNumber() {
+        return getMainMenuButtons().length;
     }
 
-    public int getButtonsNumber() {
-        return buttonsNumber;
+    public JButton[] getMainMenuButtons() {
+        return this.mainMenuPanel.getButtons();
     }
 
-    public JButton[] getButtons() {
-        return this.buttonBox.getButtons();
-    }
-
-    public JButton getButton(int buttonNumber) {
-        if (buttonNumber >= 0 && buttonNumber < this.buttonsNumber) {
-            return getButtons()[buttonNumber];
+    public JButton getMainMenuButton(int buttonNumber) {
+        if (buttonNumber >= 0 && buttonNumber < getMainMenuButtonsNumber()) {
+            return getMainMenuButtons()[buttonNumber];
         } else
             return null;
     }
 
+
+    /*Submenus elements methods*/
+    
+
+
+    
 
 
 
@@ -94,12 +120,14 @@ public class MainMenuView extends JPanel {
     /* Utilities */
     /*****************************************/
 
+    /*Graphical utilities*/
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.drawImage(backgroundImage, 0, 0, this);
     }
 
 
+    /*Logical utilities*/
     public void newGame(){
 
     }
@@ -116,6 +144,10 @@ public class MainMenuView extends JPanel {
 
     }
 
+    public void openTitles(){
+
+    }
+
     public void closeChild(){
         
     }
@@ -124,11 +156,37 @@ public class MainMenuView extends JPanel {
 
 
 
-class ButtonBox extends JPanel {
+
+
+
+
+
+
+
+
+
+
+
+
+
+//*******************************************//
+//
+//
+//
+//
+//
+//
+//
+//*******************************************//
+
+
+class MainMenuPanel extends JPanel {
 
     /*****************************************/
     /* Class Fields */
     /*****************************************/
+
+    View view;
 
     private final int buttonWidth = 300;
     private final int buttonHeight = 75;
@@ -137,31 +195,38 @@ class ButtonBox extends JPanel {
     private JButton buttons[];
 
 
-
-
     /*****************************************/
     /* Constructor */
     /*****************************************/
 
-    public ButtonBox(Model model) {
-        int buttonsNumber = model.getMainMenuModel().getMainMenu().getMenuFields().length;
-        this.setPreferredSize(new Dimension(this.buttonWidth, buttonsNumber * this.buttonHeight));
+    public MainMenuPanel(View view) {
+        this.view = view;
+
+        /*Getting number of buttons to create*/
+        int buttonsNumber =
+            this.view.getModel().getMainMenuModel().getMainMenu().getMenuFields().length;
         
+        this.setPreferredSize(new Dimension(this.buttonWidth,
+                                            this.buttonHeight * buttonsNumber));
+        
+        /*Setting MaineMenu's buttons layout*/
         this.setLayout(new FlowLayout());
-        FlowLayout layout = (FlowLayout) this.getLayout();
+        FlowLayout layout = 
+            (FlowLayout) this.getLayout();
         layout.setVgap(0);
 
+        /*Initializing buttons*/
         this.buttons = new JButton[buttonsNumber];
         for (int i = 0; i < buttonsNumber; i++) {
             this.buttons[i] = new JButton(
-                    model.getMainMenuModel().getMainMenu().getMenuField(i).getFieldText());
-            this.buttons[i].setPreferredSize(new Dimension(this.buttonWidth, this.buttonHeight));
+                this.view.getModel().getMainMenuModel().getMainMenu().getMenuField(i).getFieldText());
+            this.buttons[i].setPreferredSize(new Dimension(this.buttonWidth,
+                                                           this.buttonHeight));
             this.buttons[i].setFont(font);
             this.add(this.buttons[i]);
         }
 
     }
-
 
 
     /*****************************************/

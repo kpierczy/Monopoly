@@ -30,9 +30,7 @@ public class Model {
     }
 
 
-
-
-
+    
     /*****************************************/
     /* Class Fields */
     /*****************************************/
@@ -61,7 +59,10 @@ public class Model {
 
         /* initializing settings */
         this.settings = new Settings();
-        this.settings.readFromFile("/config.txt");
+        String relativeConfigPath = "/config.txt";
+        String configPath = 
+            Util.convert(getClass().getResource(relativeConfigPath).getPath());
+        this.settings.readFromFile(configPath);
 
 
 
@@ -95,15 +96,16 @@ public class Model {
         return state;
     }
 
+    public IntroModel getIntroModel() {
+        return introModel;
+    }
     public MainMenuModel getMainMenuModel() {
         return mainMenuModel;
     }
     public GameModel getGameModel() {
         return gameModel;
     }
-    public IntroModel getIntroModel() {
-        return introModel;
-    }
+
 
     public Settings getSettings() {
         return settings;
@@ -122,8 +124,17 @@ public class Model {
         }
     }
 
-    public void runNewGame(GameSaveInfo gameSaveInfo){
-        //starting new game should dispose of mainMenuModel
+    public void runNewGame(){
+        //loadGame(empty gameSaveInfo)
+    }
+
+    public void loadGame(GameSaveInfo gameSaveInfo){
+        if (getState() == AppState.mainMenu){
+            this.state = AppState.inGame;
+
+            //starting new game should dispose of mainMenuModel
+        
+        }
     }
 
     public void quitGame() {
@@ -131,7 +142,6 @@ public class Model {
             this.state = AppState.mainMenu;
             this.gameModel = null;
             this.mainMenuModel = new MainMenuModel(this);
-            
         }
     }
 

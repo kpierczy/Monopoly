@@ -3,7 +3,6 @@ package pl.kpierczyk.monopoly.model.submodels.mainMenuModel;
 import pl.kpierczyk.monopoly.model.utilities.*;
 import pl.kpierczyk.monopoly.model.utilities.menu.Menu;
 import pl.kpierczyk.monopoly.model.Model;
-import pl.kpierczyk.monopoly.model.submodels.gameModel.GameSaveInfo;
 import pl.kpierczyk.monopoly.model.submodels.mainMenuModel.partialModels.InstructionModel;
 import pl.kpierczyk.monopoly.model.submodels.mainMenuModel.partialModels.LoadingModel;
 import pl.kpierczyk.monopoly.model.submodels.mainMenuModel.partialModels.SettingsModel;
@@ -38,20 +37,22 @@ public class MainMenuModel {
     /*****************************************/
     /* Class Fields */
     /*****************************************/
-
-    /* Invisible */
+    
     private MainMenuState state;
-
     private Model model;
 
+    /* MainMenu visible elements */
+    private Menu mainMenu;
+    private final String backgroundImagePath;
+
+    
+    /*Submenus models*/
     private LoadingModel loadingModel;
     private SettingsModel settingsModel;
     private TitlesModel titlesModel;
     private InstructionModel instructionModel;
 
-    /* Visible */
-    private Menu mainMenu;
-    private final String backgroundImagePath;
+
 
 
 
@@ -150,8 +151,7 @@ public class MainMenuModel {
     /*****************************************/
 
     public void newGame(){
-        GameSaveInfo emptyGameInfo = new GameSaveInfo();
-        this.model.runNewGame(emptyGameInfo);
+        this.model.runNewGame();
     }
 
 

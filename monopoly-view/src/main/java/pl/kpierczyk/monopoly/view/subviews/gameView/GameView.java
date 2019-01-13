@@ -1,6 +1,6 @@
-package pl.kpierczyk.monopoly.model.submodels;
+package pl.kpierczyk.monopoly.view.subviews.gameView;
 
-
+import javax.swing.JPanel;
 
 //*******************************************//
 //
@@ -12,36 +12,28 @@ package pl.kpierczyk.monopoly.model.submodels;
 //
 //*******************************************//
 
-public class IntroModel{
+public class GameView extends JPanel{
 
     /*****************************************/
     /*            Class Fields               */
     /*****************************************/
-
-    private final long introTime = 4000; //intro time in ms
-    private final String introPosterPath;
-
 
 
     /*****************************************/
     /*             Constructor               */
     /*****************************************/
 
-    public IntroModel(String introPosterPath){
-        this.introPosterPath = introPosterPath;
+    public GameView(){
+        super();
     }
-
-
 
 
     /*****************************************/
     /*          Getters & setters            */
     /*****************************************/
 
-    public long getIntroTime() {
-        return introTime;
-    }
-    public String getIntroPosterPath() {
-        return introPosterPath;
-    }
+
+    /*****************************************/
+    /*              Utilities                */
+    /*****************************************/
 }

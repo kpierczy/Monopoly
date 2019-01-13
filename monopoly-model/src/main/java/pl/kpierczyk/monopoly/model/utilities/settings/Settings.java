@@ -37,12 +37,17 @@ public class Settings {
 
     // default constructor
     public Settings() {
-        this.language = new SelectSetting(0, new String[] { "en", "pl" });
-        this.resolution = new SelectSetting(0, new String[] { "1920x1080", "800x600" });
-        this.fullscreen = new BooleanSetting(false);
-        this.soundLevel = new InRangeSetting(50, new int[] { 0, 100 });
+        this.language =
+            new SelectSetting(0, new String[] { "en", "pl" });
+        this.resolution =
+            new SelectSetting(0, new String[] { "1920x1080", "800x600" });
+        this.fullscreen =
+            new BooleanSetting(false);
+        this.soundLevel =
+            new InRangeSetting(50, new int[] { 0, 100 });
 
-        this.registeredWarnings = new SettingsWarnings();
+        this.registeredWarnings =
+            new SettingsWarnings();
     }
 
     // full specified constructor
@@ -50,10 +55,15 @@ public class Settings {
 
         SettingsWarnings warnings = new SettingsWarnings();
 
-        this.language = new SelectSetting(0, new String[] { "en", "pl" });
-        this.resolution = new SelectSetting(0, new String[] { "1920x1080", "800x600" });
-        this.fullscreen = new BooleanSetting(false);
-        this.soundLevel = new InRangeSetting(50, new int[] { 0, 100 });
+        this.language =
+            new SelectSetting(0, new String[] { "en", "pl" });
+        this.resolution =
+            new SelectSetting(0, new String[] { "1920x1080", "800x600" });
+        this.fullscreen =
+            new BooleanSetting(false);
+                
+        this.soundLevel =
+            new InRangeSetting(50, new int[] { 0, 100 });
 
         if (!this.language.setValue(language)) {
             warnings.setLanguageWarning(true);
@@ -78,10 +88,14 @@ public class Settings {
 
     //Copy constructor
     public Settings(Settings settings){
-        this.language = new SelectSetting(settings.getLanguageSetting());
-        this.resolution = new SelectSetting(settings.getResolutionSetting());
-        this.fullscreen = new BooleanSetting(settings.getFullscreenSetting());
-        this.soundLevel = new InRangeSetting(settings.getSoundSetting());
+        this.language =
+            new SelectSetting(settings.getLanguageSetting());
+        this.resolution =
+            new SelectSetting(settings.getResolutionSetting());
+        this.fullscreen =
+            new BooleanSetting(settings.getFullscreenSetting());
+        this.soundLevel =
+            new InRangeSetting(settings.getSoundSetting());
         
         this.registeredWarnings = new SettingsWarnings(settings.getRegisteredWarnings());
     }
@@ -166,6 +180,8 @@ public class Settings {
             return this.soundLevel.toString();
     }
 
+
+
     /*****************************************/
     /* Utilities */
     /*****************************************/
@@ -181,8 +197,10 @@ public class Settings {
     public boolean readFromFile(String configPath) {
 
         try {
+            FileReader fileReader =
+                new FileReader(configPath);
             BufferedReader bufferedReader =
-                new BufferedReader(new InputStreamReader(getClass().getResourceAsStream(configPath)));
+                new BufferedReader(fileReader);
 
 
             // tmp string for reading language version from config.txt
@@ -230,37 +248,43 @@ public class Settings {
             }
 
             bufferedReader.close();
-        } catch (FileNotFoundException ex) {
-            System.out.println("Unable to open file '" + configPath + "'");
+        } 
+        catch (FileNotFoundException ex) {
+            System.out.println("Unable to find " + configPath);
             // default settings
             this.reset();
             return false;
-        } catch (IOException ex) {
-            System.out.println("Error reading file '" + configPath + "'");
+        } 
+        catch (IOException ex) {
+            System.out.println("Unable to load settings from " + configPath);
             // default settings
             this.reset();
             return false;
         }
+
         return true;
     }
 
-    public boolean writeToFile() {
+
+    public boolean writeToFile(String configPath) {
 
         try {
-            ClassLoader classLoader = getClass().getClassLoader();
-            String configPath = Util.convert(classLoader.getResource("config.txt").getPath());
-            FileWriter fileWriter = new FileWriter(configPath);
-            PrintWriter printWriter = new PrintWriter(fileWriter);
+            FileWriter fileWriter =
+                new FileWriter(configPath);
+            PrintWriter printWriter =
+                new PrintWriter(fileWriter);
 
-            printWriter.print(this.getLanguage());
-            printWriter.print(this.getResolution());
-            printWriter.print(this.isFullscreen());
-            printWriter.print(this.getSoundLevel());
+            printWriter.print(this.getLanguageSetting().toString());
+            printWriter.print(this.getResolutionSetting().toString());
+            printWriter.print(this.getFullscreenSetting().toString());
+            printWriter.print(this.getSoundSetting().toString());
 
             printWriter.close();
-        } catch (FileNotFoundException ex) {
+        } 
+        catch (FileNotFoundException ex) {
             return false;
-        } catch (IOException ex) {
+        } 
+        catch (IOException ex) {
             return false;
         }
 

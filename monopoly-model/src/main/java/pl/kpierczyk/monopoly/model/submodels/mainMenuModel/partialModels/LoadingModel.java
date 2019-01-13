@@ -59,8 +59,10 @@ public class LoadingModel {
         String backButtonText;
 
         try {
-            FileReader fileReader = new FileReader(buttonsPath[0]);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            FileReader fileReader =
+                new FileReader(buttonsPath[0]);
+            BufferedReader bufferedReader =
+                new BufferedReader(fileReader);
 
             okButtonText = bufferedReader.readLine();
             bufferedReader.close();
@@ -70,8 +72,10 @@ public class LoadingModel {
         }
 
         try {
-            FileReader fileReader = new FileReader(buttonsPath[1]);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            FileReader fileReader =
+                new FileReader(buttonsPath[1]);
+            BufferedReader bufferedReader =
+                new BufferedReader(fileReader);
 
             backButtonText = bufferedReader.readLine();
             bufferedReader.close();
@@ -158,7 +162,7 @@ public class LoadingModel {
 
         //Not sure if i should close loadModel before running new game
         this.model.getMainMenuModel().closeChild();
-        this.model.runNewGame(gameSaveInfo);
+        this.model.loadGame(gameSaveInfo);
         //Not sure if return happens - probably yes, because Model is automat of states, but not sure
         return true;
     }

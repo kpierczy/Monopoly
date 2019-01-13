@@ -2,6 +2,7 @@ package pl.kpierczyk.monopoly.view;
 
 import pl.kpierczyk.monopoly.model.*;
 import pl.kpierczyk.monopoly.view.subviews.IntroView;
+import pl.kpierczyk.monopoly.view.subviews.gameView.GameView;
 import pl.kpierczyk.monopoly.view.subviews.mainMenuView.MainMenuView;
 
 import javax.swing.*;
@@ -34,27 +35,14 @@ public class View extends JFrame {
 
     /* Main Menu sceneries */
 
-    private IntroView introPane;
-    private MainMenuView mainMenuPane;
+    private IntroView introView;
+    private MainMenuView mainMenuView;
+    private GameView gameView;
 
-
-    // LoadingGamePanel loadingGamePanel;
-    // OptionsPanel optionsPanel;
-    // InstructionPanel instructionPanel;
-    // TitlesPanel titlesPanel;
-
-    /* inGame sceneries */
-
-    // GamePanel mainGamePanel;
     
     
     
     
-
-
-
-
-
     /*****************************************/
     /* Constructor */
     /*****************************************/
@@ -73,13 +61,16 @@ public class View extends JFrame {
             this.setExtendedState(JFrame.MAXIMIZED_BOTH);
             this.setUndecorated(true);
         }
+
+        /*Setting windows features*/
         this.setLocation(0, 0);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
         this.setLayout(new BorderLayout());
 
-        this.introPane = new IntroView(model);
-        this.getContentPane().add(this.introPane, BorderLayout.CENTER);
+        /*Initializing intro view*/
+        this.introView = new IntroView(model);
+        this.getContentPane().add(this.introView, BorderLayout.CENTER);
         this.pack();
         this.setVisible(true);        
     }
@@ -93,52 +84,71 @@ public class View extends JFrame {
     /* Getters & setters */
     /*****************************************/
 
-    public IntroView getIntroPane() {
-        return introPane;
-    }
-    public MainMenuView getMainMenuPane() {
-        return mainMenuPane;
+    public Model getModel() {
+        return model;
     }
 
+    public IntroView getintroView() {
+        return introView;
+    }
+    public MainMenuView getmainMenuView() {
+        return mainMenuView;
+    }
+    public GameView getGameView(){
+        return gameView;
+    }
 
 
 
 
-    /*
-     * LoadingGamePanel getLoadingGamePanel() { return loadingGamePanel; } public
-     * OptionsPanel getOptionsPanel() { return optionsPanel; } public
-     * InstructionPanel getInstructionPanel() { return instructionPanel; } public
-     * TitlesPanel getTitlesPanel() { return titlesPanel; }
-     * 
-     * 
-     * 
-     * public MainGamePanel getMainGamePanel() { return mainGamePanel; }
-     */
-
-
-
-
-
-    
     /*****************************************/
     /* Utilities */
     /*****************************************/
 
     public void finishIntro(){
-        if(this.introPane != null){
-            this.getContentPane().remove(this.introPane);
-            this.introPane = null;
+        if(this.introView != null){
+            this.getContentPane().remove(this.introView);
+            this.introView = null;
 
-            this.mainMenuPane = new MainMenuView(this.model);
-            this.getContentPane().add(mainMenuPane);
+            this.mainMenuView =
+                new MainMenuView( this);
+            this.getContentPane().add(mainMenuView);
+            
             this.revalidate();
             this.repaint();
         }
     }
 
+    public void runNewGame(){
+        loadGame();
+    }
+
+    public void loadGame(){
+        if(this.mainMenuView != null){
+            this.getContentPane().remove(this.mainMenuView);
+            this.mainMenuView = null;
+
+            //Drawing game panel
+        }  
+    }
+
+    public void quitGame() {
+        if(this.gameView != null){
+            this.getContentPane().remove(this.gameView);
+            this.gameView = null;
+
+            this.mainMenuView =
+                new MainMenuView(this);
+            this.getContentPane().add(mainMenuView);
+            
+            this.revalidate();
+            this.repaint();
+        }  
+    }
+
     public void quitApp() {
-        this.mainMenuPane = null;
-        //this.GamePane = null
+        this.mainMenuView = null;
+        this.gameView = null;
         this.dispose();
     }
 }

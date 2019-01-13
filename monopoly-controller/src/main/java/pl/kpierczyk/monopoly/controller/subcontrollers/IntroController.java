@@ -4,8 +4,13 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import pl.kpierczyk.monopoly.controller.Controller;
-import pl.kpierczyk.monopoly.model.*;
-import pl.kpierczyk.monopoly.view.*;
+
+
+
+
+
+
+
 
 //*******************************************//
 //
@@ -17,7 +22,7 @@ import pl.kpierczyk.monopoly.view.*;
 //
 //*******************************************//
 
-public class IntroController {
+public class IntroController implements KeyListener{
 
     /*****************************************/
     /* Class Fields */
@@ -25,8 +30,10 @@ public class IntroController {
 
     private Controller controller;
 
-    private CLoseIntroController closeIntroController;
-    private SkipIntroController skipIntroController;
+
+
+
+
 
     /*****************************************/
     /* Constructor */
@@ -34,62 +41,26 @@ public class IntroController {
 
     public IntroController(Controller controller) {
         this.controller = controller;
-        this.closeIntroController = new CLoseIntroController(controller);
-        this.skipIntroController = new SkipIntroController(controller);
+        controller.getView().addKeyListener(this);
 
-        controller.getView().addKeyListener(skipIntroController);
-    }
-}
-
-
-
-
-
-class CLoseIntroController {
-
-    /*****************************************/
-    /* Class Fields */
-    /*****************************************/
-
-    Controller controller;
-
-    /*****************************************/
-    /* Constructor */
-    /*****************************************/
-
-    public CLoseIntroController(Controller controller) {
-        this.controller = controller;
-
-        long targetTime = controller.getModel().getIntroTime();
+        long targetTime = 
+            controller.getModel().getIntroModel().getIntroTime();
+        
         new java.util.Timer().schedule(new java.util.TimerTask() {
             @Override
             public void run() {
                 controller.finishIntro();
             }
         }, targetTime);
-
     }
-}
 
-class SkipIntroController implements KeyListener {
-    
-    
-    /*****************************************/
-    /* Class Fields */
-    /*****************************************/
 
-    private Controller controller;
 
 
 
     /*****************************************/
-    /* Constructor */
+    /* Listener's methods */
     /*****************************************/
-    
-    
-    SkipIntroController(Controller controller) {
-        this.controller = controller;
-    }
 
     @Override
     public void keyPressed(KeyEvent keyEvent) {
@@ -99,7 +70,7 @@ class SkipIntroController implements KeyListener {
     @Override
     public void keyReleased(KeyEvent keyEvent) {
         if (keyEvent.getKeyCode() == KeyEvent.VK_SPACE) {
-            controller.finishIntro();
+            this.controller.finishIntro();
         } else
             keyEvent.consume();
     }
@@ -108,5 +79,4 @@ class SkipIntroController implements KeyListener {
     public void keyTyped(KeyEvent keyEvent) {
         keyEvent.consume();
     }
-
 }

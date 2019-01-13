@@ -1,6 +1,7 @@
 package pl.kpierczyk.monopoly.controller;
 
 import pl.kpierczyk.monopoly.controller.subcontrollers.IntroController;
+import pl.kpierczyk.monopoly.controller.subcontrollers.gameController.GameController;
 import pl.kpierczyk.monopoly.controller.subcontrollers.mainMenuController.MainMenuController;
 import pl.kpierczyk.monopoly.model.*;
 import pl.kpierczyk.monopoly.view.*;
@@ -22,6 +23,7 @@ import pl.kpierczyk.monopoly.view.*;
 
 public class Controller{
 
+
     /*****************************************/
     /*            Class Fields               */
     /*****************************************/
@@ -31,6 +33,10 @@ public class Controller{
 
     private IntroController introductionController;
     private MainMenuController mainMenuController;
+    private GameController gameController;
+
+
+
 
     /*****************************************/
     /*             Constructor               */
@@ -54,6 +60,19 @@ public class Controller{
     public View getView() {
         return this.view;
     }
+    
+    public IntroController getIntroductionController() {
+        return introductionController;
+    }
+    public MainMenuController getMainMenuController() {
+        return mainMenuController;
+    }
+    public GameController getGameController() {
+        return gameController;
+    }
+
+
+
 
     /*****************************************/
     /*              Utilities                */
@@ -62,15 +81,39 @@ public class Controller{
     public synchronized void finishIntro(){
         model.finishIntro();
         view.finishIntro();
+
+
         this.introductionController = null;
-        this.mainMenuController = new MainMenuController(this);
+        this.mainMenuController =
+            new MainMenuController(this);
     }
 
+    public void runNewGame(){
+        model.runNewGame();
+        view.runNewGame();
 
+        this.mainMenuController = null;
+        this.gameController = 
+            new GameController(this);
+    }
 
+    public void loadGame(){
+        model.getMainMenuModel().getLoadingModel().loadActualSave();
+        view.runNewGame();
 
+        this.mainMenuController = null;
+        this.gameController = 
+            new GameController(this);
+    }
 
+    public void quitGame() {
+        model.quitGame();
+        view.quitGame();
 
+        this.gameController = null;
+        this.mainMenuController =
+            new MainMenuController(this);
+    }
 
     public void quitApp() {
         this.model = null;

@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
 import pl.kpierczyk.monopoly.controller.Controller;
-import pl.kpierczyk.monopoly.model.utilities.MenuField;
+import pl.kpierczyk.monopoly.view.subviews.mainMenuView.MainMenuView;
 
 
 
@@ -26,7 +26,7 @@ import pl.kpierczyk.monopoly.model.utilities.MenuField;
 //
 //*******************************************//
 
-public class MainMenuController implements ActionListener{
+public class MainMenuController{
 
 
     /*****************************************/
@@ -35,28 +35,91 @@ public class MainMenuController implements ActionListener{
 
     private Controller controller;
 
+    /*Main menu listener*/
+    MainMenuListener mainMenuListener;
+
+    /*Submenu's listeners*/
+
+
+
+
     /*****************************************/
     /*             Constructor               */
     /*****************************************/
 
     public MainMenuController(Controller controller){
         this.controller = controller;
-        
-        for(int i = 0; i < this.controller.getView().getMainMenuPane().getButtonsNumber(); i++){
-            this.controller.getView().getMainMenuPane().getButton(i).addActionListener(this);
+
+        /*Initializing mainMenuListener*/
+        this.mainMenuListener = new MainMenuListener(this.controller);
+        MainMenuView mainMenuView = this.controller.getView().getmainMenuView();
+
+        for(int i = 0; i < mainMenuView.getMainMenuButtonsNumber(); i++){
+            mainMenuView.getMainMenuButton(i).addActionListener(this.mainMenuListener);
         }
     }
 
 
     /*****************************************/
-    /*          Getters & setters            */
-    /*****************************************/
-
-
-    /*****************************************/
     /*              Utilities                */
     /*****************************************/
-    
+   
+    public void newGame(){
+
+    }
+
+    public void openLoadingMenu(){
+
+    }
+
+    public void openOptionsMenu(){
+
+    }
+
+    public void openInstruction(){
+
+    }
+
+    public void openTitles(){
+
+    }
+
+    public void closeChild(){
+        
+    }
+}
+
+
+
+class MainMenuListener implements ActionListener{
+
+    /*****************************************/
+    /*            Class Fields               */
+    /*****************************************/
+
+    Controller controller;
+
+
+
+
+    /*****************************************/
+    /*             Constructor               */
+    /*****************************************/
+
+
+    public MainMenuListener(Controller controller){
+        this.controller = controller;
+    }
+
+
+
+
+
+    /*****************************************/
+    /* Listener's methods */
+    /*****************************************/
+
+
     @Override
     public void actionPerformed(ActionEvent e) {
         String buttonsName = ( (JButton) e.getSource()).getText();
@@ -86,28 +149,5 @@ public class MainMenuController implements ActionListener{
         else if(buttonsName == possibleButtonsNames[5]){
          this.controller.quitApp();   
         }
-    }
-
-
-
-    
-    public void newGame(){
-
-    }
-
-    public void openLoadingMenu(){
-
-    }
-
-    public void openOptionsMenu(){
-
-    }
-
-    public void openInstruction(){
-
-    }
-
-    public void closeChild(){
-        
     }
 }

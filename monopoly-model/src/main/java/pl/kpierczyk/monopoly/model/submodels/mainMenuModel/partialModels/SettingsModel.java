@@ -114,6 +114,9 @@ public class SettingsModel{
     /*          Getters & setters            */
     /*****************************************/
 
+    public String getConfigPath() {
+        return configPath;
+    }
 
     public String getOkButtonText() {
         return okButtonText;
@@ -179,6 +182,6 @@ public class SettingsModel{
     }
 
     public boolean saveChanges(){
-        return this.settingsCopy.writeToFile();
+        return this.settingsCopy.writeToFile(this.configPath);
     }
 }
