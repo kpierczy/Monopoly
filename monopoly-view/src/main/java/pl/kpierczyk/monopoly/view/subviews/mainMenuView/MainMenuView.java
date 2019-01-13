@@ -14,6 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import pl.kpierczyk.monopoly.view.View;
+import pl.kpierczyk.monopoly.view.subviews.mainMenuView.partialViews.TitlesView;
 
 //*******************************************//
 //
@@ -36,16 +37,17 @@ public class MainMenuView extends JPanel {
 
 
     /*Main Menu elements*/
+
     private Image backgroundImage;
     private MainMenuPanel mainMenuPanel;
 
 
     /*Submenus views (panels)*/
 
-
-
-
-
+    //private LoadingView loadingView;
+    //private SettingsView settingsView;
+    //private InstructionView instructionView;
+    private TitlesView titlesView;
 
 
     /*****************************************/
@@ -81,6 +83,7 @@ public class MainMenuView extends JPanel {
 
 
 
+
     /*****************************************/
     /* Getters & setters */
     /*****************************************/
@@ -104,16 +107,22 @@ public class MainMenuView extends JPanel {
 
 
     /*Submenus elements methods*/
-    
 
+    //public LoadingView getLoadingView() {
+    //    return loadingView;
+    //}
 
-    
+    //public SettingsView getSettingsView() {
+    //    return settingsView;
+    //}
 
+    //public InstructionView getInstructionView() {
+    //    return instructionView;
+    //}
 
-
-
-
-
+    public TitlesView getTitlesView() {
+        return titlesView;
+    }
     
 
     /*****************************************/
@@ -128,28 +137,97 @@ public class MainMenuView extends JPanel {
 
 
     /*Logical utilities*/
-    public void newGame(){
-
+    public void runNewGame(){
+        if(this.mainMenuPanel != null){
+            this.view.runNewGame();
+        }
     }
 
     public void openLoadingMenu(){
+        if(this.mainMenuPanel != null){
+            //this.remove(this.mainMenuPanel);
+            //this.mainMenuPanel = null;
+            
+            //this.loadingView =
+            //    new LoadingView(this.view);
+            //this.add(this.loadingView);
 
+            //this.view.revalidate();
+            //this.view.repaint();
+        }
     }
 
     public void openOptionsMenu(){
+        if(this.mainMenuPanel != null){
+            //this.remove(this.mainMenuPanel);
+            //this.mainMenuPanel = null;
+                    
+            //this.optionsView =
+            //    new OptionsView(this.view);
+            //this.add(this.optionsView);
 
+            //this.view.revalidate();
+            //this.view.repaint();
+        }
     }
 
     public void openInstruction(){
+        if(this.mainMenuPanel != null){
+            //this.remove(this.mainMenuPanel);
+            //this.mainMenuPanel = null;
+            
+            //this.instructionView =
+            //    new InstructionView(this.view);
+            //this.add(this.instructionView);
 
+            //this.view.revalidate();
+            //this.view.repaint();
+        }
     }
 
     public void openTitles(){
+        if(this.mainMenuPanel != null){
+            this.remove(this.mainMenuPanel);
+            this.mainMenuPanel = null;
 
+            this.titlesView =
+                new TitlesView(this.view);
+            this.add(this.titlesView);
+
+            this.view.revalidate();
+            this.view.repaint();
+        }
     }
 
     public void closeChild(){
-        
+        if(this.mainMenuPanel == null){
+            //if(this.loadingView != null){
+            //    this.remove(this.loadingView);
+            //    this.loadingView = null;
+            //}
+
+            //if(this.settingsView != null){
+            //    this.remove(this.settingsView);
+            //    this.settingsView = null;
+            //}
+
+            //if(this.instructionView != null){
+            //    this.remove(this.instructionView);
+            //    this.instructionView = null;
+            //}
+
+            if(this.titlesView != null){
+                this.remove(this.titlesView);
+                this.titlesView = null;
+            }
+
+            this.mainMenuPanel =
+                new MainMenuPanel(this.view);
+            this.add(this.mainMenuPanel);
+
+            this.view.revalidate();
+            this.view.repaint();
+        }
     }
 }
 

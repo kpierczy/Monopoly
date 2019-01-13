@@ -91,7 +91,7 @@ public class View extends JFrame {
     public IntroView getintroView() {
         return introView;
     }
-    public MainMenuView getmainMenuView() {
+    public MainMenuView getMainMenuView() {
         return mainMenuView;
     }
     public GameView getGameView(){

@@ -30,7 +30,7 @@ public class MainMenuModel {
 
 
     public enum MainMenuState {
-        _default, loading, options, instruction, titles
+        _default, loading, settings, instruction, titles
     }
 
 
@@ -116,7 +116,9 @@ public class MainMenuModel {
     /* Getters & setters */
     /*****************************************/
     
-    
+
+    /*Main menu elements methods*/
+
     public MainMenuState getState() {
         return state;
     }
@@ -130,13 +132,16 @@ public class MainMenuModel {
     }
 
 
+
+    /*Submenus elements methods*/
+
     public InstructionModel getInstructionModel() {
         return instructionModel;
     }
     public LoadingModel getLoadingModel() {
         return loadingModel;
     }
-    public SettingsModel getOptionsModel() {
+    public SettingsModel getsettingsModel() {
         return settingsModel;
     }
     public TitlesModel getTitlesModel() {
@@ -150,7 +155,7 @@ public class MainMenuModel {
     /* Utilities */
     /*****************************************/
 
-    public void newGame(){
+    public void runNewGame(){
         this.model.runNewGame();
     }
 
@@ -186,7 +191,7 @@ public class MainMenuModel {
 
     public void openSettings(){
         if(getState() == MainMenuState._default){
-            this.state = MainMenuState.options;
+            this.state = MainMenuState.settings;
             
             /*Getting config file path*/
             String relativeConfigPath = "/config.txt";
@@ -207,7 +212,7 @@ public class MainMenuModel {
             /*Getting settings text file path*/
             String relativeSettingsTextPath = "/lang/" +
                                               this.model.getSettings().getLanguage() + 
-                                              "/optionsMenu.txt";
+                                              "/settingsMenu.txt";
             String settingsTextPath = 
                 Util.convert(getClass().getResource(relativeSettingsTextPath).getPath());
 
@@ -251,11 +256,11 @@ public class MainMenuModel {
     public void openTitles() {
         if (getState() == MainMenuState._default) {
             this.state = MainMenuState.titles;
-
+ 
             /*Getting backButton text file path*/
-            String relativeTitlesPath = "lang/" +
+            String relativeTitlesPath = "/lang/" +
                                         this.model.getSettings().getLanguage() +
-                                        "/titles.png";
+                                        "/img/titles/titles.png";
             String titlesPath = 
             Util.convert(getClass().getResource(relativeTitlesPath).getPath());
 

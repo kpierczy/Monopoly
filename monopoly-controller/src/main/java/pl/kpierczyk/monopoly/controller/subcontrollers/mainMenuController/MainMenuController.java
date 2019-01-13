@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
 import pl.kpierczyk.monopoly.controller.Controller;
+import pl.kpierczyk.monopoly.controller.subcontrollers.mainMenuController.partialControllers.TitlesController;
 import pl.kpierczyk.monopoly.view.subviews.mainMenuView.MainMenuView;
 
 
@@ -36,11 +37,14 @@ public class MainMenuController{
     private Controller controller;
 
     /*Main menu listener*/
-    MainMenuListener mainMenuListener;
+    private MainMenuListener mainMenuListener;
 
     /*Submenu's listeners*/
 
-
+    //private LoadingController loadigController;
+    //private SettingsController settingsController;
+    //private InstructionController instructionController;
+    private TitlesController titlesController;
 
 
     /*****************************************/
@@ -52,12 +56,42 @@ public class MainMenuController{
 
         /*Initializing mainMenuListener*/
         this.mainMenuListener = new MainMenuListener(this.controller);
-        MainMenuView mainMenuView = this.controller.getView().getmainMenuView();
+        MainMenuView mainMenuView = this.controller.getView().getMainMenuView();
 
         for(int i = 0; i < mainMenuView.getMainMenuButtonsNumber(); i++){
             mainMenuView.getMainMenuButton(i).addActionListener(this.mainMenuListener);
         }
     }
+
+
+
+
+
+
+    /*****************************************/
+    /*          Getters & setters            */
+    /*****************************************/
+
+    //public LoadingController getLoadingController() {
+    //    return loadingController;
+    //}
+
+    //public SettingsController getSettingsController() {
+    //    return settingsController;
+    //}
+
+    //public InstructionController getInstructionController() {
+    //    return instructionController;
+    //}
+
+    public TitlesController getTitlesController() {
+        return titlesController;
+    }
+
+
+
+
+
 
 
     /*****************************************/
@@ -81,15 +115,57 @@ public class MainMenuController{
     }
 
     public void openTitles(){
+        if(this.mainMenuListener != null){
+            this.controller.getModel().getMainMenuModel().openTitles();
+            this.controller.getView().getMainMenuView().openTitles();
 
+            this.mainMenuListener = null;
+            this.titlesController =
+                new TitlesController(this.controller);
+        }
     }
 
     public void closeChild(){
-        
+        if(this.mainMenuListener == null){
+
+            //this.loadingController = null;
+            //this.settingsController = null;
+            //this.instructionController = null;
+            this.titlesController = null;
+
+            this.mainMenuListener =
+                new MainMenuListener(this.controller);
+            MainMenuView mainMenuView =
+                this.controller.getView().getMainMenuView();
+
+            for(int i = 0; i < mainMenuView.getMainMenuButtonsNumber(); i++){
+                mainMenuView.getMainMenuButton(i).addActionListener(this.mainMenuListener);
+            }
+        }
     }
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+//*******************************************//
+//
+//
+//
+//
+//
+//
+//
+//*******************************************//
 
 class MainMenuListener implements ActionListener{
 
@@ -143,7 +219,7 @@ class MainMenuListener implements ActionListener{
         }
         //Titles
         else if(buttonsName == possibleButtonsNames[4]){
-            
+            this.controller.getMainMenuController().openTitles();
         }
         //Quit app
         else if(buttonsName == possibleButtonsNames[5]){

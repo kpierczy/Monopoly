@@ -1,5 +1,9 @@
 package pl.kpierczyk.monopoly.model.submodels.mainMenuModel.partialModels;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
 import pl.kpierczyk.monopoly.model.Model;
 
 //*******************************************//
@@ -33,12 +37,29 @@ public class TitlesModel{
 
     public TitlesModel(Model model,
                        String titlesPath,
-                       String backButtonText) {
+                       String backButtonTextPath) {
         
         this.model = model;
         this.titlesPath= titlesPath;
-        this.backButtonText = backButtonText;
         
+
+        /*Reading back button's text*/
+        String backButtonText;
+
+        try {
+            FileReader fileReader =
+                new FileReader(backButtonTextPath);
+            BufferedReader bufferedReader =
+                new BufferedReader(fileReader);
+
+            backButtonText = bufferedReader.readLine();
+            bufferedReader.close();
+        } catch (IOException ex) {
+            System.out.println("Couldn't read buttons text from" + backButtonTextPath);
+            backButtonText = "???";
+        }
+
+        this.backButtonText = backButtonText;
     }
 
 
