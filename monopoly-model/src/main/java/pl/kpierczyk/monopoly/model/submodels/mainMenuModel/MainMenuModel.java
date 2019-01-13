@@ -159,6 +159,7 @@ public class MainMenuModel {
         if (getState() == MainMenuState._default) {
             this.state = MainMenuState.loading;
 
+            //check if getResource can find it!
             String relativeSavesPath = "/saves";
             String savesPath = Util.convert(getClass().getResource(relativeSavesPath).getPath());
 
@@ -179,72 +180,51 @@ public class MainMenuModel {
     }
 
 
-    public boolean openSettings(){
+    public void openSettings(){
         if(getState() == MainMenuState._default){
             this.state = MainMenuState.options;
             
+            //check if getResource can find it!
+            /*Getting config file path*/
+            String relativeConfigPath = "/config.txt";
+            String configPath = Util.convert(getClass().getResource(relativeConfigPath).getPath());
 
-            String submitButtonText = "???";
-            String backButtonText = "???";
-            String optionsTexts[] = new String[this.model.getSettings().getSettingsNumber()];
-            String configPath = "/config.txt";
+            /*Getting buttons text files paths*/
+            String relativeButtonsPath[] = new String[] {
+                "/lang/" + this.model.getSettings().getLanguage() + "/okButton.txt",
+                "/lang/" + this.model.getSettings().getLanguage() + "/backButton.txt"
+            };
 
-            try{
-                FileReader fileReader = 
-                    new FileReader("/lang/" + this.model.getSettings().getLanguage() + "/submitButtonText.txt");
-                BufferedReader bufferedReader =
-                    new BufferedReader(fileReader);
+            String buttonsPath[] = new String[]{
+                Util.convert(getClass().getResource(relativeButtonsPath[0]).getPath()),
+                Util.convert(getClass().getResource(relativeButtonsPath[1]).getPath())
+            };
 
-                if((submitButtonText = bufferedReader.readLine()) == null)
-                    submitButtonText = "???";
-
-                bufferedReader.close();
-            }
-            catch(IOException ex){
-                System.out.println("Couln't read submitButton.txt");
-            }
-
-
-            try{
-                FileReader fileReader = 
-                    new FileReader("/lang/" + this.model.getSettings().getLanguage() + "/backButtonText.txt");
-                BufferedReader bufferedReader =
-                    new BufferedReader(fileReader);
-
-                if((backButtonText = bufferedReader.readLine()) == null)
-                    backButtonText = "???";
-
-                    bufferedReader.close();
-            }
-            catch(IOException ex){
-                System.out.println("Couln't read backButton.txt");
-            }            
+            /*Getting settings text file path*/
+            String relativeSettingsTextPath = "/lang/" +
+                                              this.model.getSettings().getLanguage() + 
+                                              "/optionsMenu.txt";
+            String settingsTextPath = Util.convert(getClass().getResource(relativeSettingsTextPath).getPath());
 
 
-            try{
-                FileReader fileReader = 
-                    new FileReader("/lang/" + this.model.getSettings().getLanguage() + "/optionsMenu.txt");
-                BufferedReader bufferedReader =
-                    new BufferedReader(fileReader);
 
-                for(int i = 0; i < this.model.getSettings().getSettingsNumber(); i++){
-                    if((optionsTexts[i] = bufferedReader.readLine()) == null)
-                        backButtonText = "???";
-                }
-
-                bufferedReader.close();
-            }
-            catch(IOException ex){
-                System.out.println("Couln't read backButton.txt");
-            } 
-
-            this.settingsModel = new SettingsModel(this.model,
-                                                   , buttonsPath, SettingsTextsPath);
-            return true;
+            this.settingsModel = new SettingsModel(model,
+                                                   configPath,
+                                                   buttonsPath,
+                                                   settingsTextPath);
         }
-        else
-            return false;
     }
+
+
+
+
+
+
+
+
+
+
+
 
     public boolean openInstruction() {
         if (getState() == MainMenuState._default) {
@@ -272,7 +252,7 @@ public class MainMenuModel {
         if (getState() != MainMenuState._default) {
             this.state = MainMenuState._default;
             loadingModel = null;
-            optionsModel = null;
+            settingsModel = null;
             titlesModel = null;
             instructionModel = null;
             return true;
