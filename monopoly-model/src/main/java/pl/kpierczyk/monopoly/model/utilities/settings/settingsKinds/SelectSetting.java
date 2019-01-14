@@ -72,7 +72,7 @@ public class SelectSetting implements Setting{
     /*****************************************/
 
     public boolean nextValue(){
-        if(this.value < this.possibleValues.length){
+        if(this.value < this.possibleValues.length - 1){
             value++;
             return true;
         }

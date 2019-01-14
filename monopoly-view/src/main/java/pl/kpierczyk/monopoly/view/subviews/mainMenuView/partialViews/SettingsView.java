@@ -23,15 +23,16 @@ import javax.swing.border.Border;
 
 import pl.kpierczyk.monopoly.view.View;
 
-//*******************************************//
-//
-//
-//
-//
-//
-//
-//
-//*******************************************//
+
+
+
+
+
+
+
+
+
+
 
 public class SettingsView extends JPanel{
 
@@ -145,8 +146,6 @@ public class SettingsView extends JPanel{
 
 
 
-        /*Placing elements in the panel*/
-
         /*JPanel for back and ok buttons*/
         JPanel backOkButtonsContainer = new JPanel(new BorderLayout()); 
 
@@ -159,81 +158,128 @@ public class SettingsView extends JPanel{
                                                         this.bottomButtonsHeight));                                                            
         backOkButtonsContainer.setPreferredSize(new Dimension(this.getPreferredSize().width,
                                                            this.bottomButtonsHeight));
-
         this.add(backOkButtonsContainer, BorderLayout.SOUTH);
+
+
 
 
         /*JPanel for settings*/
         JPanel allGatherPanel = new JPanel();
-        allGatherPanel.setLayout(new BoxLayout(allGatherPanel, BoxLayout.Y_AXIS));
-        this.add(allGatherPanel, BorderLayout.CENTER);
-        allGatherPanel.setBorder(BorderFactory.createEmptyBorder(80, 225, 80, 225));
 
-        /*Sttings row*/
+        allGatherPanel.setLayout(new BoxLayout(allGatherPanel, BoxLayout.Y_AXIS));
+        allGatherPanel.setBorder(BorderFactory.createEmptyBorder(80, 160, 80, 240));
+
+        this.add(allGatherPanel, BorderLayout.CENTER);
+        
+
+
+
+        /*Settings row*/
         JPanel languageRow = new JPanel();
-        languageRow.setLayout(new BoxLayout(languageRow, BoxLayout.X_AXIS));
+        FlowLayout languageRowLayout = new FlowLayout(FlowLayout.LEFT);
+        languageRow.setLayout(languageRowLayout);
         allGatherPanel.add(languageRow);
+
         allGatherPanel.add(Box.createVerticalStrut(50));
+
         JPanel resolutionRow = new JPanel();
-        resolutionRow.setLayout(new BoxLayout(resolutionRow, BoxLayout.X_AXIS));
+        FlowLayout resolutoinRowLayout = new FlowLayout(FlowLayout.LEFT);
+        resolutionRow.setLayout(resolutoinRowLayout);
         allGatherPanel.add(resolutionRow);
+
         allGatherPanel.add(Box.createVerticalStrut(50));
+
         JPanel fullscreenRow = new JPanel();
-        fullscreenRow.setLayout(new BoxLayout(fullscreenRow, BoxLayout.X_AXIS));
+        FlowLayout fullscreenRowLayout = new FlowLayout(FlowLayout.LEFT);
+        fullscreenRow.setLayout(fullscreenRowLayout);
         allGatherPanel.add(fullscreenRow);
+
         allGatherPanel.add(Box.createVerticalStrut(50));
+
         JPanel soundLevelRow = new JPanel();
-        soundLevelRow.setLayout(new BoxLayout(soundLevelRow, BoxLayout.X_AXIS));
+        FlowLayout soundLevelRowLayout = new FlowLayout(FlowLayout.LEFT);
+        soundLevelRow.setLayout(soundLevelRowLayout);
         allGatherPanel.add(soundLevelRow);
+
+
+
+
 
         /*JPanel for langueage*/
         languageRow.add(this.languageTitleLabel);
+        this.languageTitleLabel.setPreferredSize(new Dimension(250, 40));
+        this.languageTitleLabel.setHorizontalAlignment( SwingConstants.CENTER );
 
-        JPanel languageValuePanel = new JPanel(new FlowLayout());
-        languageValuePanel.add(this.previousLanguageButton);
-        languageValuePanel.add(this.languageLabel);
-        this.languageLabel.setPreferredSize(new Dimension(140, 20));
-        this.languageLabel.setHorizontalAlignment( SwingConstants.CENTER );
-        languageValuePanel.add(this.nextLanguageButton);
-        languageValuePanel.setMaximumSize(new Dimension(300, 40));
-
-        languageRow.add(Box.createHorizontalStrut(110));
+        JPanel languageValuePanel = new JPanel();
+        FlowLayout languageValuePanelLayout = new FlowLayout(FlowLayout.LEFT);
+        languageValuePanel.setLayout(languageValuePanelLayout);
         languageRow.add(languageValuePanel);
+
+        languageValuePanel.add(this.previousLanguageButton);
+        this.previousLanguageButton.setPreferredSize(new Dimension(60, 30));
+
+        languageValuePanel.add(this.languageLabel);
+        this.languageLabel.setPreferredSize(new Dimension(140, 40));
+        this.languageLabel.setHorizontalAlignment( SwingConstants.CENTER );
+
+        languageValuePanel.add(this.nextLanguageButton);
+        this.nextLanguageButton.setPreferredSize(new Dimension(60, 30));
+
+        
+
         
 
         /*JPanel for resolution*/
         resolutionRow.add(this.resolutionTitleLabel);
+        this.resolutionTitleLabel.setPreferredSize(new Dimension(250, 40));
+        this.resolutionTitleLabel.setHorizontalAlignment( SwingConstants.CENTER );
+        
+        JPanel resolutionValuePanel = new JPanel();
+        FlowLayout resolutionValuePanelLayout = new FlowLayout(FlowLayout.LEFT);
+        resolutionValuePanel.setLayout(resolutionValuePanelLayout);
+        resolutionRow.add(resolutionValuePanel);
 
-        JPanel resolutionValuePanel = new JPanel(new FlowLayout());
         resolutionValuePanel.add(this.previousResolutionButton);
+        this.previousResolutionButton.setPreferredSize(new Dimension(60, 30));
+
         resolutionValuePanel.add(this.resolutionLabel);
         this.resolutionLabel.setPreferredSize(new Dimension(140, 20));
         this.resolutionLabel.setHorizontalAlignment( SwingConstants.CENTER );
-        resolutionValuePanel.add(this.nextResolutionButton);
-        resolutionValuePanel.setMaximumSize(new Dimension(300, 40));
 
-        resolutionRow.add(Box.createHorizontalStrut(100));
-        resolutionRow.add(resolutionValuePanel);
+        resolutionValuePanel.add(this.nextResolutionButton);
+        this.nextResolutionButton.setPreferredSize(new Dimension(60, 30));
+
+
+
 
         /*JPanel for fullscreen*/
         fullscreenRow.add(this.fullscreenTitleLabel);
+        this.fullscreenTitleLabel.setPreferredSize(new Dimension(250, 40));
+        this.fullscreenTitleLabel.setHorizontalAlignment( SwingConstants.CENTER );
 
-        JPanel fullscreenValuePanel = new JPanel(new FlowLayout());
+        JPanel fullscreenValuePanel = new JPanel();
+        FlowLayout fullscreenValuePanelLayout = new FlowLayout(FlowLayout.LEFT);
+        resolutionValuePanel.setLayout(fullscreenValuePanelLayout);
+        fullscreenRow.add(fullscreenValuePanel);
+
         fullscreenValuePanel.add(this.previousfullscreenButton);
+        this.previousfullscreenButton.setPreferredSize(new Dimension(60, 30));
+
         fullscreenValuePanel.add(this.fullscreenLabel);
         this.fullscreenLabel.setPreferredSize(new Dimension(140, 20));
         this.fullscreenLabel.setHorizontalAlignment( SwingConstants.CENTER );
-        fullscreenValuePanel.add(this.nextfullscreenButton);
-        fullscreenValuePanel.setMaximumSize(new Dimension(300, 40));
 
-        fullscreenRow.add(Box.createHorizontalStrut(105));
-        fullscreenRow.add(fullscreenValuePanel);
+        fullscreenValuePanel.add(this.nextfullscreenButton);
+        this.nextfullscreenButton.setPreferredSize(new Dimension(60, 30));
+
 
         /*JPanel for soundLevel*/
         soundLevelRow.add(this.soundLevelLabel);
-        soundLevelRow.add(Box.createHorizontalStrut(100));
+        this.soundLevelLabel.setPreferredSize(new Dimension(250, 20));
+        this.soundLevelLabel.setHorizontalAlignment( SwingConstants.CENTER );
+
         soundLevelRow.add(this.soundLevelSlider);
-        this.soundLevelSlider.setMaximumSize(new Dimension(300, 30));
+        this.soundLevelSlider.setPreferredSize(new Dimension(280, 40));
     }
 
 

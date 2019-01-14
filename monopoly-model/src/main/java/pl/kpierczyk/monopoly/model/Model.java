@@ -40,7 +40,7 @@ public class Model {
 
     private AppState state; // state of the whole app
 
-    final private Settings settings;
+    private Settings settings;
     
     private IntroModel introModel;
     private MainMenuModel mainMenuModel; // Model responsible for main menu
@@ -67,6 +67,7 @@ public class Model {
 
         /* initializing settings */
         this.settings = new Settings();
+        
         String relativeConfigPath = "/config.txt";
         URL notConvertedconfigPath = getClass().getResource(relativeConfigPath);
         
@@ -131,6 +132,10 @@ public class Model {
         return settings;
     }
 
+    public void setSettings(Settings settings){
+        this.settings = null;
+        this.settings = new Settings(settings);
+    }
 
 
     
@@ -174,5 +179,10 @@ public class Model {
         this.introModel = null;
         this.mainMenuModel = null;
         this.gameModel = null;
+    }
+
+    public void update(){
+        this.mainMenuModel = null;
+        this.mainMenuModel = new MainMenuModel(this);
     }
 }

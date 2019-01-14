@@ -163,17 +163,17 @@ public class SettingsModel{
     /*****************************************/
 
     public boolean previousLanguage(){
-        return this.settingsCopy.getLanguageSetting().nextValue();
+        return this.settingsCopy.getLanguageSetting().previousValue();
     }
     public boolean nextLanguage(){
-        return this.settingsCopy.getLanguageSetting().previousValue();
+        return this.settingsCopy.getLanguageSetting().nextValue();
     }
 
     public boolean previousResolution(){
-        return this.settingsCopy.getResolutionSetting().nextValue();
+        return this.settingsCopy.getResolutionSetting().previousValue();
     }
     public boolean nextResolution(){
-        return this.settingsCopy.getResolutionSetting().previousValue();
+        return this.settingsCopy.getResolutionSetting().nextValue();
     }
 
     public void switchFullscreen(){
@@ -190,7 +190,10 @@ public class SettingsModel{
     }
 
     public boolean saveChanges(){
-        this.settingsCopy.writeToFile(this.configPath);
-        return this.model.getMainMenuModel().closeChild(); 
+        this.model.setSettings(this.settingsCopy);
+        if(!this.settingsCopy.writeToFile(this.configPath))
+            return false;
+        this.model.update();
+        return true;
     }
 }

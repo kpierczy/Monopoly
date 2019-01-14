@@ -38,7 +38,7 @@ public class Settings {
         this.language =
             new SelectSetting(0, new String[] { "en", "pl" });
         this.resolution =
-            new SelectSetting(0, new String[] { "1920x1080", "800x600" });
+            new SelectSetting(1, new String[] { "800x600", "1920x1080" });
         this.fullscreen =
             new BooleanSetting(false);
         this.soundLevel =
@@ -56,7 +56,7 @@ public class Settings {
         this.language =
             new SelectSetting(0, new String[] { "en", "pl" });
         this.resolution =
-            new SelectSetting(0, new String[] { "1920x1080", "800x600" });
+            new SelectSetting(1, new String[] { "800x600", "1920x1080"});
         this.fullscreen =
             new BooleanSetting(false);
                 
@@ -220,10 +220,10 @@ public class Settings {
             if ((line = bufferedReader.readLine()) != null) {
                 switch (line) {
                 case "1920x1080":
-                    this.setResolution(0);
+                    this.setResolution(1);
                     break;
                 case "800x600":
-                    this.setResolution(1);
+                    this.setResolution(0);
                     break;
                 }
             }
@@ -272,10 +272,10 @@ public class Settings {
             PrintWriter printWriter =
                 new PrintWriter(fileWriter);
 
-            printWriter.print(this.getLanguageSetting().toString());
-            printWriter.print(this.getResolutionSetting().toString());
-            printWriter.print(this.getFullscreenSetting().toString());
-            printWriter.print(this.getSoundSetting().toString());
+            printWriter.println(this.getLanguageSetting().toString());
+            printWriter.println(this.getResolutionSetting().toString());
+            printWriter.println(this.getFullscreenSetting().toString());
+            printWriter.println(this.getSoundSetting().toString());
 
             printWriter.close();
         } 
