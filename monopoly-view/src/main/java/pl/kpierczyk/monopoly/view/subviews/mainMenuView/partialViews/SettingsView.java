@@ -12,11 +12,13 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
+import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 
 import pl.kpierczyk.monopoly.view.View;
@@ -130,6 +132,7 @@ public class SettingsView extends JPanel{
         this.nextfullscreenButton.setFont(font);
 
         this.soundLevelLabel = new JLabel(this.view.getModel().getMainMenuModel().getSettingsModel().getSettingsTexts(3));
+        this.soundLevelLabel.setFont(font);
         this.soundLevelSlider = new JSlider(0, 100);
         this.soundLevelSlider.setValue(Integer.parseInt(this.view.getModel().getMainMenuModel().getSettingsModel().getSettingsValues(3)));
         
@@ -164,15 +167,23 @@ public class SettingsView extends JPanel{
         JPanel allGatherPanel = new JPanel();
         allGatherPanel.setLayout(new BoxLayout(allGatherPanel, BoxLayout.Y_AXIS));
         this.add(allGatherPanel, BorderLayout.CENTER);
+        allGatherPanel.setBorder(BorderFactory.createEmptyBorder(80, 225, 80, 225));
 
         /*Sttings row*/
-        JPanel languageRow = new JPanel(new FlowLayout());
+        JPanel languageRow = new JPanel();
+        languageRow.setLayout(new BoxLayout(languageRow, BoxLayout.X_AXIS));
         allGatherPanel.add(languageRow);
-        JPanel resolutionRow = new JPanel(new FlowLayout());
+        allGatherPanel.add(Box.createVerticalStrut(50));
+        JPanel resolutionRow = new JPanel();
+        resolutionRow.setLayout(new BoxLayout(resolutionRow, BoxLayout.X_AXIS));
         allGatherPanel.add(resolutionRow);
-        JPanel fullscreenRow = new JPanel(new FlowLayout());
+        allGatherPanel.add(Box.createVerticalStrut(50));
+        JPanel fullscreenRow = new JPanel();
+        fullscreenRow.setLayout(new BoxLayout(fullscreenRow, BoxLayout.X_AXIS));
         allGatherPanel.add(fullscreenRow);
-        JPanel soundLevelRow = new JPanel(new FlowLayout());
+        allGatherPanel.add(Box.createVerticalStrut(50));
+        JPanel soundLevelRow = new JPanel();
+        soundLevelRow.setLayout(new BoxLayout(soundLevelRow, BoxLayout.X_AXIS));
         allGatherPanel.add(soundLevelRow);
 
         /*JPanel for langueage*/
@@ -181,9 +192,14 @@ public class SettingsView extends JPanel{
         JPanel languageValuePanel = new JPanel(new FlowLayout());
         languageValuePanel.add(this.previousLanguageButton);
         languageValuePanel.add(this.languageLabel);
+        this.languageLabel.setPreferredSize(new Dimension(140, 20));
+        this.languageLabel.setHorizontalTextPosition( SwingConstants.CENTER );
         languageValuePanel.add(this.nextLanguageButton);
+        languageValuePanel.setMaximumSize(new Dimension(300, 40));
 
+        languageRow.add(Box.createHorizontalStrut(110));
         languageRow.add(languageValuePanel);
+        
 
         /*JPanel for resolution*/
         resolutionRow.add(this.resolutionTitleLabel);
@@ -191,8 +207,12 @@ public class SettingsView extends JPanel{
         JPanel resolutionValuePanel = new JPanel(new FlowLayout());
         resolutionValuePanel.add(this.previousResolutionButton);
         resolutionValuePanel.add(this.resolutionLabel);
+        this.resolutionLabel.setPreferredSize(new Dimension(140, 20));
+        this.resolutionLabel.setHorizontalTextPosition( SwingConstants.RIGHT );
         resolutionValuePanel.add(this.nextResolutionButton);
+        resolutionValuePanel.setMaximumSize(new Dimension(300, 40));
 
+        resolutionRow.add(Box.createHorizontalStrut(100));
         resolutionRow.add(resolutionValuePanel);
 
         /*JPanel for fullscreen*/
@@ -201,13 +221,19 @@ public class SettingsView extends JPanel{
         JPanel fullscreenValuePanel = new JPanel(new FlowLayout());
         fullscreenValuePanel.add(this.previousfullscreenButton);
         fullscreenValuePanel.add(this.fullscreenLabel);
+        this.fullscreenLabel.setPreferredSize(new Dimension(140, 20));
+        this.fullscreenLabel.setHorizontalTextPosition( SwingConstants.CENTER );
         fullscreenValuePanel.add(this.nextfullscreenButton);
+        fullscreenValuePanel.setMaximumSize(new Dimension(300, 40));
 
+        fullscreenRow.add(Box.createHorizontalStrut(105));
         fullscreenRow.add(fullscreenValuePanel);
 
         /*JPanel for soundLevel*/
         soundLevelRow.add(this.soundLevelLabel);
+        soundLevelRow.add(Box.createHorizontalStrut(100));
         soundLevelRow.add(this.soundLevelSlider);
+        this.soundLevelSlider.setMaximumSize(new Dimension(300, 30));
     }
 
 
@@ -347,7 +373,6 @@ public class SettingsView extends JPanel{
 
     public void previousResolution(){
         this.resolutionLabel.setText(this.view.getModel().getMainMenuModel().getSettingsModel().getSettingsValues(1));
-
         this.view.revalidate();
         this.view.repaint();
     }
