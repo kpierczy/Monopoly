@@ -193,7 +193,7 @@ public class SettingsView extends JPanel{
         languageValuePanel.add(this.previousLanguageButton);
         languageValuePanel.add(this.languageLabel);
         this.languageLabel.setPreferredSize(new Dimension(140, 20));
-        this.languageLabel.setHorizontalTextPosition( SwingConstants.CENTER );
+        this.languageLabel.setHorizontalAlignment( SwingConstants.CENTER );
         languageValuePanel.add(this.nextLanguageButton);
         languageValuePanel.setMaximumSize(new Dimension(300, 40));
 
@@ -208,7 +208,7 @@ public class SettingsView extends JPanel{
         resolutionValuePanel.add(this.previousResolutionButton);
         resolutionValuePanel.add(this.resolutionLabel);
         this.resolutionLabel.setPreferredSize(new Dimension(140, 20));
-        this.resolutionLabel.setHorizontalTextPosition( SwingConstants.RIGHT );
+        this.resolutionLabel.setHorizontalAlignment( SwingConstants.CENTER );
         resolutionValuePanel.add(this.nextResolutionButton);
         resolutionValuePanel.setMaximumSize(new Dimension(300, 40));
 
@@ -222,7 +222,7 @@ public class SettingsView extends JPanel{
         fullscreenValuePanel.add(this.previousfullscreenButton);
         fullscreenValuePanel.add(this.fullscreenLabel);
         this.fullscreenLabel.setPreferredSize(new Dimension(140, 20));
-        this.fullscreenLabel.setHorizontalTextPosition( SwingConstants.CENTER );
+        this.fullscreenLabel.setHorizontalAlignment( SwingConstants.CENTER );
         fullscreenValuePanel.add(this.nextfullscreenButton);
         fullscreenValuePanel.setMaximumSize(new Dimension(300, 40));
 
