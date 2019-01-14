@@ -27,6 +27,11 @@ import pl.kpierczyk.monopoly.view.subviews.mainMenuView.partialViews.TitlesView;
 //
 //*******************************************//
 
+//<--- TO DO --->
+// Create base class MenuModel for MainMenuView and InGameMenuView
+// At least InGameView can extend MainMenuView with overloaded method quit()
+
+
 public class MainMenuView extends JPanel {
 
 

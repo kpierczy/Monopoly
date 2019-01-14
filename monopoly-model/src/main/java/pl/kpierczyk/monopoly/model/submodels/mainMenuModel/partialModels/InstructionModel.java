@@ -4,15 +4,6 @@ import java.io.*;
 
 import pl.kpierczyk.monopoly.model.Model;
 
-
-
-
-
-
-
-
-
-
 //*******************************************//
 //
 //
@@ -22,56 +13,46 @@ import pl.kpierczyk.monopoly.model.Model;
 //
 //
 //*******************************************//
-
 
 public class InstructionModel {
-
 
     /*****************************************/
     /* Class Fields */
     /*****************************************/
 
-    /*Invisible*/
+    /* Invisible */
 
     Model model;
 
     private final int pagesNumber; // number of pages
     private int actualPage; // actual displayed page
-    
+
     private final String instructionHome; // path to the folder with pages
 
-    /*Visible*/
+    /* Visible */
     private final String backButtonText;
-
-    
-
 
     /*****************************************/
     /* Constructor */
     /*****************************************/
 
-    public InstructionModel(Model model,
-                            String instructionHome,
-                            String backButtonTextPath) {
-        
-        /*Initializing invisible elements*/
+    public InstructionModel(Model model, String instructionHome, String backButtonTextPath) {
+
+        /* Initializing invisible elements */
 
         this.model = model;
-        
+
         this.pagesNumber = new File(instructionHome).listFiles().length;
         this.actualPage = 1;
-        
-        this.instructionHome = instructionHome;
-        
 
-        /*Reading back button's text*/
+        this.instructionHome = instructionHome;
+
+        /* Reading back button's text */
         String backButtonText;
 
         try {
-            FileReader fileReader =
-                new FileReader(backButtonTextPath);
-            BufferedReader bufferedReader =
-                new BufferedReader(fileReader);
+            FileReader fileReader = new FileReader(backButtonTextPath);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
 
             backButtonText = bufferedReader.readLine();
             bufferedReader.close();
@@ -83,48 +64,52 @@ public class InstructionModel {
         this.backButtonText = backButtonText;
     }
 
-
-
-
     /*****************************************/
     /* Getters & setters */
     /*****************************************/
 
     public String getActualPagePath() {
-        return instructionHome +
-               "/" +
-               Integer.toString(actualPage) +
-               ".png";
+        return instructionHome + "/" + Integer.toString(actualPage) + ".png";
     }
 
     public String getBackButtonText() {
         return backButtonText;
     }
 
-    
     /*****************************************/
-    /*               Utilities               */
+    /* Utilities */
     /*****************************************/
 
     public boolean nextPage() {
-        if (actualPage < pagesNumber){
+        if (actualPage < pagesNumber) {
             actualPage++;
+
+            File actualPageFile = new File(this.instructionHome + "/" + Integer.toString(actualPage) + ".png");
+
+            if (!actualPageFile.exists()) {
+                actualPage--;
+                return false;
+            }
             return true;
-        }
-        else
+        } else
             return false;
     }
 
     public boolean previousPage() {
-        if (actualPage > 1){
+        if (actualPage > 1) {
             actualPage--;
+            File actualPageFile = new File(this.instructionHome + "/" + Integer.toString(actualPage) + ".png");
+
+            if (!actualPageFile.exists()) {
+                actualPage++;
+                return false;
+            }
             return true;
-        }
-        else
+        } else
             return false;
     }
 
-    public void backToMainMenu(){
-        this.model.getMainMenuModel().closeChild();
+    public boolean backToMainMenu() {
+        return this.model.getMainMenuModel().closeChild();
     }
 }

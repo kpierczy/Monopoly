@@ -54,9 +54,10 @@ public class InstructionController implements ActionListener{
         JButton buttonSource = (JButton) e.getSource();
 
         if(buttonSource == this.controller.getView().getMainMenuView().getInstructionView().getBackButton()){
-            this.controller.getModel().getMainMenuModel().getInstructionModel().backToMainMenu();
-            this.controller.getView().getMainMenuView().getInstructionView().backToMainMenu();
-            this.controller.getMainMenuController().closeChild();
+            if(this.controller.getModel().getMainMenuModel().getInstructionModel().backToMainMenu()){
+                this.controller.getView().getMainMenuView().getInstructionView().backToMainMenu();
+                this.controller.getMainMenuController().closeChild();
+            }
         }
         else if(buttonSource == this.controller.getView().getMainMenuView().getInstructionView().getLeftButton()){
             if(this.controller.getModel().getMainMenuModel().getInstructionModel().previousPage()){

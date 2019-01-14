@@ -1,6 +1,7 @@
 package pl.kpierczyk.monopoly.view;
 
 import pl.kpierczyk.monopoly.model.*;
+import pl.kpierczyk.monopoly.model.Model.AppState;
 import pl.kpierczyk.monopoly.view.subviews.IntroView;
 import pl.kpierczyk.monopoly.view.subviews.gameView.GameView;
 import pl.kpierczyk.monopoly.view.subviews.mainMenuView.MainMenuView;
@@ -69,9 +70,18 @@ public class View extends JFrame {
         this.setLayout(new BorderLayout());
 
         /*Initializing intro view*/
-        this.introView = new IntroView(model);
-        this.getContentPane().add(this.introView, BorderLayout.CENTER);
-        this.pack();
+        
+        if(this.model.getState() == AppState.intro){
+            this.introView = new IntroView(this);
+            this.getContentPane().add(this.introView, BorderLayout.CENTER);
+        }
+        else if(this.model.getState() == AppState.mainMenu){
+            this.mainMenuView = new MainMenuView(this);
+            this.getContentPane().add(this.mainMenuView, BorderLayout.CENTER);        
+        }
+        
+        
+            this.pack();
         this.setVisible(true);        
     }
 

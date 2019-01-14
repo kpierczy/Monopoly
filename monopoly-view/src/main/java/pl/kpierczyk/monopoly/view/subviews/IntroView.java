@@ -1,6 +1,6 @@
 package pl.kpierczyk.monopoly.view.subviews;
 
-import pl.kpierczyk.monopoly.model.Model;
+import pl.kpierczyk.monopoly.view.View;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -29,13 +29,13 @@ public class IntroView extends JPanel {
     /* Constructor */
     /*****************************************/
 
-    public IntroView(Model model) {
+    public IntroView(View view) {
         super();
         this.setPreferredSize(
-                new Dimension(model.getSettings().getResolution()[0], model.getSettings().getResolution()[1]));
+                new Dimension(view.getModel().getSettings().getResolution()[0], view.getModel().getSettings().getResolution()[1]));
 
         try {
-            backgroundImage = ImageIO.read(new File(model.getMainMenuModel().getBackgroundImagePath()));
+            backgroundImage = ImageIO.read(new File(view.getModel().getIntroModel().getIntroPosterPath()));
         } catch (IOException ex) {
             System.out.println("Couldn't open mainMenu's background image");
         }

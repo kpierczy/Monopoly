@@ -28,6 +28,10 @@ import pl.kpierczyk.monopoly.view.subviews.mainMenuView.MainMenuView;
 //
 //*******************************************//
 
+//<--- TO DO ---> 
+// create base class MenuController for MainMenuController and InGameMenuController
+// at least InGameController can extend MainMenucontroller with overloaded method quit()
+
 public class MainMenuController{
 
 
@@ -113,23 +117,25 @@ public class MainMenuController{
 
     public void openInstruction(){
         if(this.mainMenuListener != null){
-            this.controller.getModel().getMainMenuModel().openInstruction();
-            this.controller.getView().getMainMenuView().openInstruction();
-        
-            this.mainMenuListener = null;
-            this.instructionController =
-                new InstructionController(this.controller);
+                if(this.controller.getModel().getMainMenuModel().openInstruction()){
+                this.controller.getView().getMainMenuView().openInstruction();
+            
+                this.mainMenuListener = null;
+                this.instructionController =
+                    new InstructionController(this.controller);
+            }
         }
     }
 
     public void openTitles(){
         if(this.mainMenuListener != null){
-            this.controller.getModel().getMainMenuModel().openTitles();
-            this.controller.getView().getMainMenuView().openTitles();
+            if(this.controller.getModel().getMainMenuModel().openTitles()){
+                this.controller.getView().getMainMenuView().openTitles();
 
-            this.mainMenuListener = null;
-            this.titlesController =
-                new TitlesController(this.controller);
+                this.mainMenuListener = null;
+                this.titlesController =
+                    new TitlesController(this.controller);
+            }
         }
     }
 

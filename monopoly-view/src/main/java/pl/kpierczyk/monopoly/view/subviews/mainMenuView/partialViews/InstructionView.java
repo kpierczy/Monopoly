@@ -1,12 +1,9 @@
 package pl.kpierczyk.monopoly.view.subviews.mainMenuView.partialViews;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.image.ImageObserver;
 import java.io.File;
@@ -14,10 +11,8 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 
 import pl.kpierczyk.monopoly.view.View;

@@ -9,6 +9,7 @@ import pl.kpierczyk.monopoly.model.submodels.mainMenuModel.partialModels.Setting
 import pl.kpierczyk.monopoly.model.submodels.mainMenuModel.partialModels.TitlesModel;
 
 import java.io.*;
+import java.net.URL;
 
 
 
@@ -25,6 +26,10 @@ import java.io.*;
 //
 //
 //*******************************************//
+
+//<--- TO DO --->
+// Create base class MenuModel for MainMenuModel and InGameMenuModel
+// At least InGameController can extend MainMenucontroller with overloaded method quit()
 
 public class MainMenuModel {
 
@@ -106,7 +111,12 @@ public class MainMenuModel {
                 this.model.getSettings().getResolutionSetting().toString() +
                 "/menuBackgrounds/menuBackground_1.png";
 
-        this.backgroundImagePath = Util.convert(getClass().getResource(backgroundImageRelativePath).getPath());
+        URL notConvertedBackgroundImage = getClass().getResource(backgroundImageRelativePath);
+
+        if(notConvertedBackgroundImage != null)
+            this.backgroundImagePath = Util.convert(notConvertedBackgroundImage.getPath());
+        else
+            this.backgroundImagePath = "";
     }
 
 
@@ -155,16 +165,20 @@ public class MainMenuModel {
     /* Utilities */
     /*****************************************/
 
-    public void runNewGame(){
+    //<--- TO DO --->
+    public boolean runNewGame(){
         this.model.runNewGame();
+        return true;
     }
 
 
-    public void openLoadingMenu() {
+    public boolean openLoadingMenu() {
         if (getState() == MainMenuState._default) {
             this.state = MainMenuState.loading;
 
-            //check if getResource can find it!
+            //<--- TO DO --->
+            //Find way to get directory od saves
+
             /*Getting saves home path*/
             String relativeSavesHome = "/saves";
             String savesHome = 
@@ -175,28 +189,49 @@ public class MainMenuModel {
                 "/lang/" + this.model.getSettings().getLanguage() + "/okButton.txt",
                 "/lang/" + this.model.getSettings().getLanguage() + "/backButton.txt"
             };
-
-            String buttonsPath[] = new String[]{
-                Util.convert(getClass().getResource(relativeButtonsPath[0]).getPath()),
-                Util.convert(getClass().getResource(relativeButtonsPath[1]).getPath())
+          
+          URL notConvertedButtonsPath[] = new URL[]{
+                getClass().getResource(relativeButtonsPath[0]),
+                getClass().getResource(relativeButtonsPath[1])
             };
 
-            /*Initializing loadingModel*/
-            this.loadingModel = new LoadingModel(this.model,
-                                                 savesHome,
-                                                 buttonsPath);
+
+            if(notConvertedButtonsPath[0] != null && notConvertedButtonsPath[1] != null){
+                String buttonsPath[] = new String[]{
+                    Util.convert(notConvertedButtonsPath[0].getPath()),
+                    Util.convert(notConvertedButtonsPath[1].getPath())
+                };
+                
+                File okButton = new File(buttonsPath[0]);
+                File backButton = new File(buttonsPath[1]);
+                
+                if(!okButton.exists() || !backButton.exists()){
+                    this.state = MainMenuState._default;
+                    return false;
+                }
+
+                /*Initializing loadingModel*/
+                this.loadingModel = new LoadingModel(this.model,
+                                                    savesHome,
+                                                    buttonsPath);
+                return true;                                                     
+            }
+            else
+                return false;                                                   
         }
+        else
+            return false;
     }
 
 
-    public void openSettings(){
+    public boolean openSettings(){
         if(getState() == MainMenuState._default){
             this.state = MainMenuState.settings;
             
             /*Getting config file path*/
             String relativeConfigPath = "/config.txt";
-            String configPath = 
-                Util.convert(getClass().getResource(relativeConfigPath).getPath());
+            URL notConvertedConfigPath = 
+                getClass().getResource(relativeConfigPath);
 
             /*Getting buttons text files paths*/
             String relativeButtonsPath[] = new String[] {
@@ -204,28 +239,57 @@ public class MainMenuModel {
                 "/lang/" + this.model.getSettings().getLanguage() + "/backButton.txt"
             };
 
-            String buttonsPath[] = new String[]{
-                Util.convert(getClass().getResource(relativeButtonsPath[0]).getPath()),
-                Util.convert(getClass().getResource(relativeButtonsPath[1]).getPath())
+            URL notConvertedButtonsPath[] = new URL[]{
+                getClass().getResource(relativeButtonsPath[0]),
+                getClass().getResource(relativeButtonsPath[1])
             };
+
 
             /*Getting settings text file path*/
             String relativeSettingsTextPath = "/lang/" +
                                               this.model.getSettings().getLanguage() + 
                                               "/settingsMenu.txt";
-            String settingsTextPath = 
-                Util.convert(getClass().getResource(relativeSettingsTextPath).getPath());
+            URL notConvertedSettingsTextPath = 
+                getClass().getResource(relativeSettingsTextPath);
 
 
-            /*Initializing settingsModel*/
-            this.settingsModel = new SettingsModel(this.model,
-                                                   configPath,
-                                                   buttonsPath,
-                                                   settingsTextPath);
+            if(notConvertedConfigPath != null && notConvertedButtonsPath[0] != null &&
+               notConvertedButtonsPath[1] != null && notConvertedSettingsTextPath != null){ 
+                
+                String configPath = Util.convert(notConvertedConfigPath.getPath());
+                String buttonsPath[] = new String[]{
+                    Util.convert(notConvertedButtonsPath[0].getPath()),
+                    Util.convert(notConvertedButtonsPath[1].getPath())
+                };
+                String settingsTextPath = Util.convert(notConvertedSettingsTextPath.getPath());
+
+
+                File config = new File(configPath);
+                File okButton = new File(buttonsPath[0]);
+                File backButton = new File(buttonsPath[1]);
+                File settingsText = new File(settingsTextPath);
+
+                if(!config.exists() || !okButton.exists() || !backButton.exists() || !settingsText.exists()){
+                    this.state = MainMenuState._default;
+                    return false;
+                }
+
+                /*Initializing settingsModel*/
+                this.settingsModel = new SettingsModel(this.model,
+                                                    configPath,
+                                                    buttonsPath,
+                                                    settingsTextPath);
+
+                return true;
+            }
+            else
+                return false;                                                     
         }
+        else
+            return false;
     }
 
-    public void openInstruction() {
+    public boolean openInstruction() {
         if (getState() == MainMenuState._default) {
             this.state = MainMenuState.instruction;
             
@@ -234,53 +298,93 @@ public class MainMenuModel {
             String relativeInstructionFirstSlidePath = "/lang/" +
                                              this.model.getSettings().getLanguage() +
                                              "/img/instruction/1.png";                
-            String instructionFirstSlidePath = 
-                Util.convert(getClass().getResource(relativeInstructionFirstSlidePath).getPath());
-            File firstSlide = new File(instructionFirstSlidePath);
-            String instructionHome = firstSlide.getParent();
+            URL notConvertedInstructionFirstSlidePath = 
+                getClass().getResource(relativeInstructionFirstSlidePath);
+            
 
             /*Getting backButton text file path*/
             String relativeBackButtonPath = "/lang/" +
                                             this.model.getSettings().getLanguage() +
                                             "/backButton.txt";
-            String backButtonTextPath = 
-                Util.convert(getClass().getResource(relativeBackButtonPath).getPath());
+            URL notConvertedBackButtonTextPath = 
+                getClass().getResource(relativeBackButtonPath);
             
 
-            /*Initializing instructionModel*/
-            this.instructionModel = new InstructionModel(this.model,
-                                                         instructionHome,
-                                                         backButtonTextPath);
+            if(notConvertedInstructionFirstSlidePath != null && notConvertedBackButtonTextPath != null){         
+
+                String instructionFirstSlidePath = Util.convert(notConvertedInstructionFirstSlidePath.getPath());
+                String backButtonTextPath = Util.convert(notConvertedBackButtonTextPath.getPath()); 
+
+                File instructionFirstSlide = new File(instructionFirstSlidePath);
+                File backButton = new File(backButtonTextPath);
+
+                if(!backButton.exists() || !instructionFirstSlide.exists()){
+                    this.state = MainMenuState._default;
+                    return false;
+                }
+
+                String instructionHome = instructionFirstSlide.getParent();
+
+                /*Initializing instructionModel*/
+                this.instructionModel = new InstructionModel(this.model,
+                                                            instructionHome,
+                                                            backButtonTextPath);
+                return true;
+            }
+            else
+                return false;
         }
+        else
+            return false;
     }
 
-    public void openTitles() {
+    public boolean openTitles() {
         if (getState() == MainMenuState._default) {
             this.state = MainMenuState.titles;
  
-            /*Getting backButton text file path*/
+            /*Getting titles file path*/
             String relativeTitlesPath = "/lang/" +
                                         this.model.getSettings().getLanguage() +
                                         "/img/titles/titles.png";
-            String titlesPath = 
-            Util.convert(getClass().getResource(relativeTitlesPath).getPath());
+            URL notConvertedTitlesPath = 
+                getClass().getResource(relativeTitlesPath);
 
             /*Getting backButton text file path*/
             String relativeBackButtonPath = "/lang/" +
                                             this.model.getSettings().getLanguage() +
                                             "/backButton.txt";
-            String backButtonText = 
-                Util.convert(getClass().getResource(relativeBackButtonPath).getPath());
+            URL notConvertedBackButtonTextPath = 
+                getClass().getResource(relativeBackButtonPath);
 
-            /*Initializing titlesModel*/
-            this.titlesModel = new TitlesModel(this.model,
-                                               titlesPath,
-                                               backButtonText);
+
+            if(notConvertedBackButtonTextPath != null && notConvertedTitlesPath != null){
+
+                String backButtonTextPath = Util.convert(notConvertedBackButtonTextPath.getPath());
+                String titlesPath = Util.convert(notConvertedTitlesPath.getPath());
+
+                File backButton = new File(backButtonTextPath);
+                File titles = new File(titlesPath);
+
+                if(!backButton.exists() || !titles.exists()){
+                    this.state = MainMenuState._default;
+                    return false;
+                }
+
+                /*Initializing titlesModel*/
+                this.titlesModel = new TitlesModel(this.model,
+                                                titlesPath,
+                                                backButtonTextPath);
+                return true;    
+            }
+            else
+                return false;                                   
         }
+        else
+            return false;
     }
 
 
-    public void closeChild() {
+    public boolean closeChild() {
         if (getState() != MainMenuState._default) {
             this.state = MainMenuState._default;
             
@@ -288,6 +392,10 @@ public class MainMenuModel {
             this.settingsModel = null;
             this.titlesModel = null;
             this.instructionModel = null;
+
+            return true;
         }
+        else
+            return false;
     }
 }

@@ -81,7 +81,7 @@ public class TitlesModel{
     /* Utilities */
     /*****************************************/
 
-    public void backToMainMenu(){
-        this.model.getMainMenuModel().closeChild();
+    public boolean backToMainMenu(){
+        return this.model.getMainMenuModel().closeChild();
     }
 }

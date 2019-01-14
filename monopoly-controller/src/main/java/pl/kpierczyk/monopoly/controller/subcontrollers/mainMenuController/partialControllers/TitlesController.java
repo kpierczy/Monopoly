@@ -46,8 +46,9 @@ public class TitlesController implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        this.controller.getModel().getMainMenuModel().getTitlesModel().backToMainMenu();
-        this.controller.getView().getMainMenuView().getTitlesView().backToMainMenu();
-        this.controller.getMainMenuController().closeChild();
+        if(this.controller.getModel().getMainMenuModel().getTitlesModel().backToMainMenu()){
+            this.controller.getView().getMainMenuView().getTitlesView().backToMainMenu();
+            this.controller.getMainMenuController().closeChild();
+        }
     }
 }

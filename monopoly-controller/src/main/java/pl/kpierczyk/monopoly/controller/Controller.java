@@ -4,6 +4,7 @@ import pl.kpierczyk.monopoly.controller.subcontrollers.IntroController;
 import pl.kpierczyk.monopoly.controller.subcontrollers.gameController.GameController;
 import pl.kpierczyk.monopoly.controller.subcontrollers.mainMenuController.MainMenuController;
 import pl.kpierczyk.monopoly.model.*;
+import pl.kpierczyk.monopoly.model.Model.AppState;
 import pl.kpierczyk.monopoly.view.*;
 
 
@@ -46,7 +47,10 @@ public class Controller{
         this.model = model;
         this.view = view;
         
-        this.introductionController = new IntroController(this);
+        if(this.model.getState() == AppState.intro)
+            this.introductionController = new IntroController(this);
+        else if(this.model.getState() == AppState.mainMenu)
+            this.mainMenuController = new MainMenuController(this);
     }
 
 
@@ -79,13 +83,13 @@ public class Controller{
     /*****************************************/
 
     public synchronized void finishIntro(){
-        model.finishIntro();
-        view.finishIntro();
+        if(model.finishIntro()){
+            view.finishIntro();
 
-
-        this.introductionController = null;
-        this.mainMenuController =
-            new MainMenuController(this);
+            this.introductionController = null;
+            this.mainMenuController =
+                new MainMenuController(this);
+        }
     }
 
     public void runNewGame(){

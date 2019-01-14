@@ -1,5 +1,8 @@
 package pl.kpierczyk.monopoly.model;
 
+import java.io.File;
+import java.net.URL;
+
 import pl.kpierczyk.monopoly.model.submodels.IntroModel;
 import pl.kpierczyk.monopoly.model.submodels.gameModel.GameModel;
 import pl.kpierczyk.monopoly.model.submodels.gameModel.GameSaveInfo;
@@ -60,8 +63,11 @@ public class Model {
         /* initializing settings */
         this.settings = new Settings();
         String relativeConfigPath = "/config.txt";
-        String configPath = 
-            Util.convert(getClass().getResource(relativeConfigPath).getPath());
+        URL notConvertedconfigPath = getClass().getResource(relativeConfigPath);
+        
+        String configPath = "";
+        if(notConvertedconfigPath != null)
+            configPath = Util.convert(notConvertedconfigPath.getPath());
         this.settings.readFromFile(configPath);
 
 
@@ -73,17 +79,26 @@ public class Model {
                                          settings.getResolutionSetting().toString() +
                                          ".png";
 
-        String introPosterPath = Util.convert(getClass().getResource(relativeIntroPosterPath).getPath());
-        introModel = new IntroModel(introPosterPath);
+        URL notConvertedIntroPosterPath = getClass().getResource(relativeIntroPosterPath);
 
-        /* initializing mainMenuModel */
-        this.mainMenuModel = new MainMenuModel(this);
-
-        /* initializing mainMenuModel */
-        gameModel = new GameModel(this);
-
+        if(notConvertedIntroPosterPath != null){
+    
+            String introPosterPath = Util.convert(notConvertedIntroPosterPath.getPath());
+            
+            File introPoster = new File(introPosterPath);
+            if(introPoster.exists()){
+            introModel = new IntroModel(introPosterPath);
+            }
+            else{
+                this.state = AppState.mainMenu;
+                this.mainMenuModel = new MainMenuModel(this);
+            }
+        }
+        else{
+            this.state = AppState.mainMenu;
+            this.mainMenuModel = new MainMenuModel(this);
+        }
     }
-
 
 
 
@@ -119,12 +134,14 @@ public class Model {
     /*****************************************/
 
 
-    public void finishIntro() {
+    public boolean finishIntro() {
         if (getState() == AppState.intro) {
             this.state = AppState.mainMenu;
             this.introModel = null;
             this.mainMenuModel = new MainMenuModel(this);
+            return true;
         }
+        else return false;
     }
 
     public void runNewGame(){
