@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 
 import pl.kpierczyk.monopoly.view.View;
 import pl.kpierczyk.monopoly.view.subviews.mainMenuView.partialViews.InstructionView;
+import pl.kpierczyk.monopoly.view.subviews.mainMenuView.partialViews.SettingsView;
 import pl.kpierczyk.monopoly.view.subviews.mainMenuView.partialViews.TitlesView;
 
 //*******************************************//
@@ -51,7 +52,7 @@ public class MainMenuView extends JPanel {
     /*Submenus views (panels)*/
 
     //private LoadingView loadingView;
-    //private SettingsView settingsView;
+    private SettingsView settingsView;
     private InstructionView instructionView;
     private TitlesView titlesView;
 
@@ -118,9 +119,9 @@ public class MainMenuView extends JPanel {
     //    return loadingView;
     //}
 
-    //public SettingsView getSettingsView() {
-    //    return settingsView;
-    //}
+    public SettingsView getSettingsView() {
+        return settingsView;
+    }
 
     public InstructionView getInstructionView() {
         return instructionView;
@@ -163,17 +164,17 @@ public class MainMenuView extends JPanel {
         }
     }
 
-    public void openOptionsMenu(){
+    public void openSettingsMenu(){
         if(this.mainMenuPanel != null){
-            //this.remove(this.mainMenuPanel);
-            //this.mainMenuPanel = null;
+            this.remove(this.mainMenuPanel);
+            this.mainMenuPanel = null;
                     
-            //this.optionsView =
-            //    new OptionsView(this.view);
-            //this.add(this.optionsView);
+            this.settingsView =
+                new SettingsView(this.view);
+            this.add(this.settingsView);
 
-            //this.view.revalidate();
-            //this.view.repaint();
+            this.view.revalidate();
+            this.view.repaint();
         }
     }
 
@@ -212,10 +213,10 @@ public class MainMenuView extends JPanel {
             //    this.loadingView = null;
             //}
 
-            //if(this.settingsView != null){
-            //    this.remove(this.settingsView);
-            //    this.settingsView = null;
-            //}
+            if(this.settingsView != null){
+                this.remove(this.settingsView);
+                this.settingsView = null;
+            }
 
             if(this.instructionView != null){
                 this.remove(this.instructionView);

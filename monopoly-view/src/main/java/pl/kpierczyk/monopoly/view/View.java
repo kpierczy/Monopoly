@@ -81,7 +81,7 @@ public class View extends JFrame {
         }
         
         
-            this.pack();
+        this.pack();
         this.setVisible(true);        
     }
 
@@ -160,5 +160,21 @@ public class View extends JFrame {
         this.mainMenuView = null;
         this.gameView = null;
         this.dispose();
+    }
+
+
+
+    public void update(){
+        if (!model.getSettings().isFullscreen()) {
+            this.setSize(new Dimension(model.getSettings().getResolution()[0],
+                         model.getSettings().getResolution()[1]));
+        } 
+        else { 
+            this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+            this.setUndecorated(true);
+        }
+
+        this.revalidate();
+        this.repaint();
     }
 }

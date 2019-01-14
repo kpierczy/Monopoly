@@ -36,6 +36,7 @@ public class SettingsModel{
     private final String okButtonText;
     private final String backButtonText;
     private final String settingsTexts[];
+    private final String settingsbackgroundImagePath;
 
 
 
@@ -47,7 +48,8 @@ public class SettingsModel{
     public SettingsModel(Model model,
                          String configPath,
                          String buttonsPath[],
-                         String SettingsTextsPath){
+                         String SettingsTextsPath,
+                         String settingsbackgroundImagePath){
 
 
         /*Invisible elements initialization*/
@@ -107,7 +109,9 @@ public class SettingsModel{
         }
 
         this.settingsTexts = settingsTexts;
+        this.settingsbackgroundImagePath = settingsbackgroundImagePath;
     }
+
 
 
     /*****************************************/
@@ -135,6 +139,10 @@ public class SettingsModel{
             return settingsTexts[settingsTexts.length - 1];
         else
             return settingsTexts[textNumber];
+    }
+
+    public String getSettingsbackgroundImagePath() {
+        return settingsbackgroundImagePath;
     }
 
 
@@ -177,11 +185,12 @@ public class SettingsModel{
     }
 
 
-    public void backToMainMenu(){
-        this.model.getMainMenuModel().closeChild();
+    public boolean backToMainMenu(){
+        return this.model.getMainMenuModel().closeChild();
     }
 
     public boolean saveChanges(){
-        return this.settingsCopy.writeToFile(this.configPath);
+        this.settingsCopy.writeToFile(this.configPath);
+        return this.model.getMainMenuModel().closeChild(); 
     }
 }

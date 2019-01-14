@@ -151,7 +151,7 @@ public class MainMenuModel {
     public LoadingModel getLoadingModel() {
         return loadingModel;
     }
-    public SettingsModel getsettingsModel() {
+    public SettingsModel getSettingsModel() {
         return settingsModel;
     }
     public TitlesModel getTitlesModel() {
@@ -253,8 +253,17 @@ public class MainMenuModel {
                 getClass().getResource(relativeSettingsTextPath);
 
 
+            /*Getting settingsbackgroundImagePath */
+            String relativeSettingsbackgroundImagePath = "/img/" +
+                                                         this.model.getSettings().getResolutionSetting().toString() + 
+                                                         "/settingsBackgrounds/settingsBackground_1.png";
+            URL notConvertedSettingsbackgroundImagePath = 
+                getClass().getResource(relativeSettingsbackgroundImagePath);
+
+            /*Validation of path*/
             if(notConvertedConfigPath != null && notConvertedButtonsPath[0] != null &&
-               notConvertedButtonsPath[1] != null && notConvertedSettingsTextPath != null){ 
+               notConvertedButtonsPath[1] != null && notConvertedSettingsTextPath != null &&
+               notConvertedSettingsbackgroundImagePath != null){ 
                 
                 String configPath = Util.convert(notConvertedConfigPath.getPath());
                 String buttonsPath[] = new String[]{
@@ -262,14 +271,16 @@ public class MainMenuModel {
                     Util.convert(notConvertedButtonsPath[1].getPath())
                 };
                 String settingsTextPath = Util.convert(notConvertedSettingsTextPath.getPath());
-
+                String settingsbackgroundImagePath = Util.convert(notConvertedSettingsbackgroundImagePath.getPath());
 
                 File config = new File(configPath);
                 File okButton = new File(buttonsPath[0]);
                 File backButton = new File(buttonsPath[1]);
                 File settingsText = new File(settingsTextPath);
+                File settingsBackground = new File(settingsbackgroundImagePath);
 
-                if(!config.exists() || !okButton.exists() || !backButton.exists() || !settingsText.exists()){
+                if(!config.exists() || !okButton.exists() || !backButton.exists() ||
+                   !settingsText.exists() || !settingsBackground.exists()){
                     this.state = MainMenuState._default;
                     return false;
                 }
@@ -278,7 +289,8 @@ public class MainMenuModel {
                 this.settingsModel = new SettingsModel(this.model,
                                                     configPath,
                                                     buttonsPath,
-                                                    settingsTextPath);
+                                                    settingsTextPath,
+                                                    settingsbackgroundImagePath);
 
                 return true;
             }

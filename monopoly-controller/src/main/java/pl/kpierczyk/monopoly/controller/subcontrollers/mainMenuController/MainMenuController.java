@@ -7,6 +7,7 @@ import javax.swing.JButton;
 
 import pl.kpierczyk.monopoly.controller.Controller;
 import pl.kpierczyk.monopoly.controller.subcontrollers.mainMenuController.partialControllers.InstructionController;
+import pl.kpierczyk.monopoly.controller.subcontrollers.mainMenuController.partialControllers.SettingsController;
 import pl.kpierczyk.monopoly.controller.subcontrollers.mainMenuController.partialControllers.TitlesController;
 import pl.kpierczyk.monopoly.view.subviews.mainMenuView.MainMenuView;
 
@@ -47,7 +48,7 @@ public class MainMenuController{
     /*Submenu's listeners*/
 
     //private LoadingController loadigController;
-    //private SettingsController settingsController;
+    private SettingsController settingsController;
     private InstructionController instructionController;
     private TitlesController titlesController;
 
@@ -81,9 +82,9 @@ public class MainMenuController{
     //    return loadingController;
     //}
 
-    //public SettingsController getSettingsController() {
-    //    return settingsController;
-    //}
+    public SettingsController getSettingsController() {
+        return settingsController;
+    }
 
     public InstructionController getInstructionController() {
         return instructionController;
@@ -111,8 +112,16 @@ public class MainMenuController{
 
     }
 
-    public void openOptionsMenu(){
-
+    public void openSettingsMenu(){
+        if(this.mainMenuListener != null){
+            if(this.controller.getModel().getMainMenuModel().openSettings()){
+                this.controller.getView().getMainMenuView().openSettingsMenu();
+            
+                this.mainMenuListener = null;
+                this.settingsController =
+                    new SettingsController(this.controller);
+            }
+        }
     }
 
     public void openInstruction(){
@@ -225,7 +234,7 @@ class MainMenuListener implements ActionListener{
         }
         //Settings
         else if(buttonSource == this.controller.getView().getMainMenuView().getMainMenuButton(2)){
-            
+            this.controller.getMainMenuController().openSettingsMenu();
         }
         //Instruction
         else if(buttonSource == this.controller.getView().getMainMenuView().getMainMenuButton(3)){

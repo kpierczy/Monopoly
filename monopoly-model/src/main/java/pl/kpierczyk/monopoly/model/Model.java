@@ -55,6 +55,11 @@ public class Model {
     /* Constructor */
     /*****************************************/
 
+    //<-- TO DO --->
+    // repair getResource code so that it worked while running app from jar - use appache.commons.io.FilenameUtils.separatorsToSystem()
+    // if you want to convert paths between systems
+
+
     public Model() {
 
         /* initializing app's state */
