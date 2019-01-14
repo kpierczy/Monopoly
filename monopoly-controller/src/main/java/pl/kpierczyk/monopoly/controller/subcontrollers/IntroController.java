@@ -49,7 +49,8 @@ public class IntroController implements KeyListener{
         new java.util.Timer().schedule(new java.util.TimerTask() {
             @Override
             public void run() {
-                controller.finishIntro();
+                if(controller.getIntroductionController() != null)
+                    controller.finishIntro();
             }
         }, targetTime);
     }

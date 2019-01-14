@@ -3,6 +3,7 @@ package pl.kpierczyk.monopoly.view.subviews.mainMenuView.partialViews;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridBagLayout;
@@ -16,6 +17,7 @@ import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 
 import pl.kpierczyk.monopoly.view.View;
@@ -40,6 +42,8 @@ public class InstructionView extends JPanel {
 
     private final Font font = new Font("Arial", Font.BOLD, 18);
     private final Border border = BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED);
+    private final int buttonsHeight = 30;
+
 
     private Image instructionImage;
 
@@ -65,16 +69,18 @@ public class InstructionView extends JPanel {
         }
 
         /* Main menu's size and layout initialization */
-        this.setPreferredSize(new Dimension(this.instructionImage.getWidth(new ImageObserver() {
-            @Override
-            public boolean imageUpdate(Image img, int infoflags, int x, int y, int width, int height) {
-                return false;
-            }
-        }), this.instructionImage.getHeight(new ImageObserver() {
-            @Override
-            public boolean imageUpdate(Image img, int infoflags, int x, int y, int width, int height) {
-                return false;
-            }
+        this.setPreferredSize(new Dimension(
+            this.instructionImage.getWidth(new ImageObserver() {
+                @Override
+                public boolean imageUpdate(Image img, int infoflags, int x, int y, int width, int height) {
+                    return false;
+                }
+            }),
+            this.instructionImage.getHeight(new ImageObserver() {
+                @Override
+                public boolean imageUpdate(Image img, int infoflags, int x, int y, int width, int height) {
+                    return false;
+                }
         })));
 
         this.setLayout(new BorderLayout());
@@ -90,26 +96,26 @@ public class InstructionView extends JPanel {
 
         this.rightButton = new JButton("--->");
         this.rightButton.setFont(this.font);
-
-
-        /////// HERE I'VE ENDED //////////// ---- handle buttons arrangament in the instruction window
+        
 
         /*JPanel for buttons*/
-        JPanel allButtonsContainer = new JPanel();
-        allButtonsContainer.setLayout(new BoxLayout(allButtonsContainer,
-                                                    BoxLayout.Y_AXIS)); 
+        JPanel allButtonsContainer = new JPanel(new BorderLayout()); 
 
-        JPanel arrowsButtonsContainer = new JPanel(new BorderLayout());
+        allButtonsContainer.add(this.leftButton, BorderLayout.WEST);
+        allButtonsContainer.add(this.rightButton, BorderLayout.EAST);
+        allButtonsContainer.add(this.backButton, BorderLayout.SOUTH );
 
-        arrowsButtonsContainer.add(this.leftButton, BorderLayout.LINE_START);
-        arrowsButtonsContainer.add(this.leftButton, BorderLayout.LINE_END);
+        this.leftButton.setPreferredSize(new Dimension(this.getPreferredSize().width / 2 ,
+                                                      this.buttonsHeight));
+        this.rightButton.setPreferredSize(new Dimension(this.getPreferredSize().width / 2,
+                                                       this.buttonsHeight));                                                       
+        this.backButton.setPreferredSize(new Dimension(this.getPreferredSize().width,
+                                                       this.buttonsHeight));
+                                                       
+        allButtonsContainer.setPreferredSize(new Dimension(this.getPreferredSize().width,
+                                                           this.buttonsHeight * 2));
 
-        allButtonsContainer.add(arrowsButtonsContainer);
-        arrowsButtonsContainer.setAlignmentX(Component.CENTER_ALIGNMENT);
-        allButtonsContainer.add(backButton);
-        backButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        this.add(allButtonsContainer, BorderLayout.PAGE_END);
+        this.add(allButtonsContainer, BorderLayout.SOUTH);
     }
 
     /*****************************************/
