@@ -64,7 +64,7 @@ public class InstructionView extends JPanel {
             instructionImage = ImageIO
                     .read(new File(this.view.getModel().getMainMenuModel().getInstructionModel().getActualPagePath()));
         } catch (IOException ex) {
-            System.out.println("Couldn't open mainMenu's background image from "
+            System.out.println("Couldn't open instruction image from "
                     + this.view.getModel().getMainMenuModel().getInstructionModel().getActualPagePath());
         }
 
@@ -96,7 +96,7 @@ public class InstructionView extends JPanel {
 
         this.rightButton = new JButton("--->");
         this.rightButton.setFont(this.font);
-        
+
 
         /*JPanel for buttons*/
         JPanel allButtonsContainer = new JPanel(new BorderLayout()); 
@@ -157,7 +157,7 @@ public class InstructionView extends JPanel {
             instructionImage = ImageIO
                     .read(new File(this.view.getModel().getMainMenuModel().getInstructionModel().getActualPagePath()));
         } catch (IOException ex) {
-            System.out.println("Couldn't open mainMenu's background image from "
+            System.out.println("Couldn't open instruction image from "
                     + this.view.getModel().getMainMenuModel().getInstructionModel().getActualPagePath());
         }
 
