@@ -81,6 +81,44 @@ public class ColourFieldsSet {
         return captive;
     }
 
+    /**
+     * @param first the first to set
+     */
+    public boolean setFirst(ColourField first) {
+        if(this.colour == first.getColour()){
+            this.first = first;
+            return true;
+        }
+        else return false;
+    }
+
+    /**
+     * @param second the second to set
+     */
+    public boolean setSecond(ColourField second) {
+        if(this.colour == second.getColour()){
+            this.second = second;
+            return true;
+        }
+        else return false;
+    }
+
+    /**
+     * @param third the third to set
+     */
+    public boolean setThird(ColourField third) {
+        if(this.colour == third.getColour()){
+            this.third = third;
+            return true;
+        }
+        else return false;
+    }
+
+
+
+
+
+
     /********************************/
     /* Utilities */
     /********************************/
@@ -95,6 +133,20 @@ public class ColourFieldsSet {
             return owner;
         else
             return null;
+    }
+
+    /**
+     * Set refference to this set inside all ColourFields in set.
+     * 
+     * @see ColourField
+     */
+    public void group(){
+        if(this.first != null)
+            first.setSet(this);
+        if(this.second != null)
+            second.setSet(this);
+        if(this.third != null)
+            third.setSet(this);
     }
 
     /**
@@ -182,7 +234,7 @@ public class ColourFieldsSet {
         }else return false;
     }
 
-/**
+    /**
      * Check if pointed field can be downbuilt. Throws an exception
      * if pointed field is not i the set.
      * 
@@ -243,10 +295,6 @@ public class ColourFieldsSet {
         } 
         else throw new Exception();
     }
-
-
-
-
 
     /**
      * 

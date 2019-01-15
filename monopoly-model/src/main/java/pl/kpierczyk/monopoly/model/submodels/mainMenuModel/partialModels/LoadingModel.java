@@ -2,7 +2,6 @@ package pl.kpierczyk.monopoly.model.submodels.mainMenuModel.partialModels;
 
 import java.io.*;
 import pl.kpierczyk.monopoly.model.*;
-import pl.kpierczyk.monopoly.model.submodels.gameModel.*;
 import pl.kpierczyk.monopoly.model.submodels.gameModel.utilities.GameSaveInfo;
 
 
