@@ -1,6 +1,6 @@
 package pl.kpierczyk.monopoly.controller;
 
-import pl.kpierczyk.monopoly.controller.subcontrollers.IntroController;
+import pl.kpierczyk.monopoly.controller.subcontrollers.introController.IntroController;
 import pl.kpierczyk.monopoly.controller.subcontrollers.gameController.GameController;
 import pl.kpierczyk.monopoly.controller.subcontrollers.mainMenuController.MainMenuController;
 import pl.kpierczyk.monopoly.model.*;

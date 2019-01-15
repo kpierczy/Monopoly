@@ -1,4 +1,4 @@
-package pl.kpierczyk.monopoly.view.subviews;
+package pl.kpierczyk.monopoly.view.subviews.introView;
 
 import pl.kpierczyk.monopoly.view.View;
 

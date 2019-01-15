@@ -1,4 +1,4 @@
-package pl.kpierczyk.monopoly.model.submodels;
+package pl.kpierczyk.monopoly.model.submodels.introModel;
 
 
 

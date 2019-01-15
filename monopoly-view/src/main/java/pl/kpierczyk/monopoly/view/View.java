@@ -2,7 +2,7 @@ package pl.kpierczyk.monopoly.view;
 
 import pl.kpierczyk.monopoly.model.*;
 import pl.kpierczyk.monopoly.model.Model.AppState;
-import pl.kpierczyk.monopoly.view.subviews.IntroView;
+import pl.kpierczyk.monopoly.view.subviews.introView.IntroView;
 import pl.kpierczyk.monopoly.view.subviews.gameView.GameView;
 import pl.kpierczyk.monopoly.view.subviews.mainMenuView.MainMenuView;
 
@@ -16,15 +16,17 @@ import java.awt.Dimension;
 
 
 
-//*******************************************//
-//
-//
-//
-//
-//
-//
-//
-//*******************************************//
+/**
+ * 
+ * 
+ * 
+ * 
+ * 
+ */
+
+
+//<--- TO DO --->
+//Fix fullscreen option
 
 public class View extends JFrame {
 

@@ -1,4 +1,4 @@
-package pl.kpierczyk.monopoly.controller.subcontrollers;
+package pl.kpierczyk.monopoly.controller.subcontrollers.introController;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;

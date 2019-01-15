@@ -3,9 +3,9 @@ package pl.kpierczyk.monopoly.model;
 import java.io.File;
 import java.net.URL;
 
-import pl.kpierczyk.monopoly.model.submodels.IntroModel;
+import pl.kpierczyk.monopoly.model.submodels.introModel.IntroModel;
 import pl.kpierczyk.monopoly.model.submodels.gameModel.GameModel;
-import pl.kpierczyk.monopoly.model.submodels.gameModel.GameSaveInfo;
+import pl.kpierczyk.monopoly.model.submodels.gameModel.utilities.GameSaveInfo;
 import pl.kpierczyk.monopoly.model.submodels.mainMenuModel.MainMenuModel;
 import pl.kpierczyk.monopoly.model.utilities.Util;
 import pl.kpierczyk.monopoly.model.utilities.settings.*;
