@@ -49,4 +49,16 @@ public abstract class Field{
         return name;
     }
 
+
+    /**
+     * 
+     * @return statement if objects have the same ID
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof Field)
+            return (this.ID == ((Field) obj).ID);
+        else
+            return false;
+    }
 }
