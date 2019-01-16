@@ -13,24 +13,17 @@ import java.net.URL;
 
 
 
-
-
-
-
-//*******************************************//
-//
-//
-//
-//
-//
-//
-//
-//*******************************************//
-
 //<--- TO DO --->
 // Create base class MenuModel for MainMenuModel and InGameMenuModel
 // At least InGameController can extend MainMenucontroller with overloaded method quit()
 
+/**
+ * 
+ * 
+ * @author  Krzysztof Pierczyk
+ * @version 1.0
+ * @since   1.0
+ */
 public class MainMenuModel {
 
 
@@ -38,11 +31,6 @@ public class MainMenuModel {
         _default, loading, settings, instruction, titles
     }
 
-
-    /*****************************************/
-    /* Class Fields */
-    /*****************************************/
-    
     private MainMenuState state;
     private Model model;
 
@@ -56,15 +44,6 @@ public class MainMenuModel {
     private SettingsModel settingsModel;
     private TitlesModel titlesModel;
     private InstructionModel instructionModel;
-
-
-
-
-
-
-    /*****************************************/
-    /* Constructor */
-    /*****************************************/
 
     public MainMenuModel(Model model) {
         
@@ -119,14 +98,6 @@ public class MainMenuModel {
             this.backgroundImagePath = "";
     }
 
-
-
-
-    /*****************************************/
-    /* Getters & setters */
-    /*****************************************/
-    
-
     /*Main menu elements methods*/
 
     public MainMenuState getState() {
@@ -160,6 +131,8 @@ public class MainMenuModel {
 
 
 
+
+    
 
     /*****************************************/
     /* Utilities */

@@ -2,29 +2,17 @@ package pl.kpierczyk.monopoly.model.utilities.settings.settingsKinds;
 
 import pl.kpierczyk.monopoly.model.utilities.settings.Setting;
 
-//*******************************************//
-//
-//
-//
-//
-//
-//
-//*******************************************//
-
+/**
+ * 
+ * 
+ * @author  Krzysztof Pierczyk
+ * @version 1.0
+ * @since   1.0
+ */
 public class BooleanSetting implements Setting{
-
-    /*****************************************/
-    /*            Class Fields               */
-    /*****************************************/
 
     boolean value;
     final boolean possibleValues[];
-
-
-
-    /*****************************************/
-    /*             Constructor               */
-    /*****************************************/
 
     public BooleanSetting(Boolean value){
         this.value = value;
@@ -35,11 +23,6 @@ public class BooleanSetting implements Setting{
         this.value = booleanSetting.value;
         this.possibleValues = booleanSetting.possibleValues.clone();
     }
-
-
-    /*****************************************/
-    /*          Getters & setters            */
-    /*****************************************/
 
     @Override
     public Boolean getValue() {
@@ -65,6 +48,10 @@ public class BooleanSetting implements Setting{
     }
 
 
+
+
+
+    
     /*****************************************/
     /*              Utilities                */
     /*****************************************/

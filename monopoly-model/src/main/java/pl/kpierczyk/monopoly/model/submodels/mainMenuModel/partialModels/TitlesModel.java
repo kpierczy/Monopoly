@@ -6,34 +6,20 @@ import java.io.IOException;
 
 import pl.kpierczyk.monopoly.model.Model;
 
-//*******************************************//
-//
-//
-//
-//
-//
-//
-//
-//*******************************************//
 
+/**
+ * 
+ * 
+ * @author  Krzysztof Pierczyk
+ * @version 1.0
+ * @since   1.0
+ */
 public class TitlesModel{
-
-
-    /*****************************************/
-    /* Class Fields */
-    /*****************************************/
 
     Model model;
 
     private final String titlesPath; 
     private final String backButtonText;
-
-
-
-
-    /*****************************************/
-    /* Constructor */
-    /*****************************************/
 
     public TitlesModel(Model model,
                        String titlesPath,
@@ -62,12 +48,6 @@ public class TitlesModel{
         this.backButtonText = backButtonText;
     }
 
-
-
-    /*****************************************/
-    /* Getters & setters */
-    /*****************************************/
-
     public String getTitlesPath() {
         return titlesPath;
     }
@@ -75,6 +55,9 @@ public class TitlesModel{
         return backButtonText;
     }
 
+
+
+    
     
     
     /*****************************************/

@@ -6,38 +6,16 @@ import java.awt.event.KeyListener;
 import pl.kpierczyk.monopoly.controller.Controller;
 
 
-
-
-
-
-
-
-//*******************************************//
-//
-//
-//
-//
-//
-//
-//
-//*******************************************//
-
+/**
+ * 
+ * 
+ * @author  Krzysztof Pierczyk
+ * @version 1.0
+ * @since   1.0
+ */
 public class IntroController implements KeyListener{
 
-    /*****************************************/
-    /* Class Fields */
-    /*****************************************/
-
     private Controller controller;
-
-
-
-
-
-
-    /*****************************************/
-    /* Constructor */
-    /*****************************************/
 
     public IntroController(Controller controller) {
         this.controller = controller;

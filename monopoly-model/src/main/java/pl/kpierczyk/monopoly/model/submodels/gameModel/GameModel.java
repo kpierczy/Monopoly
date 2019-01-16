@@ -1,6 +1,9 @@
 package pl.kpierczyk.monopoly.model.submodels.gameModel;
 
+import java.util.ArrayList;
+
 import pl.kpierczyk.monopoly.model.Model;
+import pl.kpierczyk.monopoly.model.submodels.gameModel.elements.Player;
 
 
 
@@ -8,10 +11,9 @@ import pl.kpierczyk.monopoly.model.Model;
 /**
  * 
  * 
- * 
- * 
- * 
- * 
+ * @author  Krzysztof Pierczyk
+ * @version 1.0
+ * @since   1.0
  */
 public class GameModel {
 
@@ -30,26 +32,17 @@ public class GameModel {
 
     //private Board board;
     //private Dices dices; //remember how many doublets was
-    //private Player players[];
+    private ArrayList<Player> players;
 
     
     boolean hasPlayerRolled;
 
 
-    public GameModel(Model model)
-    {
+    
+    public GameModel(Model model){
         this.model = model;
     }
 
-    
-
-    /*****************************************/
-    /*          Getters & setters            */
-    /*****************************************/
-
-
-
-    /*Bonus getters & setters*/
 
 
     /*****************************************/

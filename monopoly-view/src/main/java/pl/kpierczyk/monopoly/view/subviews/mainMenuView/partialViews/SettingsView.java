@@ -25,20 +25,14 @@ import pl.kpierczyk.monopoly.view.View;
 
 
 
-
-
-
-
-
-
-
-
-
+/**
+ * 
+ * 
+ * @author  Krzysztof Pierczyk
+ * @version 1.0
+ * @since   1.0
+ */
 public class SettingsView extends JPanel{
-
-    /*****************************************/
-    /*            Class Fields               */
-    /*****************************************/
 
     private View view;
 
@@ -68,10 +62,6 @@ public class SettingsView extends JPanel{
     
     private final JButton backButton;
     private final JButton okButton;
-
-    /*****************************************/
-    /*             Constructor               */
-    /*****************************************/
 
     public SettingsView(View view){super();
         this.view = view;
@@ -282,14 +272,6 @@ public class SettingsView extends JPanel{
         this.soundLevelSlider.setPreferredSize(new Dimension(280, 40));
     }
 
-
-
-
-
-    /*****************************************/
-    /*          Getters & setters            */
-    /*****************************************/
-    
     /**
      * @return the languageTitleLabel
      */
@@ -387,6 +369,9 @@ public class SettingsView extends JPanel{
         return okButton;
     }
 
+
+
+    
 
     /*****************************************/
     /*              Utilities                */

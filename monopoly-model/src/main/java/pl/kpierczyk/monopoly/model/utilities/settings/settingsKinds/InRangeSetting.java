@@ -2,30 +2,17 @@ package pl.kpierczyk.monopoly.model.utilities.settings.settingsKinds;
 
 import pl.kpierczyk.monopoly.model.utilities.settings.Setting;
 
-//*******************************************//
-//
-// Setting that can be change in the range
-// of <x, y>. Value of the setting is
-// an Integer.
-//
-//
-//
-//*******************************************//
-
+/**
+ * 
+ * 
+ * @author  Krzysztof Pierczyk
+ * @version 1.0
+ * @since   1.0
+ */
 public class InRangeSetting implements Setting{
-
-    /*****************************************/
-    /*            Class Fields               */
-    /*****************************************/
 
     int value;
     final int possibleValues[];
-
-
-
-    /*****************************************/
-    /*             Constructor               */
-    /*****************************************/
 
     public InRangeSetting(int value, int possibleValues[]){
         this.value = value;
@@ -36,13 +23,6 @@ public class InRangeSetting implements Setting{
         this.value = inRangeSetting.value;
         this.possibleValues = inRangeSetting.possibleValues.clone();
     }
-
-
-
-
-    /*****************************************/
-    /*          Getters & setters            */
-    /*****************************************/
 
     @Override
     public Integer getValue() {

@@ -2,30 +2,17 @@ package pl.kpierczyk.monopoly.model.utilities.settings.settingsKinds;
 
 import pl.kpierczyk.monopoly.model.utilities.settings.Setting;
 
-//*******************************************//
-//
-// Setting that can be selected from the
-// group of setts. Value of the setting is
-// a String.
-//
-//
-//
-//*******************************************//
-
+/**
+ * 
+ * 
+ * @author  Krzysztof Pierczyk
+ * @version 1.0
+ * @since   1.0
+ */
 public class SelectSetting implements Setting{
-
-    /*****************************************/
-    /*            Class Fields               */
-    /*****************************************/
 
     int value;
     final String possibleValues[];
-
-
-
-    /*****************************************/
-    /*             Constructor               */
-    /*****************************************/
 
     public SelectSetting(Integer value, String possibleValues[]){
         this.possibleValues = possibleValues;
@@ -37,11 +24,6 @@ public class SelectSetting implements Setting{
         this.value = selectSetting.value;
         this.possibleValues = selectSetting.possibleValues.clone();
     }
-
-
-    /*****************************************/
-    /*          Getters & setters            */
-    /*****************************************/
 
     @Override
     public String getValue() {
@@ -67,6 +49,11 @@ public class SelectSetting implements Setting{
     }
 
 
+
+
+
+
+    
     /*****************************************/
     /*              Utilities                */
     /*****************************************/

@@ -18,27 +18,19 @@ import pl.kpierczyk.monopoly.view.subviews.mainMenuView.partialViews.Instruction
 import pl.kpierczyk.monopoly.view.subviews.mainMenuView.partialViews.SettingsView;
 import pl.kpierczyk.monopoly.view.subviews.mainMenuView.partialViews.TitlesView;
 
-//*******************************************//
-//
-//
-//
-//
-//
-//
-//
-//*******************************************//
 
 //<--- TO DO --->
 // Create base class MenuModel for MainMenuView and InGameMenuView
 // At least InGameView can extend MainMenuView with overloaded method quit()
 
-
+/**
+ * 
+ * 
+ * @author  Krzysztof Pierczyk
+ * @version 1.0
+ * @since   1.0
+ */
 public class MainMenuView extends JPanel {
-
-
-    /*****************************************/
-    /* Class Fields */
-    /*****************************************/
 
     private View view;
 
@@ -55,11 +47,6 @@ public class MainMenuView extends JPanel {
     private SettingsView settingsView;
     private InstructionView instructionView;
     private TitlesView titlesView;
-
-
-    /*****************************************/
-    /* Constructor */
-    /*****************************************/
 
     public MainMenuView(View view) {
         super();
@@ -88,15 +75,6 @@ public class MainMenuView extends JPanel {
     }
 
 
-
-
-
-    /*****************************************/
-    /* Getters & setters */
-    /*****************************************/
-
-    /*Main menu elements methods*/
-
     public int getMainMenuButtonsNumber() {
         return getMainMenuButtons().length;
     }
@@ -112,8 +90,6 @@ public class MainMenuView extends JPanel {
             return null;
     }
 
-
-    /*Submenus elements methods*/
 
     //public LoadingView getLoadingView() {
     //    return loadingView;

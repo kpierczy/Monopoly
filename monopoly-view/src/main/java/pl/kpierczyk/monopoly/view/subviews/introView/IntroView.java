@@ -11,23 +11,18 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-//*******************************************//
-//
-//
-//
-//
-//
-//
-//
-//*******************************************//
 
+
+/**
+ * 
+ * 
+ * @author  Krzysztof Pierczyk
+ * @version 1.0
+ * @since   1.0
+ */
 public class IntroView extends JPanel {
 
     private Image backgroundImage;
-
-    /*****************************************/
-    /* Constructor */
-    /*****************************************/
 
     public IntroView(View view) {
         super();

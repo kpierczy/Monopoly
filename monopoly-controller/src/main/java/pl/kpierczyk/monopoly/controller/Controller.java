@@ -9,25 +9,14 @@ import pl.kpierczyk.monopoly.view.*;
 
 
 
-
-
-
-//*******************************************//
-//
-//
-//
-//
-//
-//
-//
-//*******************************************//
-
+/**
+ * 
+ * 
+ * @author  Krzysztof Pierczyk
+ * @version 1.0
+ * @since   1.0
+ */
 public class Controller{
-
-
-    /*****************************************/
-    /*            Class Fields               */
-    /*****************************************/
 
     private Model model;
     private View view;
@@ -37,11 +26,6 @@ public class Controller{
     private GameController gameController;
 
 
-
-
-    /*****************************************/
-    /*             Constructor               */
-    /*****************************************/
 
     public Controller(Model model, View view){
         this.model = model;
@@ -53,10 +37,6 @@ public class Controller{
             this.mainMenuController = new MainMenuController(this);
     }
 
-
-    /*****************************************/
-    /*          Getters & setters            */
-    /*****************************************/
 
     public Model getModel() {
         return this.model;
@@ -77,6 +57,10 @@ public class Controller{
 
 
 
+
+
+
+    
 
     /*****************************************/
     /*              Utilities                */

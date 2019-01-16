@@ -2,27 +2,16 @@ package pl.kpierczyk.monopoly.model.utilities.settings.settingsKinds;
 
 import pl.kpierczyk.monopoly.model.utilities.settings.Setting;
 
-//*******************************************//
-//
-//
-//
-//
-//
-//
-//*******************************************//
-
+/**
+ * 
+ * 
+ * @author  Krzysztof Pierczyk
+ * @version 1.0
+ * @since   1.0
+ */
 public class PathSetting implements Setting{
 
-    /*****************************************/
-    /*            Class Fields               */
-    /*****************************************/
-
     String value;
-
-
-    /*****************************************/
-    /*             Constructor               */
-    /*****************************************/
 
     public PathSetting(String value){
         this.value = value;
@@ -31,11 +20,6 @@ public class PathSetting implements Setting{
     public PathSetting(PathSetting pathSetting){
         this.value = new String(pathSetting.value);
     }
-
-
-    /*****************************************/
-    /*          Getters & setters            */
-    /*****************************************/
 
     @Override
     public String getValue() {
@@ -56,6 +40,9 @@ public class PathSetting implements Setting{
         return null;
     }
 
+
+
+    
 
     /*****************************************/
     /*              Utilities                */

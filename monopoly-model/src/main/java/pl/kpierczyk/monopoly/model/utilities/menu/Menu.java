@@ -4,33 +4,17 @@ package pl.kpierczyk.monopoly.model.utilities.menu;
 
 
 
-//*******************************************//
-//
-//
-//
-//
-//
-//
-//
-//*******************************************//
-
+/**
+ * 
+ * 
+ * @author  Krzysztof Pierczyk
+ * @version 1.0
+ * @since   1.0
+ */
 public class Menu {
 
-
-
-
-    /*****************************************/
-    /*            Class Fields               */
-    /*****************************************/
-    
     private final MenuField menuFields[];
     private final int positionNumbers;
-    
-
-
-    /*****************************************/
-    /*              Constructor              */
-    /*****************************************/
 
     public Menu(String fieldsText[], int positionNumbers) {
         
@@ -40,11 +24,6 @@ public class Menu {
         }
         this.positionNumbers = positionNumbers;
     }
-
-
-    /*****************************************/
-    /*          Getters & setters            */
-    /*****************************************/
 
     public MenuField[] getMenuFields() { return menuFields; }
 

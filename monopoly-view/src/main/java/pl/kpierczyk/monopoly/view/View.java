@@ -12,43 +12,23 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 
 
-
-
-
+//<--- TO DO --->
+//Fix fullscreen option
 
 /**
  * 
  * 
- * 
- * 
- * 
+ * @author  Krzysztof Pierczyk
+ * @version 1.0
+ * @since   1.0
  */
-
-
-//<--- TO DO --->
-//Fix fullscreen option
-
 public class View extends JFrame {
 
-    /*****************************************/
-    /* Class Fields */
-    /*****************************************/
-
     private Model model;
-
-    /* Main Menu sceneries */
 
     private IntroView introView;
     private MainMenuView mainMenuView;
     private GameView gameView;
-
-    
-    
-    
-    
-    /*****************************************/
-    /* Constructor */
-    /*****************************************/
 
     public View(Model model) {
         super("Monopoly the board game");
@@ -86,15 +66,6 @@ public class View extends JFrame {
         this.pack();
         this.setVisible(true);        
     }
-
-
-
-
-
-
-    /*****************************************/
-    /* Getters & setters */
-    /*****************************************/
 
     public Model getModel() {
         return model;

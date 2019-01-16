@@ -9,32 +9,16 @@ import pl.kpierczyk.monopoly.controller.Controller;
 
 
 
-
-
-
-
-
-//*******************************************//
-//
-//
-//
-//
-//
-//
-//
-//*******************************************//
-
+/**
+ * 
+ * 
+ * @author  Krzysztof Pierczyk
+ * @version 1.0
+ * @since   1.0
+ */
 public class InstructionController implements ActionListener{
 
-    /*****************************************/
-    /*            Class Fields               */
-    /*****************************************/
-
     Controller controller;
-
-    /*****************************************/
-    /*             Constructor               */
-    /*****************************************/
 
     public InstructionController(Controller controller){
         this.controller = controller;
@@ -43,11 +27,6 @@ public class InstructionController implements ActionListener{
         this.controller.getView().getMainMenuView().getInstructionView().getLeftButton().addActionListener(this);
         this.controller.getView().getMainMenuView().getInstructionView().getRightButton().addActionListener(this);
     }
-
-
-    /*****************************************/
-    /* Listener's methods */
-    /*****************************************/
 
     @Override
     public void actionPerformed(ActionEvent e) {

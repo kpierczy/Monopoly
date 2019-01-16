@@ -3,47 +3,22 @@ package pl.kpierczyk.monopoly.model.utilities.menu;
 
 
 
-//*******************************************//
-//
-//
-//
-//
-//
-//
-//
-//*******************************************//
-
-
+/**
+ * 
+ * 
+ * @author  Krzysztof Pierczyk
+ * @version 1.0
+ * @since   1.0
+ */
 public class MenuField {
-
-
-
-    /*****************************************/
-    /*             Class Fields              */
-    /*****************************************/
 
     private final String fieldText;
     private boolean active;
-
-
-
-
-
-    /*****************************************/
-    /*              Constructor              */
-    /*****************************************/
 
     MenuField(String fieldText) {
         this.fieldText = fieldText;
         this.active = true;
     }
-
-
-
-
-    /*****************************************/
-    /*          Getters & setters            */
-    /*****************************************/
 
     public String getFieldText() {
         return fieldText;

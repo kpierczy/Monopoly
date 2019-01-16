@@ -17,21 +17,15 @@ import javax.swing.border.Border;
 
 import pl.kpierczyk.monopoly.view.View;
 
-//*******************************************//
-//
-//
-//
-//
-//
-//
-//
-//*******************************************//
 
+/**
+ * 
+ * 
+ * @author  Krzysztof Pierczyk
+ * @version 1.0
+ * @since   1.0
+ */
 public class InstructionView extends JPanel {
-
-    /*****************************************/
-    /* Class Fields */
-    /*****************************************/
 
     private View view;
 
@@ -45,10 +39,6 @@ public class InstructionView extends JPanel {
     private JButton backButton;
     private JButton leftButton;
     private JButton rightButton;
-
-    /*****************************************/
-    /* Constructor */
-    /*****************************************/
 
     public InstructionView(View view) {
         super();
@@ -113,9 +103,6 @@ public class InstructionView extends JPanel {
         this.add(allButtonsContainer, BorderLayout.SOUTH);
     }
 
-    /*****************************************/
-    /* Getters & setters */
-    /*****************************************/
 
     public JButton getLeftButton() {
         return leftButton;
@@ -127,6 +114,16 @@ public class InstructionView extends JPanel {
         return backButton;
     }
 
+
+
+
+
+
+
+
+
+
+    
     /*****************************************/
     /* Utilities */
     /*****************************************/

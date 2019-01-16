@@ -4,21 +4,16 @@ import java.io.*;
 
 import pl.kpierczyk.monopoly.model.Model;
 
-//*******************************************//
-//
-//
-//
-//
-//
-//
-//
-//*******************************************//
 
+
+/**
+ * 
+ * 
+ * @author  Krzysztof Pierczyk
+ * @version 1.0
+ * @since   1.0
+ */
 public class InstructionModel {
-
-    /*****************************************/
-    /* Class Fields */
-    /*****************************************/
 
     /* Invisible */
 
@@ -31,10 +26,6 @@ public class InstructionModel {
 
     /* Visible */
     private final String backButtonText;
-
-    /*****************************************/
-    /* Constructor */
-    /*****************************************/
 
     public InstructionModel(Model model, String instructionHome, String backButtonTextPath) {
 
@@ -64,10 +55,7 @@ public class InstructionModel {
         this.backButtonText = backButtonText;
     }
 
-    /*****************************************/
-    /* Getters & setters */
-    /*****************************************/
-
+    
     public String getActualPagePath() {
         return instructionHome + "/" + Integer.toString(actualPage) + ".png";
     }
@@ -76,6 +64,11 @@ public class InstructionModel {
         return backButtonText;
     }
 
+
+
+
+
+    
     /*****************************************/
     /* Utilities */
     /*****************************************/

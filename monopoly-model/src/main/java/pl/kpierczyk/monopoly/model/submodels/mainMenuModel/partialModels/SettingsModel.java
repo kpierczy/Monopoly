@@ -9,23 +9,14 @@ import pl.kpierczyk.monopoly.model.utilities.settings.*;
 
 
 
-
-
-//*******************************************//
-//
-//
-//
-//
-//
-//
-//
-//*******************************************//
-
+/**
+ * 
+ * 
+ * @author  Krzysztof Pierczyk
+ * @version 1.0
+ * @since   1.0
+ */
 public class SettingsModel{
-
-    /*****************************************/
-    /*            Class Fields               */
-    /*****************************************/
 
     /*Invisible*/
     private Model model;
@@ -37,13 +28,6 @@ public class SettingsModel{
     private final String backButtonText;
     private final String settingsTexts[];
     private final String settingsbackgroundImagePath;
-
-
-
-    
-    /*****************************************/
-    /*             Constructor               */
-    /*****************************************/
 
     public SettingsModel(Model model,
                          String configPath,
@@ -112,12 +96,6 @@ public class SettingsModel{
         this.settingsbackgroundImagePath = settingsbackgroundImagePath;
     }
 
-
-
-    /*****************************************/
-    /*          Getters & setters            */
-    /*****************************************/
-
     public String getConfigPath() {
         return configPath;
     }
@@ -158,6 +136,9 @@ public class SettingsModel{
 
 
 
+
+
+    
     /*****************************************/
     /*              Utilities                */
     /*****************************************/

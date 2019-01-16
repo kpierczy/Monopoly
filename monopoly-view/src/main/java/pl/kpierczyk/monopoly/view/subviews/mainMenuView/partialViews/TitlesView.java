@@ -22,28 +22,14 @@ import pl.kpierczyk.monopoly.view.View;
 
 
 
-
-
-
-
-
-
-
-//*******************************************//
-//
-//
-//
-//
-//
-//
-//
-//*******************************************//
-
+/**
+ * 
+ * 
+ * @author  Krzysztof Pierczyk
+ * @version 1.0
+ * @since   1.0
+ */
 public class TitlesView extends JPanel{
-
-    /*****************************************/
-    /*            Class Fields               */
-    /*****************************************/
 
     private View view;
 
@@ -53,10 +39,6 @@ public class TitlesView extends JPanel{
     private Image titlesImage;
     
     private JButton backButton;
-
-    /*****************************************/
-    /*             Constructor               */
-    /*****************************************/
 
     public TitlesView(View view){
         super();
@@ -100,10 +82,6 @@ public class TitlesView extends JPanel{
         this.add(this.backButton, BorderLayout.PAGE_END);
     }
 
-
-    /*****************************************/
-    /*          Getters & setters            */
-    /*****************************************/
 
     public JButton getBackButton() {
         return backButton;

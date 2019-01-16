@@ -14,53 +14,32 @@ import pl.kpierczyk.monopoly.view.subviews.mainMenuView.MainMenuView;
 
 
 
-
-
-
-
-
-//*******************************************//
-//
-//
-//
-//
-//
-//
-//
-//*******************************************//
-
 //<--- TO DO ---> 
 // create base class MenuController for MainMenuController and InGameMenuController
 // at least InGameController can extend MainMenucontroller with overloaded method quit()
 
+/**
+ * 
+ * 
+ * @author  Krzysztof Pierczyk
+ * @version 1.0
+ * @since   1.0
+ */
 public class MainMenuController{
 
+private Controller controller;
 
-    /*****************************************/
-    /*            Class Fields               */
-    /*****************************************/
 
-    private Controller controller;
-
-    /*Main menu listener*/
     private MainMenuListener mainMenuListener;
 
-    /*Submenu's listeners*/
-
-    //private LoadingController loadigController;
     private SettingsController settingsController;
     private InstructionController instructionController;
     private TitlesController titlesController;
 
 
-    /*****************************************/
-    /*             Constructor               */
-    /*****************************************/
-
     public MainMenuController(Controller controller){
         this.controller = controller;
 
-        /*Initializing mainMenuListener*/
         this.mainMenuListener = new MainMenuListener(this.controller);
         MainMenuView mainMenuView = this.controller.getView().getMainMenuView();
 
@@ -69,14 +48,6 @@ public class MainMenuController{
         }
     }
 
-
-
-
-
-
-    /*****************************************/
-    /*          Getters & setters            */
-    /*****************************************/
 
     //public LoadingController getLoadingController() {
     //    return loadingController;

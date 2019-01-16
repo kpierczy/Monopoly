@@ -4,8 +4,16 @@ import pl.kpierczyk.monopoly.model.*;
 import pl.kpierczyk.monopoly.view.*;
 import pl.kpierczyk.monopoly.controller.*;
 
-// Starting Module
-
+/**
+ * Main App's class that initializes Model, View and Controller.
+ * 
+ * @author  Krzysztof Pierczyk
+ * @version 1.0
+ * @since   1.0
+ * @see     Model
+ * @see     View
+ * @see     Controller
+ */
 public class App 
 {
     public static void main( String[] args )

@@ -10,30 +10,18 @@ import javax.swing.event.ChangeListener;
 
 import pl.kpierczyk.monopoly.controller.Controller;
 
-//*******************************************//
-//
-//
-//
-//
-//
-//
-//
-//*******************************************//
 
+
+/**
+ * 
+ * 
+ * @author  Krzysztof Pierczyk
+ * @version 1.0
+ * @since   1.0
+ */
 public class SettingsController implements ActionListener, ChangeListener {//ActionListener{
 
-    /*****************************************/
-    /*            Class Fields               */
-    /*****************************************/
-
     Controller controller;
-
-
-
-
-    /*****************************************/
-    /*             Constructor               */
-    /*****************************************/
 
     public SettingsController(Controller controller){
         this.controller = controller;
@@ -53,10 +41,7 @@ public class SettingsController implements ActionListener, ChangeListener {//Act
         this.controller.getView().getMainMenuView().getSettingsView().getOkButton().addActionListener(this);
     }
 
-    /*****************************************/
-    /* Listener's methods */
-    /*****************************************/
-
+    
     @Override
     public void actionPerformed(ActionEvent e) {
         JButton buttonSource = (JButton) e.getSource();

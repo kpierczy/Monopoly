@@ -6,22 +6,14 @@ import pl.kpierczyk.monopoly.model.submodels.gameModel.utilities.GameSaveInfo;
 
 
 
-
-//*******************************************//
-//
-//
-//
-//
-//
-//
-//
-//*******************************************//
-
+/**
+ * 
+ * 
+ * @author  Krzysztof Pierczyk
+ * @version 1.0
+ * @since   1.0
+ */
 public class LoadingModel {
-
-    /*****************************************/
-    /* Class Fields */
-    /*****************************************/
 
     /* Invisible */
 
@@ -35,10 +27,6 @@ public class LoadingModel {
     final private String backButtonText;
 
     private int checkedSave;
-
-    /*****************************************/
-    /* Constructor */
-    /*****************************************/
 
     public LoadingModel(Model model, String savesHome, String buttonsPath[]) {
 
@@ -91,10 +79,6 @@ public class LoadingModel {
         this.checkedSave = 0;
     }
 
-    /*****************************************/
-    /* Getters & setters */
-    /*****************************************/
-
     public String[] getSavesNames() {
         return savesNames;
     }
@@ -119,6 +103,10 @@ public class LoadingModel {
             return false;
     }
 
+
+
+
+    
     /*****************************************/
     /* Utilities */
     /*****************************************/
