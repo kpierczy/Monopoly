@@ -1,7 +1,6 @@
 package pl.kpierczyk.monopoly.model.submodels.gameModel.elements;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 
 /**
@@ -49,6 +48,9 @@ public class CardsStack{
     public int getSize() {
         return size;
     }
+
+
+
 
 
     /********************************/
