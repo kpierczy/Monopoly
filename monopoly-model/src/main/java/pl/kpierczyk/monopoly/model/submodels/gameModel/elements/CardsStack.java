@@ -1,7 +1,13 @@
 package pl.kpierczyk.monopoly.model.submodels.gameModel.elements;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
+
+import pl.kpierczyk.monopoly.model.submodels.gameModel.elements.Card.CardType;
 
 /**
  * Class representing stack of cards on the Monopoly's board.
@@ -17,6 +23,8 @@ public class CardsStack{
     /** Number of cards on the stack.*/
     private final int size;
 
+    private final CardType cardsType;
+
     /** Stack containing remaining cards on the stack.*/
     private ArrayList<Card> stack;
 
@@ -31,13 +39,14 @@ public class CardsStack{
      * @param   stackSize
      * @see     Card
      */
-    public CardsStack(ArrayList<Card> stack){
+    public CardsStack(ArrayList<Card> stack, CardType type){
         this.size = stack.size();
         //<--- WARNING -->
         //It can assign object that will be disappear in a while.
         //Not sure how java works.
         this.stack = stack;
-        this.greyvardStack = new ArrayList<Card>(size);
+        this.greyvardStack = new ArrayList<Card>();
+        this.cardsType = type;
     }
 
     /**
@@ -49,7 +58,14 @@ public class CardsStack{
         return size;
     }
 
-
+    /**
+     * Returns type of cards stored in the stack.
+     * 
+     * @return type of cards stored in the stack.
+     */
+    public CardType getCardsType() {
+        return cardsType;
+    }
 
 
 
@@ -130,5 +146,84 @@ public class CardsStack{
             return true;
         }
         else return false;
+    }
+
+
+
+
+    /**
+     * Loads stack of cards from specified file.
+     * If loading fail, nothig changes in the stack
+     * and false is returned. Otherwise, stack is set
+     * and greyvard is cleaned.
+     * 
+     * @param file
+     * @return false if loading fail.
+     */
+    public boolean loadFromFile(String file){
+        if(file != null){ 
+            
+            //potential new stack
+            ArrayList<Card> potentialStack = 
+                new ArrayList<Card>(size);
+            
+            try{
+                //getting connection with file
+                BufferedReader bufferedReader =
+                    new BufferedReader(new InputStreamReader(getClass().getResourceAsStream(file)));
+
+                //here lines from file are read
+                String line;
+
+                //number of cards loaded
+                int i = 0;
+
+                for(i = 0; (i < size) && ((line = bufferedReader.readLine()) != null); i++){
+                    Card.CardType type;
+                    String text;
+                    int effect;
+
+                    //card type should be established
+                    type = this.cardsType;
+
+                    if((line = bufferedReader.readLine()) != null)
+                        text = line;
+                    else{
+                        bufferedReader.close();
+                        return false;
+                    }
+
+                    //effect establishing
+                    if((line = bufferedReader.readLine()) != null)
+                        effect = Integer.parseInt(line);
+                    else{
+                        bufferedReader.close();
+                        return false;
+                    }
+
+                    //creating new stack
+                    potentialStack.set(i, new Card(type, text, effect) ) ;
+
+                    if((line = bufferedReader.readLine()) == null){
+                        bufferedReader.close();
+                        return false;
+                    }
+                }
+
+                //checks if all 'size' cards has been loaded
+                if(i < size)
+                    return false;
+                else{
+                    stack = potentialStack;
+                    greyvardStack.clear();
+                    return true;
+                }
+                    
+            }
+            catch(Exception ex){
+                return false;
+            }
+        }
+        else return false;     
     }
 }
