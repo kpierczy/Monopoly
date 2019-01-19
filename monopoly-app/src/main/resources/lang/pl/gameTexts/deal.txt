@@ -1,0 +1,48 @@
+----------------------------
+Wyjdź bezpłatnie z więzienia.
+16
+----------------------------
+Zwiedzasz miasto! Idziesz na Plac Wilsona.
+9
+----------------------------
+Idziesz na ulicę Płowiecką.
+10
+----------------------------
+Inwestujesz w zabytki. Przejdź na Aleje Ujazdowskie.
+11
+----------------------------
+Wracasz na Start.
+13
+----------------------------
+Godziny szczytu - stoisz w korku. Cofnij się o trzy pola.
+14
+----------------------------
+Niezapłacone podatki - ściga Cię Urząd Skarbowy. Idziesz do więzienia.
+15
+----------------------------
+Zapłać czesne w prywatnej szkole - 1500$.
+4
+----------------------------
+Budujesz basen na dachu swojego apartamentu. Zapłać 200$.
+5
+----------------------------
+Mandat za korzystanie z telefonu komórkowego podczas jazdy samochodem. Płacisz 150$.
+6
+----------------------------
+Wzrasta podatek od nieruchomości. Płacisz 400$ za każdy apartament i 1150$ za każdy hotel.
+7
+----------------------------
+Zatrudniasz sławnego dekoratora wnętrz. Za każdy apartament płacisz 250$. Za każdy hotel płacisz 1000$.
+8
+----------------------------
+Na aukcji internetowej sprzedajsz swój bilet na zawody na Wielkiej Krokwi. Pobierz 500$.
+3
+----------------------------
+Łapiesz taksówkę na ulicę dworzec zachodni.
+12
+----------------------------
+Sprzedajsze akcje. Pobierz 1500$.
+1
+----------------------------
+Wygrałeś w kumulacji Lotto! Pobierz 1000$.
+2

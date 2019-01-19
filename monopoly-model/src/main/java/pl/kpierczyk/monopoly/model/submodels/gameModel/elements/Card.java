@@ -23,20 +23,20 @@ public class Card{
     
 
     /** Constants for recognising deal cards*/
-    public final int CH_GET_2000 = 1;
-    public final int CH_GET_1500 = 2;
-    public final int CH_GET_1000 = 3;
-    public final int CH_GET_500 = 4;
+    public final int CH_GET_1500 = 1;
+    public final int CH_GET_1000 = 2;
+    public final int CH_GET_500 = 3;
 
-    public final int CH_PAY_1500 = 5;
-    public final int CH_PAY_200 = 6;
-    public final int CH_PAY_150 = 7;
-    public final int CH_PAY_400A_1150H = 8;
-    public final int CH_PAY_250A_1000H = 9;
+    public final int CH_PAY_1500 = 4;
+    public final int CH_PAY_200 = 5;
+    public final int CH_PAY_150 = 6;
+    public final int CH_PAY_400A_1150H = 7;
+    public final int CH_PAY_250A_1000H = 8;
 
-    public final int CH_GO_TO_THIRD_RED = 10;
-    public final int CH_GO_TO_FIRST_PINK = 11;
-    public final int CH_GO_TO_SECOND_NAVY = 12;
+    public final int CH_GO_TO_THIRD_RED = 9;
+    public final int CH_GO_TO_FIRST_PINK = 10;
+    public final int CH_GO_TO_SECOND_NAVY = 11;
+    public final int CH_GO_TO_FIRST_STATION = 12;
     public final int CH_GO_TO_START = 13;
     public final int CH_GO_BACK_3 = 14;
     public final int CH_GO_TO_JAIL = 15;
@@ -60,7 +60,7 @@ public class Card{
     public final int D_PAY_100_OR_CHANCE = 28;
 
     public final int D_BACK_TO_START = 29;
-    public final int D_GO_TO_SECOND_BROWN = 30;
+    public final int D_GO_TO_FIRST_BROWN = 30;
     public final int D_GO_TO_JAIL = 31;
 
     public final int D_GET_OUT_OF_JAIL = 32;

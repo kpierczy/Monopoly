@@ -37,17 +37,21 @@ public class Player{
     /** Number of turn player has spent in the Jail.*/
     private int turnsInJail;
 
+    /** States if player is in jail.*/
+    private boolean inJail;
+
 
     /**
      * Default constructor initializing player's state.
      */
     public Player(String name, String positionID, int cash,
-                  int outOfJailNumber, int counter){
+                  int outOfJailNumber, int counter, boolean inJail){
         this.name = name;
         this.positionID = positionID;
         this.cash = cash;
         this.outOfJailNumber = outOfJailNumber;
         this.counter = counter;
+        this.inJail = inJail;
     }
 
     /**
@@ -108,6 +112,13 @@ public class Player{
 
 
     /**
+     * @return the inJail
+     */
+    public boolean isInJail() {
+        return inJail;
+    }
+
+    /**
      * @param positionID the positionID to set
      */
     public void setPositionID(String positionID) {
@@ -115,7 +126,12 @@ public class Player{
     }
 
 
-    
+    /**
+     * @param inJail the inJail to set
+     */
+    public void setInJail(boolean inJail) {
+        this.inJail = inJail;
+    }
 
 
 

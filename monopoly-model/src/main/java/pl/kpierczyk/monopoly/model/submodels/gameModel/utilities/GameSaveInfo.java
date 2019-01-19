@@ -58,7 +58,7 @@ public class GameSaveInfo{
         this.players = new ArrayList<Player>(playersNumber);
         for(int i = 0; i < players.size(); i++){
             players.set(i, new Player("Player " + (i+1), this.board.getBoard().get(0).getID(),
-                                       START_CASH, 0, i+1));
+                                       START_CASH, 0, i+1, false));
         }
 
         /** Initializing basic game infos.*/

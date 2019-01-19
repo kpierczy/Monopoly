@@ -38,7 +38,7 @@ public class CardsStack{
      * @see     Card
      */
     public CardsStack(int size, CardType type){
-        this.size = stack.size();
+        this.size = size;
         //<--- WARNING -->
         //It can assign object that will be disappear in a while.
         //Not sure how java works.
@@ -203,11 +203,6 @@ public class CardsStack{
 
                     //creating new stack
                     potentialStack.set(i, new Card(type, text, effect) ) ;
-
-                    if((line = bufferedReader.readLine()) == null){
-                        bufferedReader.close();
-                        return false;
-                    }
                 }
 
                 //checks if all 'size' cards has been loaded
