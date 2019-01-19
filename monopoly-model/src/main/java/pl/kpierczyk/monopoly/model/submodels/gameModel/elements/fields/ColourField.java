@@ -73,7 +73,7 @@ public class ColourField extends BasePropertyField{
      * @param   name
      * @param   price
      * @param   pledgeValue
-     * @param   buybackMultplier
+     * @param   buybackMultiplier
      * @param   set
      * @param   prices
      * @see     BasePropertyField
@@ -81,9 +81,9 @@ public class ColourField extends BasePropertyField{
      * @see     ColourFieldsSet
      */
     public ColourField(String ID, String name, int price, int pledgeValue,
-                       int buybackMultplier, ColourFieldCashInfo prices,
+                       double buybackMultiplier, ColourFieldCashInfo prices,
                        int colour){
-        super(ID, name, price, pledgeValue, buybackMultplier);
+        super(ID, name, price, pledgeValue, buybackMultiplier);
         this.colour = colour;
 
         this.baseRent = prices.getBaseRent();

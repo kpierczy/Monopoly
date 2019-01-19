@@ -36,7 +36,7 @@ public class TrainStationField extends BasePropertyField{
      * @see     BasePropertyField
      */
     public TrainStationField(String ID, String name, int price,
-                             int pledgeValue, int buybackMultiplier,
+                             int pledgeValue, double buybackMultiplier,
                              int baseRent){
         super(ID, name, price, pledgeValue, buybackMultiplier);
         this.baseRent = baseRent;

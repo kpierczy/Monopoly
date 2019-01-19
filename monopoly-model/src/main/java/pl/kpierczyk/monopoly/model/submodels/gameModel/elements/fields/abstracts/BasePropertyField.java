@@ -20,7 +20,7 @@ public abstract class BasePropertyField extends Field{
     private final int pledgeValue;
 
     /** Coefficient that pledge value is multiplied by when cost of buyback is calculated.*/
-    private final int buybackMultplier;
+    private final double buybackMultiplier;
 
     /** Player who owns this field.*/
     private Player owner = null;
@@ -45,11 +45,11 @@ public abstract class BasePropertyField extends Field{
     * @see      Field
     */
    public BasePropertyField(String ID, String name, int price,
-                            int pledgeValue, int buybackMultplier){
+                            int pledgeValue, double buybackMultiplier){
         super(ID, name);
         this.price = price;
         this.pledgeValue = pledgeValue;
-        this.buybackMultplier = buybackMultplier;
+        this.buybackMultiplier = buybackMultiplier;
     }
 
     /**
@@ -78,8 +78,8 @@ public abstract class BasePropertyField extends Field{
      * 
      * @return the buybackMultplier
      */
-    public int getBuybackMultplier() {
-        return buybackMultplier;
+    public double getBuybackMultiplier() {
+        return  buybackMultiplier;
     }
 
     /**
@@ -88,7 +88,7 @@ public abstract class BasePropertyField extends Field{
      * @return the buybackCost
      */
     public final int getBuybackCost(){
-        return buybackMultplier*pledgeValue;
+        return (int)buybackMultiplier*pledgeValue;
     }
 
     /**

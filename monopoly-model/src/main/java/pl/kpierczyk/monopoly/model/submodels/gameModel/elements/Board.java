@@ -111,7 +111,7 @@ public class Board{
         if(boardFile != null && chanceFile != null && dealFile != null){
             
             /** Initializing potentially loaded elements.*/
-            ArrayList<Field> potentialBoard = new ArrayList<Field>(BOARD_SIZE);
+            ArrayList<Field> potentialBoard = new ArrayList<Field>();
             CardsStack potentialChanceCards = new CardsStack(STACKS_SIZE, CardType.chance);
             CardsStack potentialDealCards = new CardsStack(STACKS_SIZE, CardType.deal);
 
@@ -141,7 +141,7 @@ public class Board{
                     if((line = bufferedReader.readLine()) != null){
 
                         /** StartField initializing*/
-                        if(line == "START_FIELD"){
+                        if(line.equals("START_FIELD")){
 
                             String ID;
                             String name;
@@ -151,16 +151,16 @@ public class Board{
                             name = bufferedReader.readLine();
                             startBenefit = Integer.parseInt(bufferedReader.readLine());
 
-                            board.set(i, new StartField(ID, name, startBenefit));
+                            board.add(new StartField(ID, name, startBenefit));
                         }
                         /** ColourField initializing*/
-                        else if(line == "COLOUR_FIELD"){
+                        else if(line.equals("COLOUR_FIELD")){
 
                             String ID;
                             String name;
                             int price;
                             int pledgeValue;
-                            int buybackMultiplier;
+                            double buybackMultiplier;
                             
                             ColourFieldCashInfo prices = new ColourFieldCashInfo();
 
@@ -229,10 +229,10 @@ public class Board{
                             prices.setHotelCost(hotelCost);
 
                             /** Initializes new */
-                            board.set(i, new ColourField(ID, name, price, pledgeValue,
+                            board.add(new ColourField(ID, name, price, pledgeValue,
                                                          buybackMultiplier, prices, colour));
                         }
-                        else if(line == "CARD_DRAW_FIELD"){
+                        else if(line.equals("CARD_DRAW_FIELD")){
                             
                             String ID = bufferedReader.readLine();
                             String name = bufferedReader.readLine();
@@ -248,18 +248,18 @@ public class Board{
                             }
 
                             /** Initializing new DrawCardField*/
-                            board.set(i, new CardDrawField(ID, name, kind));
+                            board.add(new CardDrawField(ID, name, kind));
                         }
-                        else if(line == "TAX_FIELD"){
+                        else if(line.equals("TAX_FIELD")){
                             
                             String ID = bufferedReader.readLine();
                             String name = bufferedReader.readLine();
                             int taxValue = Integer.parseInt(bufferedReader.readLine());
 
                             /** Initializing new TaxField*/
-                            board.set(i, new TaxField(ID, name, taxValue));
+                            board.add(new TaxField(ID, name, taxValue));
                         }
-                        else if(line == "TRAIN_STATION_FIELD"){
+                        else if(line.equals("TRAIN_STATION_FIELD")){
                             
                             String ID = bufferedReader.readLine();
                             String name = bufferedReader.readLine();
@@ -269,19 +269,19 @@ public class Board{
                             int baseRent = Integer.parseInt(bufferedReader.readLine());
 
                             /** Initializing new TrainSTationField*/
-                            board.set(i, new TrainStationField(ID, name, price, pledgeValue,
+                            board.add(new TrainStationField(ID, name, price, pledgeValue,
                                                                buybackMultiplier, baseRent));
                         }
-                        else if(line == "NEUTRAL_FIELD"){
+                        else if(line.equals("NEUTRAL_FIELD")){
                             
                             String ID = bufferedReader.readLine();
                             String name = bufferedReader.readLine();
 
                             /** Initializes new NeutralField*/
-                            board.set(i, new NeutralField(ID, name));
+                            board.add(new NeutralField(ID, name));
                             
                         }
-                        else if(line == "SPECIAL_PROPERTY_FIELD"){
+                        else if(line.equals("SPECIAL_PROPERTY_FIELD")){
                             
                             String ID = bufferedReader.readLine();
                             String name = bufferedReader.readLine();
@@ -292,17 +292,17 @@ public class Board{
                             int setMultiplier = Integer.parseInt(bufferedReader.readLine());
 
                             /** Initializes new NeutralField*/
-                            board.set(i, new SpecialPropertyField(ID, name, price, pledgeValue, 
+                            board.add(new SpecialPropertyField(ID, name, price, pledgeValue, 
                                                                   buybackMultiplier, baseMultiplier, setMultiplier));
                         }
-                        else if(line == "TELEPORTING_FIELD"){
+                        else if(line.equals("TELEPORTING_FIELD")){
 
                             String ID = bufferedReader.readLine();
                             String name = bufferedReader.readLine();
                             String destinationID = bufferedReader.readLine();
 
                             /** Initializes new teleporting field - e.g. jail*/
-                            board.set(i, new TeleportingField(ID, name, destinationID));
+                            board.add(new TeleportingField(ID, name, destinationID));
                         }
                     }
                 }
