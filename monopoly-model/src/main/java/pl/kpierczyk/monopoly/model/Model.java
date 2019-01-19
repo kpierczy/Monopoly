@@ -87,11 +87,10 @@ public class Model {
 
         /* initializing introModel */
         String relativeIntroPosterPath = "/lang/" +
-                                         settings.getLanguage() +
-                                         "/img/intro/introPoster_" +
+                                         settings.getLanguage() + "/img/" +
                                          settings.getResolutionSetting().toString() +
-                                         ".png";
-
+                                         "/intro/introPoster.png";
+                                         
         URL notConvertedIntroPosterPath = getClass().getResource(relativeIntroPosterPath);
 
         if(notConvertedIntroPosterPath != null){

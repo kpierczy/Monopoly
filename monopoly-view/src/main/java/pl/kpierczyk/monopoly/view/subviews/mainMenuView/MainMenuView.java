@@ -123,21 +123,43 @@ public class MainMenuView extends JPanel {
 
 
     /*Logical utilities*/
+
+
+
+    /**
+     * 
+     * 
+     * @param settings
+     * @return
+     */
     public int runNewGame(Settings settings){
         if(this.mainMenuPanel != null){
-            
-            String playersNumber = "";
 
-            if(settings.getLanguage() == "en"){
+            //<-- TO DO -->>
+            //Unlock possibility of playing in other languages
+            if(settings.getLanguage().equals("pl")){
+                String playersNumber = "";
+
+                if(settings.getLanguage() == "en"){
+                    playersNumber = 
+                        JOptionPane.showInputDialog(this.view, "Please enter number of players (from 2 to 6):");
+                }
+                else if(settings.getLanguage() == "pl"){
                 playersNumber = 
-                    JOptionPane.showInputDialog(this.view, "Please enter number of players (from 2 to 6):");
-            }
-            else if(settings.getLanguage() == "pl"){
-            playersNumber = 
-                    JOptionPane.showInputDialog(this.view, "Wproawdź liczbę graczy (od 2 do 6):");
-            }
+                        JOptionPane.showInputDialog(this.view, "Wproawdź liczbę graczy (od 2 do 6):");
+                }
 
-            return Integer.parseInt(playersNumber);
+                int players = 0;
+
+                try{
+                    players = (int)Double.parseDouble(playersNumber);
+                }
+                catch(Exception ex){
+                    return -1;
+                }
+                return players; 
+            }
+            else return -1;
         }
         else return -1;
     }

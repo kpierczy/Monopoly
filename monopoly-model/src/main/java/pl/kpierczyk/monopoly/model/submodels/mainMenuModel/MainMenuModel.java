@@ -268,14 +268,13 @@ public class MainMenuModel {
     }
 
     public boolean openInstruction() {
-        if (getState() == MainMenuState._default) {
-            this.state = MainMenuState.instruction;
-            
+        if (getState() == MainMenuState._default) {            
 
             /*Getting instruction home path*/
             String relativeInstructionFirstSlidePath = "/lang/" +
-                                             this.model.getSettings().getLanguage() +
-                                             "/img/instruction/1.png";                
+                                             this.model.getSettings().getLanguage() + "/img/" +
+                                             this.model.getSettings().getResolutionSetting().getValue() +
+                                             "/instruction/1.png";                
             URL notConvertedInstructionFirstSlidePath = 
                 getClass().getResource(relativeInstructionFirstSlidePath);
             
@@ -307,6 +306,8 @@ public class MainMenuModel {
                 this.instructionModel = new InstructionModel(this.model,
                                                             instructionHome,
                                                             backButtonTextPath);
+                
+                this.state = MainMenuState.instruction;
                 return true;
             }
             else
@@ -318,12 +319,12 @@ public class MainMenuModel {
 
     public boolean openTitles() {
         if (getState() == MainMenuState._default) {
-            this.state = MainMenuState.titles;
- 
+
             /*Getting titles file path*/
             String relativeTitlesPath = "/lang/" +
-                                        this.model.getSettings().getLanguage() +
-                                        "/img/titles/titles.png";
+                                        this.model.getSettings().getLanguage() + "/img/" +
+                                        this.model.getSettings().getResolutionSetting().getValue() +
+                                        "/titles/titles.png";
             URL notConvertedTitlesPath = 
                 getClass().getResource(relativeTitlesPath);
 
@@ -352,6 +353,8 @@ public class MainMenuModel {
                 this.titlesModel = new TitlesModel(this.model,
                                                 titlesPath,
                                                 backButtonTextPath);
+
+                this.state = MainMenuState.titles; 
                 return true;    
             }
             else

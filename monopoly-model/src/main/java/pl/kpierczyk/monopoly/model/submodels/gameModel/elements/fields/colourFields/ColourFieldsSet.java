@@ -18,6 +18,9 @@ public class ColourFieldsSet {
     /** Colour of the fields in set. */
     private final int colour;
 
+    /** Size of the set.*/
+    private final int size; 
+
     /** Set of CoolourField */
     private ColourField first = null;
     private ColourField second = null;
@@ -35,8 +38,9 @@ public class ColourFieldsSet {
      * @param colour
      * @see ColourField
      */
-    public ColourFieldsSet(int colour) {
+    public ColourFieldsSet(int colour, int size) {
         this.colour = colour;
+        this.size = size;
     }
 
     /**
@@ -44,6 +48,13 @@ public class ColourFieldsSet {
      */
     public int getColour() {
         return colour;
+    }
+
+    /**
+     * @return the size
+     */
+    public int getSize() {
+        return size;
     }
 
     /**
@@ -70,7 +81,10 @@ public class ColourFieldsSet {
      * @return third
      */
     public ColourField getThird() {
-        return third;
+        if(size == 3)
+            return third;
+        else
+            return null;
     }
 
     /**
@@ -108,9 +122,12 @@ public class ColourFieldsSet {
      * @param third the third to set
      */
     public boolean setThird(ColourField third) {
-        if(this.colour == third.getColour()){
-            this.third = third;
-            return true;
+        if(size == 3){
+            if(this.colour == third.getColour()){
+                this.third = third;
+                return true;
+            }
+            else return false;
         }
         else return false;
     }
@@ -119,10 +136,10 @@ public class ColourFieldsSet {
 
 
 
-
     /********************************/
     /* Utilities */
     /********************************/
+
 
     /**
      * Return owner of the whole set. Null returned if not owner exists.
@@ -136,6 +153,7 @@ public class ColourFieldsSet {
             return null;
     }
 
+
     /**
      * Set refference to this set inside all ColourFields in set.
      * 
@@ -146,9 +164,13 @@ public class ColourFieldsSet {
             first.setSet(this);
         if(this.second != null)
             second.setSet(this);
-        if(this.third != null)
-            third.setSet(this);
+
+        if(size == 3){
+            if(this.third != null)
+                third.setSet(this);
+        }
     }
+
 
     /**
      * Updates information about monopolisation and sets values of owner and
@@ -162,24 +184,46 @@ public class ColourFieldsSet {
         Player secondOwner = second.getOwner();
         Player thirdOwner = third.getOwner();
 
-        if (firstOwner != null && secondOwner != null && thirdOwner != null) {
-            if (firstOwner == secondOwner && secondOwner == thirdOwner && firstOwner == thirdOwner) {
-                this.captive = true;
-                this.owner = firstOwner;
-                return true;
+        if(size == 3){
+            if (firstOwner != null && secondOwner != null && thirdOwner != null) {
+                if (firstOwner == secondOwner && secondOwner == thirdOwner && firstOwner == thirdOwner) {
+                    this.captive = true;
+                    this.owner = firstOwner;
+                    return true;
+                } else {
+                    this.captive = false;
+                    this.owner = null;
+                    return false;
+                }
+
             } else {
                 this.captive = false;
                 this.owner = null;
                 return false;
             }
-
-        } else {
-            this.captive = false;
-            this.owner = null;
-            return false;
         }
+        else{
+            if (firstOwner != null && secondOwner != null) {
+                if (firstOwner == secondOwner) {
+                    this.captive = true;
+                    this.owner = firstOwner;
+                    return true;
+                } 
+                else {
+                    this.captive = false;
+                    this.owner = null;
+                    return false;
+                }
 
+            } 
+            else {
+                this.captive = false;
+                this.owner = null;
+                return false;
+            }
+        }
     }
+
 
     /**
      * Check if pointed field can be upbuilt. Throws an exception
@@ -218,22 +262,27 @@ public class ColourFieldsSet {
                     }
                 } else return false;
             }
-            else if (field == third) {
-                if(!first.isPledged() && !second.isPledged() && !third.isPledged()){
-                    if (field.isHotel())
-                        return false;
-                    else {
-                        int apartmentsNumber = field.getApartmentsNumber();
-                        if (apartmentsNumber <= first.getApartmentsNumber()
-                                && apartmentsNumber <= second.getApartmentsNumber())
-                            return true;
-                        else return false;
-                    }
-                }else return false;
-            } 
-            else throw new Exception();
-        }else return false;
+            else if(size == 3){
+                if (field == third) {
+                    if(!first.isPledged() && !second.isPledged() && !third.isPledged()){
+                        if (field.isHotel())
+                            return false;
+                        else {
+                            int apartmentsNumber = field.getApartmentsNumber();
+                            if (apartmentsNumber <= first.getApartmentsNumber()
+                                    && apartmentsNumber <= second.getApartmentsNumber())
+                                return true;
+                            else return false;
+                        }
+                    }else return false;
+                } 
+                else throw new Exception();
+            }
+            else return false;
+        }
+        else return false;
     }
+
 
     /**
      * Check if pointed field can be downbuilt. Throws an exception
@@ -278,35 +327,45 @@ public class ColourFieldsSet {
                 } else return true;
             } else return false;
         }
-        else if (field == third) {
-            if(field.isBuilt()){
-                if(!first.isPledged() && !second.isPledged() && !third.isPledged()){
-                    if (field.isHotel())
-                        return true;
-                    else {
-                        int apartmentsNumber = field.getApartmentsNumber();
-                        if (apartmentsNumber >= first.getApartmentsNumber()
-                                && apartmentsNumber >= second.getApartmentsNumber())
+        else if(size == 3){
+            if (field == third) {
+                if(field.isBuilt()){
+                    if(!first.isPledged() && !second.isPledged() && !third.isPledged()){
+                        if (field.isHotel())
                             return true;
-                        else 
-                            return false;
-                    }
-                } else return true;
-            } else return false;
-        } 
-        else throw new Exception();
-    }
-
-    /**
-     * 
-     * @return statement about if something is built on fields from the set.
-     */
-    public boolean isBuilt(){
-        if(first.isBuilt() || second.isBuilt() || third.isBuilt())
-            return true;
+                        else {
+                            int apartmentsNumber = field.getApartmentsNumber();
+                            if (apartmentsNumber >= first.getApartmentsNumber()
+                                    && apartmentsNumber >= second.getApartmentsNumber())
+                                return true;
+                            else 
+                                return false;
+                        }
+                    } else return true;
+                } else return false;
+            } 
+            else throw new Exception();
+        }
         else return false;
     }
 
 
+    /**
+     * Returns true if something is built on fields from the set.
+     * 
+     * @return true if something is built on fields from the set.
+     */
+    public boolean isBuilt(){
+        if(size == 3){
+            if(first.isBuilt() || second.isBuilt() || third.isBuilt())
+                return true;
+            else return false;
+        }
+        else{
+            if(first.isBuilt() || second.isBuilt())
+                return true;
+            else return false;
+        }
+    }
 
 }

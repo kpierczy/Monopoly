@@ -11,6 +11,8 @@ import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import pl.kpierczyk.monopoly.model.utilities.Util;
 import pl.kpierczyk.monopoly.view.View;
 import pl.kpierczyk.monopoly.view.subviews.gameView.elements.Board;
 
@@ -53,10 +55,14 @@ public class GameView extends JPanel{
         this.setLayout(new BorderLayout());
 
         /** Loading backgrouynd gameplay image.*/
+
+        String backgroundPath = "/img/" + this.view.getModel().getSettings().getResolutionSetting().getValue() +
+                                "/gameBackground/background_1.png";
+        String absoluteBackgroundPath = getClass().getResource(backgroundPath).getPath(); 
+
         try {
             backgroundImage = 
-                ImageIO.read(new File("/img/" + this.view.getModel().getSettings().getResolutionSetting().getValue() +
-                                      "/gameBackground/background_1.png"));
+                ImageIO.read(new File(Util.convert(absoluteBackgroundPath)));
         }
         catch (IOException ex) {
             System.out.println("Couldn't open game's background image from " + 

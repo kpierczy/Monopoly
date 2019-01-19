@@ -18,7 +18,7 @@ import pl.kpierczyk.monopoly.model.utilities.settings.Settings;
 public class GameSaveInfo{
 
     /** Start player's cash.*/
-    private final int START_CASH = 1500;
+    private final int START_CASH = 15000;
 
     /** Game elements*/
     private Board board;
@@ -55,10 +55,10 @@ public class GameSaveInfo{
         this.board = new Board(settings); 
 
         /** Creating players list.*/
-        this.players = new ArrayList<Player>(playersNumber);
-        for(int i = 0; i < players.size(); i++){
-            players.set(i, new Player("Player " + (i+1), this.board.getBoard().get(0).getID(),
-                                       START_CASH, 0, i+1, false));
+        this.players = new ArrayList<Player>();
+        for(int i = 0; i < playersNumber; i++){
+            players.add(new Player("Player " + (i+1), this.board.getBoard().get(0).getID(),
+                                    START_CASH, 0, i+1, false));
         }
 
         /** Initializing basic game infos.*/

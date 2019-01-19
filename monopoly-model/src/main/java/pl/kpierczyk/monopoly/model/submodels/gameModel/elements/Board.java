@@ -16,6 +16,7 @@ import pl.kpierczyk.monopoly.model.submodels.gameModel.elements.fields.TrainStat
 import pl.kpierczyk.monopoly.model.submodels.gameModel.elements.fields.CardDrawField.CardKind;
 import pl.kpierczyk.monopoly.model.submodels.gameModel.elements.fields.abstracts.Field;
 import pl.kpierczyk.monopoly.model.submodels.gameModel.elements.fields.colourFields.ColourFieldCashInfo;
+import pl.kpierczyk.monopoly.model.submodels.gameModel.elements.fields.colourFields.ColourFieldsSet;
 import pl.kpierczyk.monopoly.model.submodels.gameModel.elements.fields.colourFields.Colours;
 import pl.kpierczyk.monopoly.model.utilities.settings.Settings;
 
@@ -61,6 +62,7 @@ public class Board{
         dealFile = "/lang/" + settings.getLanguage() + "/gameTexts/deal.txt";
 
         this.loadFromFile(boardFile, chanceFile, dealFile);
+        this.groupFields();
     }
 
 
@@ -151,7 +153,7 @@ public class Board{
                             name = bufferedReader.readLine();
                             startBenefit = Integer.parseInt(bufferedReader.readLine());
 
-                            board.add(new StartField(ID, name, startBenefit));
+                            potentialBoard.add(new StartField(ID, name, startBenefit));
                         }
                         /** ColourField initializing*/
                         else if(line.equals("COLOUR_FIELD")){
@@ -183,7 +185,7 @@ public class Board{
                             name = bufferedReader.readLine();
                             price = Integer.parseInt(bufferedReader.readLine());
                             pledgeValue = Integer.parseInt(bufferedReader.readLine());
-                            buybackMultiplier = Integer.parseInt(bufferedReader.readLine());
+                            buybackMultiplier = Double.parseDouble(bufferedReader.readLine());
 
                             /** ColourFieldCashInfo*/
                             baseRent = Integer.parseInt(bufferedReader.readLine());
@@ -229,7 +231,7 @@ public class Board{
                             prices.setHotelCost(hotelCost);
 
                             /** Initializes new */
-                            board.add(new ColourField(ID, name, price, pledgeValue,
+                            potentialBoard.add(new ColourField(ID, name, price, pledgeValue,
                                                          buybackMultiplier, prices, colour));
                         }
                         else if(line.equals("CARD_DRAW_FIELD")){
@@ -237,18 +239,19 @@ public class Board{
                             String ID = bufferedReader.readLine();
                             String name = bufferedReader.readLine();
                             CardKind kind;
-                            switch(bufferedReader.readLine()){
-                                case "CHANCE":
-                                    kind = CardKind.chance;
-                                case "DEAL":
-                                    kind = CardKind.deal;
-                                default:
-                                    kind = CardKind.none;
-
+                            
+                            line = bufferedReader.readLine();
+                            if(line.equals("CHANCE")){
+                                kind = CardKind.chance;
                             }
+                            else if(line.equals("DEAL")){
+                                kind = CardKind.deal;
+                            }
+                            else
+                                kind = CardKind.none;
 
                             /** Initializing new DrawCardField*/
-                            board.add(new CardDrawField(ID, name, kind));
+                            potentialBoard.add(new CardDrawField(ID, name, kind));
                         }
                         else if(line.equals("TAX_FIELD")){
                             
@@ -257,7 +260,7 @@ public class Board{
                             int taxValue = Integer.parseInt(bufferedReader.readLine());
 
                             /** Initializing new TaxField*/
-                            board.add(new TaxField(ID, name, taxValue));
+                            potentialBoard.add(new TaxField(ID, name, taxValue));
                         }
                         else if(line.equals("TRAIN_STATION_FIELD")){
                             
@@ -265,11 +268,11 @@ public class Board{
                             String name = bufferedReader.readLine();
                             int price = Integer.parseInt(bufferedReader.readLine());
                             int pledgeValue = Integer.parseInt(bufferedReader.readLine());
-                            int buybackMultiplier = Integer.parseInt(bufferedReader.readLine());
+                            double buybackMultiplier = Double.parseDouble(bufferedReader.readLine());
                             int baseRent = Integer.parseInt(bufferedReader.readLine());
 
                             /** Initializing new TrainSTationField*/
-                            board.add(new TrainStationField(ID, name, price, pledgeValue,
+                            potentialBoard.add(new TrainStationField(ID, name, price, pledgeValue,
                                                                buybackMultiplier, baseRent));
                         }
                         else if(line.equals("NEUTRAL_FIELD")){
@@ -278,7 +281,7 @@ public class Board{
                             String name = bufferedReader.readLine();
 
                             /** Initializes new NeutralField*/
-                            board.add(new NeutralField(ID, name));
+                            potentialBoard.add(new NeutralField(ID, name));
                             
                         }
                         else if(line.equals("SPECIAL_PROPERTY_FIELD")){
@@ -287,12 +290,12 @@ public class Board{
                             String name = bufferedReader.readLine();
                             int price = Integer.parseInt(bufferedReader.readLine());
                             int pledgeValue = Integer.parseInt(bufferedReader.readLine());
-                            int buybackMultiplier = Integer.parseInt(bufferedReader.readLine());
+                            double buybackMultiplier = Double.parseDouble(bufferedReader.readLine());
                             int baseMultiplier = Integer.parseInt(bufferedReader.readLine());
                             int setMultiplier = Integer.parseInt(bufferedReader.readLine());
 
                             /** Initializes new NeutralField*/
-                            board.add(new SpecialPropertyField(ID, name, price, pledgeValue, 
+                            potentialBoard.add(new SpecialPropertyField(ID, name, price, pledgeValue, 
                                                                   buybackMultiplier, baseMultiplier, setMultiplier));
                         }
                         else if(line.equals("TELEPORTING_FIELD")){
@@ -302,7 +305,7 @@ public class Board{
                             String destinationID = bufferedReader.readLine();
 
                             /** Initializes new teleporting field - e.g. jail*/
-                            board.add(new TeleportingField(ID, name, destinationID));
+                            potentialBoard.add(new TeleportingField(ID, name, destinationID));
                         }
                     }
                 }
@@ -322,6 +325,72 @@ public class Board{
             board = potentialBoard;
             chanceCards = potentialChanceCards;
             dealCards = potentialDealCards;
+            return true;
+        }
+        else return false;
+    }
+
+
+
+
+    /**
+     * Groups colour fields into coulr sets
+     */
+    public boolean groupFields(){
+        if(board.size() == 40){
+            if(((ColourField)board.get(1)).getSet() != null){
+                    
+                ColourFieldsSet brown = new ColourFieldsSet(Colours.BROWN, 2);
+                ColourFieldsSet blue = new ColourFieldsSet(Colours.BLUE, 3);
+                ColourFieldsSet pink = new ColourFieldsSet(Colours.PINK, 3);
+                ColourFieldsSet orange = new ColourFieldsSet(Colours.ORANGE, 3);
+                ColourFieldsSet red = new ColourFieldsSet(Colours.RED, 3);
+                ColourFieldsSet yellow = new ColourFieldsSet(Colours.YELLOW, 3);
+                ColourFieldsSet green = new ColourFieldsSet(Colours.GREEN, 3);
+                ColourFieldsSet navy = new ColourFieldsSet(Colours.NAVY, 2);
+            
+                brown.setFirst((ColourField)board.get(1));
+                brown.setSecond((ColourField)board.get(3));
+
+                blue.setFirst((ColourField)board.get(6));
+                blue.setSecond((ColourField)board.get(8));
+                blue.setThird((ColourField)board.get(9));
+
+                pink.setFirst((ColourField)board.get(11));
+                pink.setSecond((ColourField)board.get(13));
+                pink.setThird((ColourField)board.get(14));
+
+                orange.setFirst((ColourField)board.get(16));
+                orange.setSecond((ColourField)board.get(18));
+                orange.setThird((ColourField)board.get(19));
+
+                red.setFirst((ColourField)board.get(21));
+                red.setSecond((ColourField)board.get(23));
+                red.setThird((ColourField)board.get(24));
+
+                yellow.setFirst((ColourField)board.get(26));
+                yellow.setSecond((ColourField)board.get(27));
+                yellow.setThird((ColourField)board.get(29));
+
+                green.setFirst((ColourField)board.get(31));
+                green.setSecond((ColourField)board.get(32));
+                green.setThird((ColourField)board.get(34));
+
+                navy.setFirst((ColourField)board.get(37));
+                navy.setSecond((ColourField)board.get(39));
+
+
+                brown.group();
+                blue.group();
+                pink.group();
+                orange.group();
+                red.group();
+                yellow.group();
+                green.group();
+                navy.group();
+
+                return true;
+            }
             return true;
         }
         else return false;
