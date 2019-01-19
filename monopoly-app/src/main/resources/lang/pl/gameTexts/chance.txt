@@ -1,11 +1,11 @@
 ----------------------------
-Wyjdź bezpłatnie z więzienia
+Wyjdź bezpłatnie z więzienia.
 32
 ----------------------------
-Wracasz na Start
+Wracasz na Start.
 29
 ----------------------------
-Jedziesz na ulicę Konopacką
+Jedziesz na ulicę Konopacką.
 30
 ----------------------------
 Zostajesz aresztowany za "Kreatywną księgowość". Idziesz do więzienia.

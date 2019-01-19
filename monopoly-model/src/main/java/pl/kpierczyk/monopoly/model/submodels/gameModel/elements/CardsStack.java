@@ -163,7 +163,7 @@ public class CardsStack{
             
             //potential new stack
             ArrayList<Card> potentialStack = 
-                new ArrayList<Card>(size);
+                new ArrayList<Card>();
             
             try{
                 //getting connection with file
@@ -202,7 +202,7 @@ public class CardsStack{
                     }
 
                     //creating new stack
-                    potentialStack.set(i, new Card(type, text, effect) ) ;
+                    potentialStack.add(i, new Card(type, text, effect) ) ;
                 }
 
                 //checks if all 'size' cards has been loaded
