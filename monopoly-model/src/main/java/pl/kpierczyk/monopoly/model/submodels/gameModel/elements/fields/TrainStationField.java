@@ -2,7 +2,7 @@ package pl.kpierczyk.monopoly.model.submodels.gameModel.elements.fields;
 
 import java.util.ArrayList;
 
-import pl.kpierczyk.monopoly.model.submodels.gameModel.elements.fields.BasePropertyField;
+import pl.kpierczyk.monopoly.model.submodels.gameModel.elements.fields.abstracts.BasePropertyField;
 
 /**
  * Class representing train station field on the Monopoly's board.

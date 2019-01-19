@@ -1,4 +1,4 @@
-package pl.kpierczyk.monopoly.model.submodels.gameModel.elements.fields;
+package pl.kpierczyk.monopoly.model.submodels.gameModel.elements.fields.abstracts;
 
 /**
  * Abstract basic class representing general Monopoly board's

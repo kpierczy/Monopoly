@@ -1,5 +1,6 @@
 package pl.kpierczyk.monopoly.model.submodels.gameModel.elements.fields;
 
+import pl.kpierczyk.monopoly.model.submodels.gameModel.elements.fields.abstracts.Field;
 
 /**
  * Class representing "Start" field on the board. When player

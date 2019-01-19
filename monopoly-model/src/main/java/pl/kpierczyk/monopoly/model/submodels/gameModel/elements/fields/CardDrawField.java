@@ -1,7 +1,6 @@
 package pl.kpierczyk.monopoly.model.submodels.gameModel.elements.fields;
 
-
-
+import pl.kpierczyk.monopoly.model.submodels.gameModel.elements.fields.abstracts.Field;
 
 /**
  * Class representing card-draw Monopoly board's field.

@@ -1,9 +1,15 @@
 package pl.kpierczyk.monopoly.model.submodels.gameModel.elements;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -39,13 +45,13 @@ public class CardsStack{
      * @param   stackSize
      * @see     Card
      */
-    public CardsStack(ArrayList<Card> stack, CardType type){
+    public CardsStack(int size, CardType type){
         this.size = stack.size();
         //<--- WARNING -->
         //It can assign object that will be disappear in a while.
         //Not sure how java works.
-        this.stack = stack;
-        this.greyvardStack = new ArrayList<Card>();
+        this.stack = new ArrayList<Card>(size);
+        this.greyvardStack = new ArrayList<Card>(size);
         this.cardsType = type;
     }
 
@@ -178,6 +184,8 @@ public class CardsStack{
                 //number of cards loaded
                 int i = 0;
 
+                /** <-- IMPORTANT -->*/
+                /** First line of the file should be empty.*/
                 for(i = 0; (i < size) && ((line = bufferedReader.readLine()) != null); i++){
                     Card.CardType type;
                     String text;
@@ -212,17 +220,15 @@ public class CardsStack{
 
                 //checks if all 'size' cards has been loaded
                 if(i < size)
-                    return false;
-                else{
-                    stack = potentialStack;
-                    greyvardStack.clear();
-                    return true;
-                }
-                    
+                    return false;                    
             }
             catch(Exception ex){
                 return false;
             }
+
+            stack = potentialStack;
+            greyvardStack.clear();
+            return true;
         }
         else return false;     
     }

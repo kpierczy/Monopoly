@@ -1,5 +1,7 @@
 package pl.kpierczyk.monopoly.model.submodels.gameModel.elements.fields;
 
+import pl.kpierczyk.monopoly.model.submodels.gameModel.elements.fields.abstracts.Field;
+
 /**
  * Class representing Monopoly board's neutral field like
  * "Parking" or "Jail". WHen player visits this field,

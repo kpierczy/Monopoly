@@ -1,4 +1,4 @@
-package pl.kpierczyk.monopoly.model.submodels.gameModel.elements.fields;
+package pl.kpierczyk.monopoly.model.submodels.gameModel.elements.fields.abstracts;
 
 import pl.kpierczyk.monopoly.model.submodels.gameModel.elements.Player;
 

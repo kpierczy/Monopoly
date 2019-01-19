@@ -1,5 +1,6 @@
 package pl.kpierczyk.monopoly.model.submodels.gameModel.elements.fields;
 
+import pl.kpierczyk.monopoly.model.submodels.gameModel.elements.fields.abstracts.Field;
 
 /**
  * Class representing Tax field on the Monopoly's board.

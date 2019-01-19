@@ -1,5 +1,7 @@
 package pl.kpierczyk.monopoly.model.submodels.gameModel.elements.fields;
 
+import pl.kpierczyk.monopoly.model.submodels.gameModel.elements.fields.abstracts.Field;
+
 /**
  * Class representing Monopoly board's field which, if visited,
  * teleports player to the field with the pointed ID. Example
