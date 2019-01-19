@@ -70,7 +70,19 @@ public class GameModel {
     }
 
 
-    
+    /**
+     * @return the actualPlayerNumber
+     */
+    public int getActualPlayerNumber() {
+        return actualPlayerNumber;
+    }
+
+    /**
+     * @return the hasPlayerRolled
+     */
+    public boolean isHasPlayerRolled() {
+        return hasPlayerRolled;
+    }
 
 
 

@@ -20,9 +20,9 @@ public class Board extends JPanel {
     public Board(Settings settings){
         super();
         this.setLayout(new GridBagLayout());
-        this.setMaximumSize(new Dimension(1400, 1400));
-        this.setMinimumSize(new Dimension(600, 600));
-        this.setPreferredSize(new Dimension(1400, 1400));
+        this.setMaximumSize(new Dimension(1000, 1000));
+        this.setMinimumSize(new Dimension(1000, 1000));
+        this.setPreferredSize(new Dimension(1000, 1000));
 
         this.fields.set(11, new JButton());
         this.fields.get(11).setHideActionText(true);
