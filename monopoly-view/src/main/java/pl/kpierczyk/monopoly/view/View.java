@@ -16,20 +16,33 @@ import java.awt.Dimension;
 //Fix fullscreen option
 
 /**
- * 
+ * Class representing main game frame. It manages all panels and
+ * subviews during app's work. Split purposes between three views:
+ * introView, mainMenuView and gameView.
  * 
  * @author  Krzysztof Pierczyk
  * @version 1.0
  * @since   1.0
+ * @see     IntroView
+ * @see     MainMenuView
+ * @see     GameView
  */
 public class View extends JFrame {
 
+    /** Reference to model.*/
     private Model model;
 
+    /** Subviews.*/
     private IntroView introView;
     private MainMenuView mainMenuView;
     private GameView gameView;
 
+    /**
+     * Default View constructor initializing app appearance
+     * basing on state of the model.
+     * 
+     * @param model
+     */
     public View(Model model) {
         super("Monopoly the board game");
         
@@ -67,16 +80,35 @@ public class View extends JFrame {
         this.setVisible(true);        
     }
 
+
+    /**
+     * 
+     * @return
+     */
     public Model getModel() {
         return model;
     }
 
+    /**
+     * 
+     * @return
+    */
     public IntroView getintroView() {
         return introView;
     }
+
+    /**
+     * 
+     * @return
+     */
     public MainMenuView getMainMenuView() {
         return mainMenuView;
     }
+
+    /**
+     * 
+     * @return
+     */
     public GameView getGameView(){
         return gameView;
     }
@@ -88,6 +120,11 @@ public class View extends JFrame {
     /* Utilities */
     /*****************************************/
 
+
+    /** 
+     * 
+     * 
+    */
     public void finishIntro(){
         if(this.introView != null){
             this.getContentPane().remove(this.introView);
@@ -102,19 +139,38 @@ public class View extends JFrame {
         }
     }
 
+
+    /**
+     * 
+     * 
+     */
     public void runNewGame(){
         loadGame();
     }
 
+    /**
+     * 
+     * 
+     */
     public void loadGame(){
         if(this.mainMenuView != null){
             this.getContentPane().remove(this.mainMenuView);
             this.mainMenuView = null;
 
-            //Drawing game panel
+            this.gameView = 
+                new GameView(this);
+            this.getContentPane().add(gameView);
+
+            this.revalidate();
+            this.repaint();
         }  
     }
 
+
+    /**
+     * 
+     * 
+     */
     public void quitGame() {
         if(this.gameView != null){
             this.getContentPane().remove(this.gameView);
@@ -129,6 +185,11 @@ public class View extends JFrame {
         }  
     }
 
+
+    /**
+     * 
+     * 
+     */
     public void quitApp() {
         this.mainMenuView = null;
         this.gameView = null;
@@ -137,6 +198,10 @@ public class View extends JFrame {
 
 
 
+    /**
+     * 
+     * 
+     */
     public void update(){
         if (!model.getSettings().isFullscreen()) {
             this.setSize(new Dimension(model.getSettings().getResolution()[0],

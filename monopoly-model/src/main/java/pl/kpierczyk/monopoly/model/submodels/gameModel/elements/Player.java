@@ -12,9 +12,12 @@ package pl.kpierczyk.monopoly.model.submodels.gameModel.elements;
 public class Player{
 
 
-    public enum Counter{
-        counter_1, counter_2, counter_3
-    }
+    public final int HAT = 1;
+    public final int SHIP = 2;
+    public final int CAR = 3;
+    public final int DOG = 4;
+    public final int SHOE = 5;
+    public final int WHEELBARROW = 6;
 
     /** Player's name.*/
     private final String name;
@@ -23,7 +26,7 @@ public class Player{
     private String positionID;
 
     /** Player's counter on the board.*/
-    private Counter counter;
+    private int counter;
 
     /** Amount of cash player posseses.*/
     private int cash;
@@ -39,7 +42,7 @@ public class Player{
      * Default constructor initializing player's state.
      */
     public Player(String name, String positionID, int cash,
-                  int outOfJailNumber, Counter counter){
+                  int outOfJailNumber, int counter){
         this.name = name;
         this.positionID = positionID;
         this.cash = cash;
@@ -70,7 +73,7 @@ public class Player{
      * 
      * @return player counter.
      */
-    public Counter getCounter() {
+    public int getCounter() {
         return counter;
     }
 

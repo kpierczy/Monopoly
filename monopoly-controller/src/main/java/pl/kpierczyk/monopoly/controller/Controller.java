@@ -76,8 +76,8 @@ public class Controller{
         }
     }
 
-    public void runNewGame(){
-        model.runNewGame();
+    public void runNewGame(int playersNumber){
+        model.runNewGame(playersNumber);
         view.runNewGame();
 
         this.mainMenuController = null;

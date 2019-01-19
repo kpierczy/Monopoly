@@ -60,7 +60,7 @@ public class MainMenuModel {
         /*Menu initializing*/
         String textPath = "/lang/" +
                            this.model.getSettings().getLanguage() +
-                           "/mainMenu.txt";
+                           "/interfaceTexts/mainMenu.txt";
 
         String fieldsText[] = new String[6];
 
@@ -138,13 +138,6 @@ public class MainMenuModel {
     /* Utilities */
     /*****************************************/
 
-    //<--- TO DO --->
-    public boolean runNewGame(){
-        this.model.runNewGame();
-        return true;
-    }
-
-
     public boolean openLoadingMenu() {
         if (getState() == MainMenuState._default) {
             this.state = MainMenuState.loading;
@@ -159,8 +152,8 @@ public class MainMenuModel {
 
             /*Getting buttons text files paths*/
             String relativeButtonsPath[] = new String[] {
-                "/lang/" + this.model.getSettings().getLanguage() + "/okButton.txt",
-                "/lang/" + this.model.getSettings().getLanguage() + "/backButton.txt"
+                "/lang/" + this.model.getSettings().getLanguage() + "/interfaceTexts/okButton.txt",
+                "/lang/" + this.model.getSettings().getLanguage() + "/interfaceTexts/backButton.txt"
             };
           
           URL notConvertedButtonsPath[] = new URL[]{
@@ -208,8 +201,8 @@ public class MainMenuModel {
 
             /*Getting buttons text files paths*/
             String relativeButtonsPath[] = new String[] {
-                "/lang/" + this.model.getSettings().getLanguage() + "/okButton.txt",
-                "/lang/" + this.model.getSettings().getLanguage() + "/backButton.txt"
+                "/lang/" + this.model.getSettings().getLanguage() + "/interfaceTexts/okButton.txt",
+                "/lang/" + this.model.getSettings().getLanguage() + "/interfaceTexts/backButton.txt"
             };
 
             URL notConvertedButtonsPath[] = new URL[]{
@@ -221,7 +214,7 @@ public class MainMenuModel {
             /*Getting settings text file path*/
             String relativeSettingsTextPath = "/lang/" +
                                               this.model.getSettings().getLanguage() + 
-                                              "/settingsMenu.txt";
+                                              "/interfaceTexts/settingsMenu.txt";
             URL notConvertedSettingsTextPath = 
                 getClass().getResource(relativeSettingsTextPath);
 
@@ -290,7 +283,7 @@ public class MainMenuModel {
             /*Getting backButton text file path*/
             String relativeBackButtonPath = "/lang/" +
                                             this.model.getSettings().getLanguage() +
-                                            "/backButton.txt";
+                                            "/interfaceTexts/backButton.txt";
             URL notConvertedBackButtonTextPath = 
                 getClass().getResource(relativeBackButtonPath);
             
@@ -337,7 +330,7 @@ public class MainMenuModel {
             /*Getting backButton text file path*/
             String relativeBackButtonPath = "/lang/" +
                                             this.model.getSettings().getLanguage() +
-                                            "/backButton.txt";
+                                            "/interfaceTexts/backButton.txt";
             URL notConvertedBackButtonTextPath = 
                 getClass().getResource(relativeBackButtonPath);
 

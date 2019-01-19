@@ -126,7 +126,7 @@ public class LoadingModel {
 
     public boolean loadActualSave() {        
         
-        GameSaveInfo gameSaveInfo = new GameSaveInfo();
+        //GameSaveInfo gameSaveInfo = new GameSaveInfo();
         //Here change save state from empty to not empty - difference between loaded game and new game
         
         String savePath = this.savesHome +
@@ -150,7 +150,7 @@ public class LoadingModel {
 
         //Not sure if i should close loadModel before running new game
         this.model.getMainMenuModel().closeChild();
-        this.model.loadGame(gameSaveInfo);
+        //this.model.loadGame(gameSaveInfo);
         //Not sure if return happens - probably yes, because Model is automat of states, but not sure
         return true;
     }

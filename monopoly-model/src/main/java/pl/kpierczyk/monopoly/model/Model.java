@@ -207,8 +207,15 @@ public class Model {
     /**
      * Runs new game.
      */
-    public void runNewGame(){
-        //loadGame(empty gameSaveInfo)
+    public void runNewGame(int playersNumber){
+        if(this.state == AppState.mainMenu){
+            GameSaveInfo newGame = new GameSaveInfo(playersNumber, this.getSettings());
+
+            this.state = AppState.inGame;
+            this.mainMenuModel = null;
+            this.gameModel = 
+                new GameModel(this, newGame);
+        }
     }
 
 

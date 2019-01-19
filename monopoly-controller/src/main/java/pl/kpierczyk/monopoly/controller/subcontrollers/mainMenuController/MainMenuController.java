@@ -75,12 +75,20 @@ private Controller controller;
     /*              Utilities                */
     /*****************************************/
    
-    public void newGame(){
+    public void runNewGame(){
+        if(this.mainMenuListener != null){
 
+            int playersNumber = 
+                this.controller.getView().getMainMenuView().runNewGame(this.controller.getModel().getSettings());
+
+            if(playersNumber >= 2 && playersNumber <= 6){
+                this.controller.runNewGame(playersNumber);
+            }
+        }
     }
 
     public void openLoadingMenu(){
-
+        
     }
 
     public void openSettingsMenu(){
@@ -197,7 +205,7 @@ class MainMenuListener implements ActionListener{
 
         //New game
         if(buttonSource == this.controller.getView().getMainMenuView().getMainMenuButton(0)){
-
+            this.controller.getMainMenuController().runNewGame();
         }
         //Load game
         else if(buttonSource == this.controller.getView().getMainMenuView().getMainMenuButton(1)){

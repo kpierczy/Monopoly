@@ -11,8 +11,11 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import pl.kpierczyk.monopoly.model.utilities.settings.Settings;
 import pl.kpierczyk.monopoly.view.View;
 import pl.kpierczyk.monopoly.view.subviews.mainMenuView.partialViews.InstructionView;
 import pl.kpierczyk.monopoly.view.subviews.mainMenuView.partialViews.SettingsView;
@@ -120,10 +123,23 @@ public class MainMenuView extends JPanel {
 
 
     /*Logical utilities*/
-    public void runNewGame(){
+    public int runNewGame(Settings settings){
         if(this.mainMenuPanel != null){
-            this.view.runNewGame();
+            
+            String playersNumber = "";
+
+            if(settings.getLanguage() == "en"){
+                playersNumber = 
+                    JOptionPane.showInputDialog(this.view, "Please enter number of players (from 2 to 6):");
+            }
+            else if(settings.getLanguage() == "pl"){
+            playersNumber = 
+                    JOptionPane.showInputDialog(this.view, "Wproawdź liczbę graczy (od 2 do 6):");
+            }
+
+            return Integer.parseInt(playersNumber);
         }
+        else return -1;
     }
 
     public void openLoadingMenu(){
