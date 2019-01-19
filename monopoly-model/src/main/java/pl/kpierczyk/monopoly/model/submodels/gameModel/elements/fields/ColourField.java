@@ -1,7 +1,9 @@
-package pl.kpierczyk.monopoly.model.submodels.gameModel.elements.fields.colourFields;
+package pl.kpierczyk.monopoly.model.submodels.gameModel.elements.fields;
 
 import pl.kpierczyk.monopoly.model.submodels.gameModel.elements.Player;
-import pl.kpierczyk.monopoly.model.submodels.gameModel.elements.fields.abstracts.BasePropertyField;;
+import pl.kpierczyk.monopoly.model.submodels.gameModel.elements.fields.abstracts.BasePropertyField;
+import pl.kpierczyk.monopoly.model.submodels.gameModel.elements.fields.colourFields.ColourFieldCashInfo;
+import pl.kpierczyk.monopoly.model.submodels.gameModel.elements.fields.colourFields.ColourFieldsSet;
 
 /**
  * Class representing colourfull properties on the Monopoly's

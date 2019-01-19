@@ -41,9 +41,9 @@ public class SpecialPropertyField extends BasePropertyField{
      * @see     BasePropertyField
      */
     public SpecialPropertyField(String ID, String name, int price,
-                             int pledgeValue, int buybackMultplier,
+                             int pledgeValue, int buybackMultiplier,
                              int baseMultiplier, int setMultiplier){
-        super(ID, name, price, pledgeValue, buybackMultplier);
+        super(ID, name, price, pledgeValue, buybackMultiplier);
         this.baseMultiplier = baseMultiplier;
         this.setMultiplier = setMultiplier;
         this.specialFields.add(this);

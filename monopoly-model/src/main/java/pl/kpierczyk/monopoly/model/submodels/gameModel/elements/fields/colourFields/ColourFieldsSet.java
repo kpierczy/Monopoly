@@ -1,6 +1,7 @@
 package pl.kpierczyk.monopoly.model.submodels.gameModel.elements.fields.colourFields;
 
 import pl.kpierczyk.monopoly.model.submodels.gameModel.elements.Player;
+import pl.kpierczyk.monopoly.model.submodels.gameModel.elements.fields.ColourField;
 
 /**
  * Class representing set of ColourFields with the same colour. This class make

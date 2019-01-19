@@ -16,7 +16,7 @@ import pl.kpierczyk.monopoly.model.submodels.gameModel.elements.fields.abstracts
 public class CardDrawField extends Field{
 
     public enum CardKind{
-        chance, deal
+        chance, deal, none
     }
 
     /** Kind of the card to draw when field visited.*/

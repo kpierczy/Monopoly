@@ -11,14 +11,14 @@ package pl.kpierczyk.monopoly.model.submodels.gameModel.elements.fields.colourFi
  */
 public class Colours{
     
-    public final int NONE = 0;
-    public final int BROWN = 1;
-    public final int BLUE = 2;
-    public final int PINK = 3;
-    public final int ORANGE = 4;
-    public final int RED = 5;
-    public final int YELLOW = 6;
-    public final int GREEN = 7;
-    public final int NAVY = 8;
+    public static final int NONE = 0;
+    public static final int BROWN = 1;
+    public static final int BLUE = 2;
+    public static final int PINK = 3;
+    public static final int ORANGE = 4;
+    public static final int RED = 5;
+    public static final int YELLOW = 6;
+    public static final int GREEN = 7;
+    public static final int NAVY = 8;
     
 }

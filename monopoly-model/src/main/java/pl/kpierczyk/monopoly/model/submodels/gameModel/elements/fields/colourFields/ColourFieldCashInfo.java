@@ -38,7 +38,7 @@ public class ColourFieldCashInfo{
     private int hotelRent;
 
     /**Cost of the single apartment. */
-    private int ApartmentCost;
+    private int apartmentCost;
 
     /**Cost of a hotel. */
     private int hotelCost;
@@ -59,7 +59,7 @@ public class ColourFieldCashInfo{
         this.fourApartmentsRent = 0;
         this.hotelRent = 0;
     
-        this.ApartmentCost = 0;
+        this.apartmentCost = 0;
         this.hotelCost = 0;
     }
 
@@ -117,7 +117,7 @@ public class ColourFieldCashInfo{
      * @return the apartmentCost
      */
     public int getApartmentCost() {
-        return ApartmentCost;
+        return apartmentCost;
     }
 
     /**
@@ -182,7 +182,7 @@ public class ColourFieldCashInfo{
      * @param apartmentCost the apartmentCost to set
      */
     public void setApartmentCost(int apartmentCost) {
-        ApartmentCost = apartmentCost;
+        this.apartmentCost = apartmentCost;
     }
 
     /**

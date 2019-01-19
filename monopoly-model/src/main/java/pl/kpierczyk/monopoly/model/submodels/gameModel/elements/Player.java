@@ -19,6 +19,9 @@ public class Player{
     /** Player's name.*/
     private final String name;
 
+    /** ID of the field that player stands on.*/
+    private String positionID;
+
     /** Player's counter on the board.*/
     private Counter counter;
 
@@ -35,8 +38,10 @@ public class Player{
     /**
      * Default constructor initializing player's state.
      */
-    public Player(String name,int cash, int outOfJailNumber, Counter counter){
+    public Player(String name, String positionID, int cash,
+                  int outOfJailNumber, Counter counter){
         this.name = name;
+        this.positionID = positionID;
         this.cash = cash;
         this.outOfJailNumber = outOfJailNumber;
         this.counter = counter;
@@ -51,6 +56,14 @@ public class Player{
         return name;
     }
 
+    /**
+     * Returns position ID.
+     * 
+     * @return the positionID
+     */
+    public String getPositionID() {
+        return positionID;
+    }
 
     /**
      * Returns player's counter.
@@ -90,6 +103,13 @@ public class Player{
         return turnsInJail;
     }
 
+
+    /**
+     * @param positionID the positionID to set
+     */
+    public void setPositionID(String positionID) {
+        this.positionID = positionID;
+    }
 
 
     
