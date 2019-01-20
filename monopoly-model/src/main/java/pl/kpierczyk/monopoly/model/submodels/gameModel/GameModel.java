@@ -1,5 +1,8 @@
 package pl.kpierczyk.monopoly.model.submodels.gameModel;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import pl.kpierczyk.monopoly.model.Model;
@@ -17,6 +20,7 @@ import pl.kpierczyk.monopoly.model.submodels.gameModel.elements.fields.TrainStat
 import pl.kpierczyk.monopoly.model.submodels.gameModel.elements.fields.CardDrawField.CardKind;
 import pl.kpierczyk.monopoly.model.submodels.gameModel.elements.fields.abstracts.Field;
 import pl.kpierczyk.monopoly.model.submodels.gameModel.utilities.GameSaveInfo;
+import pl.kpierczyk.monopoly.model.utilities.menu.Menu;
 
 
 
@@ -45,6 +49,8 @@ public class GameModel {
 
     /** Reference to the parent-model.*/
     private final Model model;
+
+    private final Menu gameMenu;
 
     /** State of the game.*/
     private State state;
@@ -101,6 +107,7 @@ public class GameModel {
      * @see     GameSaveInfo
      */
     public GameModel(Model model, GameSaveInfo gameSaveInfo){
+        
         /** Save reference to parent-model.*/
         this.model = model;
 
@@ -121,6 +128,42 @@ public class GameModel {
 
         /** Get information if player rolled dices this turn.*/
         this.hasPlayerRolled = gameSaveInfo.isHasPlayerRolled();
+
+        /** Get information if player has some debts.*/
+        this.hasToPay = gameSaveInfo.isHasToPay();
+
+        /** Get information about amount of debt.*/
+        this.toPay = gameSaveInfo.getToPay();
+
+        /** Get source of the debt.*/
+        this.paymentSource = gameSaveInfo.getPaymentSource();
+
+
+        /*Menu initializing*/
+        String textPath = "/lang/" +
+                           this.model.getSettings().getLanguage() +
+                           "/interfaceTexts/gameMenu.txt";
+
+        String fieldsText[] = new String[7];
+
+        try {
+            BufferedReader bufferedReader =
+                new BufferedReader(new InputStreamReader(getClass().getResourceAsStream(textPath)));
+
+            String line;
+            for(int i = 0; i < fieldsText.length; i++){
+                if((line = bufferedReader.readLine()) != null){
+                    fieldsText[i] = new String(line.getBytes(), "UTF-8");
+                }
+            }
+
+            bufferedReader.close();
+        }
+        catch (IOException ex) {
+            System.out.println("Error reading file '" + textPath + "'");
+        }
+
+        this.gameMenu = new Menu(fieldsText, 7);
     }
 
 
@@ -174,6 +217,12 @@ public class GameModel {
     }
 
 
+    /**
+     * @return the gameMenu
+     */
+    public Menu getGameMenu() {
+        return gameMenu;
+    }
 
 
 
@@ -187,7 +236,8 @@ public class GameModel {
 
     /**
      * Represents rolling dices by the player. Manages all possible
-     * scenarios of player's movement calling appropriate methods.
+     * scenarios of player's movement. After calling this function,
+     * causeFieldEffect should be called next.
      */
     public void rollDices(){
 
@@ -203,7 +253,6 @@ public class GameModel {
                 /** If succed rolling double.*/
                 if(dices.isDouble()){
                     movePlayer();
-                    causeFieldEffect();
                     return;
                 }
                 else{
@@ -217,7 +266,6 @@ public class GameModel {
                         if(payJail()){
                             getActualPlayer().setInJail(false);
                             movePlayer();
-                            causeFieldEffect(); 
                         }
                         return;  
                     }
@@ -255,9 +303,6 @@ public class GameModel {
 
                     /** Check if player crossed Start field. If so, they get Start Bonus.*/
                     checkStartCrossing(startPositionID);
-
-                    /** Trigger effect of staying at actual field.*/
-                    causeFieldEffect();
                     return;
                 }
             }
@@ -324,9 +369,22 @@ public class GameModel {
 
     /**
      * Trigger effect of the field that actual players
-     * stands upon.
+     * stands upon. This method should be called by the
+     * controller.
+     * 
+     * 
      */
-    public void causeFieldEffect(){
+
+     /**
+     * Trigger effect of the field that actual players
+     * stands upon. This method should be called by the
+     * controller. Parameter want to buy should be true
+     * if player is eager to buy field and false in other
+     * cases.
+     * 
+     * @param wantToBuy
+     */
+    public void causeFieldEffect(boolean wantToBuy){
         Field actualField = 
             board.getFieldByID(
                 getActualPlayer().getPositionID());
@@ -334,15 +392,89 @@ public class GameModel {
 
         /** Handling colour fields.*/
         if(actualField instanceof ColourField){
-
+            ColourField colourField = (ColourField) actualField;
+            
+            if(colourField.getOwner() == null){
+                if(wantToBuy){
+                    if(getActualPlayer().getCash() >= colourField.getPrice()){
+                        getActualPlayer().takeAway(colourField.getPrice());
+                        colourField.setOwner(getActualPlayer());
+                    }
+                }
+                //else
+                    //startAuction();
+            }
+            else if(colourField.getOwner() != getActualPlayer()){
+                getActualPlayer().takeAway(colourField.getActualRent());
+                
+                if(getActualPlayer().getCash() < 0){
+                    hasToPay = true;
+                    toPay = Math.abs(getActualPlayer().getCash());
+                    paymentSource = colourField.getOwner().getName();
+                    colourField.getOwner().give(colourField.getActualRent() + 
+                                                getActualPlayer().getCash());
+                }
+                else
+                    colourField.getOwner().give(colourField.getActualRent());
+            }
         }
         /** Handling Train Stations.*/
         else if(actualField instanceof TrainStationField){
+            TrainStationField trainStation = 
+                (TrainStationField) actualField;
 
+            if(trainStation.getOwner() == null){
+                if(wantToBuy){
+                    if(getActualPlayer().getCash() >= trainStation.getPrice()){
+                        getActualPlayer().takeAway(trainStation.getPrice());
+                        trainStation.setOwner(getActualPlayer());
+                    }
+                }
+                //else
+                    //startAuction();
+            }
+            else if(trainStation.getOwner() != getActualPlayer()){
+                getActualPlayer().takeAway(trainStation.getActualRent());
+                
+                if(getActualPlayer().getCash() < 0){
+                    hasToPay = true;
+                    toPay = Math.abs(getActualPlayer().getCash());
+                    paymentSource = trainStation.getOwner().getName();
+                    trainStation.getOwner().give(trainStation.getActualRent() + 
+                                                getActualPlayer().getCash());
+                }
+                else
+                    trainStation.getOwner().give(trainStation.getActualRent());
+            }
         }
         /** Handling Special properties*/
         else if(actualField instanceof SpecialPropertyField){
-            
+            SpecialPropertyField specialPropety = 
+                (SpecialPropertyField) actualField;
+
+            if(specialPropety.getOwner() == null){
+                if(wantToBuy){
+                    if(getActualPlayer().getCash() >= specialPropety.getPrice()){
+                        getActualPlayer().takeAway(specialPropety.getPrice());
+                        specialPropety.setOwner(getActualPlayer());
+                    }
+                }
+                //else
+                    //startAuction();
+            }
+            else if(specialPropety.getOwner() != getActualPlayer()){
+                getActualPlayer().takeAway(specialPropety.getActualRent(dices.getFirst() + dices.getSecond()));
+                
+                if(getActualPlayer().getCash() < 0){
+                    hasToPay = true;
+                    toPay = Math.abs(getActualPlayer().getCash());
+                    paymentSource = specialPropety.getOwner().getName();
+                    specialPropety.getOwner().give(specialPropety.getActualRent(dices.getFirst() + dices.getSecond()) + 
+                                                getActualPlayer().getCash());
+                }
+                else
+                    specialPropety.getOwner().give(specialPropety.getActualRent(dices.getFirst() + dices.getSecond()));
+            }
         }
         /** Handling Card draw fields.*/
         else if(actualField instanceof CardDrawField ){
@@ -442,7 +574,6 @@ public class GameModel {
                     board.getBoard().get(11).getID()
                 );
                 checkStartCrossing(startPositionID);
-                causeFieldEffect();
                 break;
 
             case Card.CH_GO_TO_FIRST_STATION:
@@ -453,7 +584,6 @@ public class GameModel {
                     board.getBoard().get(5).getID()
                 );
                 checkStartCrossing(startPositionID);
-                causeFieldEffect();
                 break;
 
             case Card.CH_GO_TO_JAIL:
@@ -471,7 +601,6 @@ public class GameModel {
                     board.getBoard().get(39).getID()
                 );
                 checkStartCrossing(startPositionID);
-                causeFieldEffect();
                 break;
 
             case Card.CH_GO_TO_START:
@@ -482,7 +611,6 @@ public class GameModel {
                     board.getBoard().get(0).getID()
                 );
                 checkStartCrossing(startPositionID);
-                causeFieldEffect();
                 break;
 
             case Card.CH_GO_TO_THIRD_RED:
@@ -493,7 +621,6 @@ public class GameModel {
                     board.getBoard().get(24).getID()
                 );
                 checkStartCrossing(startPositionID);
-                causeFieldEffect();
                 break;
 
             case Card.CH_PAY_150:
@@ -584,7 +711,6 @@ public class GameModel {
                     board.getBoard().get(0).getID()
                 );
                 checkStartCrossing(startPositionID);
-                causeFieldEffect();
                 break;
             
             case Card.D_GET_100:
@@ -639,7 +765,6 @@ public class GameModel {
                     board.getBoard().get(1).getID()
                 );
                 checkStartCrossing(startPositionID);
-                causeFieldEffect();
                 break;
             
             case Card.D_GO_TO_JAIL:

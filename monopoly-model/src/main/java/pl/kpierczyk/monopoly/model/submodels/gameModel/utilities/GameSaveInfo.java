@@ -30,6 +30,15 @@ public class GameSaveInfo{
     /** Points if player has rolled dices this turn.*/
     private boolean hasPlayerRolled;
 
+    /** States if player must pay something before they end turn.*/
+    /** Payment source can be in three states:                   */
+    /**     "Jail"                                               */
+    /**     "Banker"                                             */
+    /**     "Player's name"                                      */
+    /** establishing subject to pay.                             */
+    private boolean hasToPay;
+    private int toPay;
+    private String paymentSource;
 
     /**
      * Constructor enabling to load game from pointed
@@ -64,6 +73,10 @@ public class GameSaveInfo{
         /** Initializing basic game infos.*/
         this.actualPlayerIndex = 0;
         hasPlayerRolled = false;
+
+        hasToPay = false;
+        toPay = 0;
+        paymentSource = null;
     }
 
     /**
@@ -92,5 +105,26 @@ public class GameSaveInfo{
      */
     public boolean isHasPlayerRolled() {
         return hasPlayerRolled;
+    }
+
+    /**
+     * @return the hasToPay
+     */
+    public boolean isHasToPay() {
+        return hasToPay;
+    }
+
+    /**
+     * @return the toPay
+     */
+    public int getToPay() {
+        return toPay;
+    }
+
+    /**
+     * @return the paymentSource
+     */
+    public String getPaymentSource() {
+        return paymentSource;
     }
 }

@@ -230,6 +230,33 @@ public class ColourField extends BasePropertyField{
     }
 
 
+    public int getActualRent(){
+        int actualRent = 0;
+        if(set.isCaptive()){
+            if(isBuilt()){
+                if(!isHotel()){
+                    if(apartmentsNumber == 1)
+                        actualRent = oneApartmentRent;
+                    else if(apartmentsNumber == 2)
+                        actualRent = twoApartmentsRent;
+                    else if(apartmentsNumber == 3)
+                        actualRent = threeApartmentsRent;
+                    else if(apartmentsNumber == 4)
+                        actualRent = fourApartmentsRent;
+                }
+                else
+                    actualRent = hotelRent;
+            }
+            else
+                actualRent = baseRent * fullsetRentMultipiller;
+        }
+        else 
+            actualRent = baseRent;
+
+        return actualRent;
+    }
+
+
 
     /**
      * Redefines changeOwner(Player) from BasePropertyField
