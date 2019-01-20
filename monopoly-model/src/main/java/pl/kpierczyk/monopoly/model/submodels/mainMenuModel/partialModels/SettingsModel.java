@@ -49,7 +49,7 @@ public class SettingsModel{
             FileReader fileReader = new FileReader(buttonsPath[0]);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
 
-            okButtonText = bufferedReader.readLine();
+            okButtonText = new String(bufferedReader.readLine().getBytes(), "UTF-8");
             bufferedReader.close();
         } catch (IOException ex) {
             System.out.println("Couldn't read buttons text from" + buttonsPath[0]);
@@ -60,7 +60,7 @@ public class SettingsModel{
             FileReader fileReader = new FileReader(buttonsPath[1]);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
 
-            backButtonText = bufferedReader.readLine();
+            backButtonText = new String(bufferedReader.readLine().getBytes(), "UTF-8");
             bufferedReader.close();
         } catch (IOException ex) {
             System.out.println("Couldn't read buttons text from" + buttonsPath[0]);
@@ -81,7 +81,7 @@ public class SettingsModel{
                 new BufferedReader(fileReader);
 
             for(int i = 0; i < settingsTexts.length; i++){
-                settingsTexts[i] = bufferedReader.readLine();
+                settingsTexts[i] = new String(bufferedReader.readLine().getBytes(), "UTF-8");
             }
             
             bufferedReader.close();

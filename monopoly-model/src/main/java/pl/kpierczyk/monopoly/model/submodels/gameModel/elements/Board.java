@@ -145,13 +145,9 @@ public class Board{
                         /** StartField initializing*/
                         if(line.equals("START_FIELD")){
 
-                            String ID;
-                            String name;
-                            int startBenefit;
-
-                            ID = bufferedReader.readLine();
-                            name = bufferedReader.readLine();
-                            startBenefit = Integer.parseInt(bufferedReader.readLine());
+                            String ID = new String(bufferedReader.readLine().getBytes(), "UTF-8");
+                            String name = new String(bufferedReader.readLine().getBytes(), "UTF-8");
+                            int startBenefit = Integer.parseInt(bufferedReader.readLine());
 
                             potentialBoard.add(new StartField(ID, name, startBenefit));
                         }
@@ -181,8 +177,9 @@ public class Board{
                             
 
                             /** Base info*/
-                            ID = bufferedReader.readLine();
-                            name = bufferedReader.readLine();
+                            ID = new String(bufferedReader.readLine().getBytes(), "UTF-8");
+                            name = new String(bufferedReader.readLine().getBytes(), "UTF-8");
+                            
                             price = Integer.parseInt(bufferedReader.readLine());
                             pledgeValue = Integer.parseInt(bufferedReader.readLine());
                             buybackMultiplier = Double.parseDouble(bufferedReader.readLine());
@@ -236,10 +233,10 @@ public class Board{
                         }
                         else if(line.equals("CARD_DRAW_FIELD")){
                             
-                            String ID = bufferedReader.readLine();
-                            String name = bufferedReader.readLine();
+                            String ID = new String(bufferedReader.readLine().getBytes(), "UTF-8");
+                            String name = new String(bufferedReader.readLine().getBytes(), "UTF-8");
                             CardKind kind;
-                            
+
                             line = bufferedReader.readLine();
                             if(line.equals("CHANCE")){
                                 kind = CardKind.chance;
@@ -255,8 +252,8 @@ public class Board{
                         }
                         else if(line.equals("TAX_FIELD")){
                             
-                            String ID = bufferedReader.readLine();
-                            String name = bufferedReader.readLine();
+                            String ID = new String(bufferedReader.readLine().getBytes(), "UTF-8");
+                            String name = new String(bufferedReader.readLine().getBytes(), "UTF-8");
                             int taxValue = Integer.parseInt(bufferedReader.readLine());
 
                             /** Initializing new TaxField*/
@@ -264,8 +261,8 @@ public class Board{
                         }
                         else if(line.equals("TRAIN_STATION_FIELD")){
                             
-                            String ID = bufferedReader.readLine();
-                            String name = bufferedReader.readLine();
+                            String ID = new String(bufferedReader.readLine().getBytes(), "UTF-8");
+                            String name = new String(bufferedReader.readLine().getBytes(), "UTF-8");
                             int price = Integer.parseInt(bufferedReader.readLine());
                             int pledgeValue = Integer.parseInt(bufferedReader.readLine());
                             double buybackMultiplier = Double.parseDouble(bufferedReader.readLine());
@@ -277,8 +274,8 @@ public class Board{
                         }
                         else if(line.equals("NEUTRAL_FIELD")){
                             
-                            String ID = bufferedReader.readLine();
-                            String name = bufferedReader.readLine();
+                            String ID = new String(bufferedReader.readLine().getBytes(), "UTF-8");
+                            String name = new String(bufferedReader.readLine().getBytes(), "UTF-8");
 
                             /** Initializes new NeutralField*/
                             potentialBoard.add(new NeutralField(ID, name));
@@ -286,8 +283,8 @@ public class Board{
                         }
                         else if(line.equals("SPECIAL_PROPERTY_FIELD")){
                             
-                            String ID = bufferedReader.readLine();
-                            String name = bufferedReader.readLine();
+                            String ID = new String(bufferedReader.readLine().getBytes(), "UTF-8");
+                            String name = new String(bufferedReader.readLine().getBytes(), "UTF-8");
                             int price = Integer.parseInt(bufferedReader.readLine());
                             int pledgeValue = Integer.parseInt(bufferedReader.readLine());
                             double buybackMultiplier = Double.parseDouble(bufferedReader.readLine());
@@ -300,9 +297,9 @@ public class Board{
                         }
                         else if(line.equals("TELEPORTING_FIELD")){
 
-                            String ID = bufferedReader.readLine();
-                            String name = bufferedReader.readLine();
-                            String destinationID = bufferedReader.readLine();
+                            String ID = new String(bufferedReader.readLine().getBytes(), "UTF-8");
+                            String name = new String(bufferedReader.readLine().getBytes(), "UTF-8");
+                            String destinationID = new String(bufferedReader.readLine().getBytes(), "UTF-8");
 
                             /** Initializes new teleporting field - e.g. jail*/
                             potentialBoard.add(new TeleportingField(ID, name, destinationID));

@@ -71,9 +71,7 @@ public class MainMenuModel {
             String line;
             for(int i = 0; i < fieldsText.length; i++){
                 if((line = bufferedReader.readLine()) != null){
-                    byte bytes[] = line.getBytes();
-                    line = new String(bytes, "UTF-8");
-                    fieldsText[i] = line;
+                    fieldsText[i] = new String(line.getBytes(), "UTF-8");
                 }
             }
 

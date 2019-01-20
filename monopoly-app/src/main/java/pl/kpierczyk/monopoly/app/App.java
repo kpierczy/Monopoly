@@ -6,6 +6,9 @@ import pl.kpierczyk.monopoly.controller.*;
 
 /**
  * Main App's class that initializes Model, View and Controller.
+ * Actual version of application is based on Java Swing library.
+ * Event's character of the Swing plays along with MVC based
+ * application
  * 
  * @author  Krzysztof Pierczyk
  * @version 1.0

@@ -242,12 +242,15 @@ public class Model {
      * @see     MainMenuModel
      * @see     GameModel
      */
-    public void quitGame() {
+    public boolean quitGame() {
         if (getState() == AppState.inGame) {
             this.state = AppState.mainMenu;
             this.gameModel = null;
             this.mainMenuModel = new MainMenuModel(this);
+
+            return true;
         }
+        else return false;
     }
 
 

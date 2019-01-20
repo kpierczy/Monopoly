@@ -45,7 +45,7 @@ public class InstructionModel {
             FileReader fileReader = new FileReader(backButtonTextPath);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
 
-            backButtonText = bufferedReader.readLine();
+            backButtonText = new String(bufferedReader.readLine().getBytes(), "UTF-8");
             bufferedReader.close();
         } catch (IOException ex) {
             System.out.println("Couldn't read buttons text from" + backButtonTextPath);

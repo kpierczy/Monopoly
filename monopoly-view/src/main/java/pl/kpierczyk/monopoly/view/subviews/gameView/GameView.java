@@ -58,8 +58,9 @@ public class GameView extends JPanel{
                                             this.view.getModel().getSettings().getResolution()[1]));
         this.setLayout(new BorderLayout());
 
-        /** Loading backgrouynd gameplay image.*/
 
+
+        /** Loading backgrouynd gameplay image.*/
         String backgroundPath = "/img/" + this.view.getModel().getSettings().getResolutionSetting().getValue() +
                                 "/gameBackground/background_1.png";
         String absoluteBackgroundPath = getClass().getResource(backgroundPath).getPath(); 
@@ -78,6 +79,8 @@ public class GameView extends JPanel{
         this.board = new Board(this.view.getModel().getSettings());
         this.add(this.board, BorderLayout.CENTER);
 
+
+        
         /** Initializing roll/endTurn Button.*/
         this.rollEnd = new JButton();
         if(!view.getModel().getGameModel().isHasPlayerRolled()){

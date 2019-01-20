@@ -187,7 +187,7 @@ public class CardsStack{
                     type = this.cardsType;
 
                     if((line = bufferedReader.readLine()) != null)
-                        text = line;
+                        text = new String(line.getBytes(), "UTF-8");
                     else{
                         bufferedReader.close();
                         return false;
