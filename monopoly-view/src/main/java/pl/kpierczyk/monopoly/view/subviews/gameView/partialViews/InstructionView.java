@@ -1,4 +1,4 @@
-package pl.kpierczyk.monopoly.view.subviews.mainMenuView.partialViews;
+package pl.kpierczyk.monopoly.view.subviews.gameView.partialViews;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -32,7 +32,6 @@ public class InstructionView extends JPanel {
     private final Font font = new Font("Arial", Font.BOLD, 18);
     private final Border border = BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED);
     private final int buttonsHeight = 30;
-    private final int arrowsWidth = 70;
 
 
     private Image instructionImage;
@@ -67,9 +66,10 @@ public class InstructionView extends JPanel {
                 public boolean imageUpdate(Image img, int infoflags, int x, int y, int width, int height) {
                     return false;
                 }
-        }) + 2 * this.buttonsHeight));
+        })));
 
-        this.setSize(new Dimension(this.getPreferredSize().width, this.getPreferredSize().height));
+        this.setSize(new Dimension(this.getPreferredSize().width,
+                                   this.getPreferredSize().height));
 
         this.setLayout(new BorderLayout());
         this.setBorder(border);
@@ -93,18 +93,16 @@ public class InstructionView extends JPanel {
         allButtonsContainer.add(this.rightButton, BorderLayout.EAST);
         allButtonsContainer.add(this.backButton, BorderLayout.SOUTH );
 
-        this.leftButton.setPreferredSize(new Dimension(this.getWidth() /2 ,
+        this.leftButton.setPreferredSize(new Dimension(this.getPreferredSize().width / 2 ,
                                                       this.buttonsHeight));
-        this.rightButton.setPreferredSize(new Dimension(this.getWidth() /2,
+        this.rightButton.setPreferredSize(new Dimension(this.getPreferredSize().width / 2,
                                                        this.buttonsHeight));                                                       
         this.backButton.setPreferredSize(new Dimension(this.getPreferredSize().width,
                                                        this.buttonsHeight));
-                                                                               
-
+                                                       
         allButtonsContainer.setPreferredSize(new Dimension(this.getPreferredSize().width,
                                                            this.buttonsHeight * 2));
 
-        allButtonsContainer.setOpaque(false);                                                   
         this.add(allButtonsContainer, BorderLayout.SOUTH);
     }
 

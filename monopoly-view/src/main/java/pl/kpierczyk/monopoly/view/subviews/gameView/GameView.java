@@ -5,21 +5,28 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JLabel;
+import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import pl.kpierczyk.monopoly.model.utilities.Util;
+import pl.kpierczyk.monopoly.model.utilities.settings.Settings;
 import pl.kpierczyk.monopoly.view.View;
 import pl.kpierczyk.monopoly.view.subviews.gameView.elements.Board;
-
+import pl.kpierczyk.monopoly.view.subviews.gameView.partialViews.InstructionView;
+import pl.kpierczyk.monopoly.view.subviews.gameView.partialViews.SettingsView;
+import pl.kpierczyk.monopoly.view.subviews.gameView.partialViews.TitlesView;
 
 
 /**
@@ -36,6 +43,7 @@ public class GameView extends JPanel{
     /** Reference to View.*/
     View view;
 
+    
     /** Fonts and dimensions.*/
     private final Font rollEndButtonfont = new Font("Arial", Font.BOLD, 22);
     private final int rollEndButtonHeight = 30;
@@ -44,6 +52,10 @@ public class GameView extends JPanel{
     private final int panelsButtonsHeight = 40;
     private final Font panelsButtonsFont = new Font("Arial", Font.BOLD, 19);
 
+    private final int frameVerticalGap = 36;
+    private final int frameHorizontalGap = 10;
+
+    
     /** Always Visible*/
     private Image backgroundImage;
 
@@ -54,10 +66,21 @@ public class GameView extends JPanel{
 
     private JButton menuButton;
 
+    
     /** Visible on action*/
     private JButton bankruptButton;
-    private GameMenuPanel gameMenuPanel;
     
+
+    /** Panels responsible for options view.*/
+    private JInternalFrame menuFrame;
+    private JPanel menuLayerPanel;
+    private GameMenuPanel gameMenuPanel;
+
+    /** Subviews.*/
+    private SettingsView settingsView;
+    private InstructionView instructionView;
+    private TitlesView titlesView;
+
 
 
     /**
@@ -177,6 +200,40 @@ public class GameView extends JPanel{
 
 
 
+        /** DELETE ITTT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+        /** DELETE ITTT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+        /** DELETE ITTT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+        /** DELETE ITTT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+        /** DELETE ITTT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+        /** DELETE ITTT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+        /** DELETE ITTT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+        /** DELETE ITTT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+        menuButton.addActionListener(new ActionListener(){
+        
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                openMenuPanel();
+            }
+        });
+
+
+        /** DELETE ITTT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+        /** DELETE ITTT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+        /** DELETE ITTT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+        /** DELETE ITTT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+        /** DELETE ITTT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+        /** DELETE ITTT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+        /** DELETE ITTT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+        /** DELETE ITTT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+        rollEnd.addActionListener(new ActionListener(){
+        
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                closeChild();
+            }
+        });
+
+
 
 
         /*********************************/
@@ -218,6 +275,22 @@ public class GameView extends JPanel{
         bankruptButton.setFont(panelsButtonsFont);
         //bankruptButton.setVisible(false);
 
+        /** DELETE ITTT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+        /** DELETE ITTT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+        /** DELETE ITTT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+        /** DELETE ITTT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+        /** DELETE ITTT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+        /** DELETE ITTT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+        /** DELETE ITTT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+        /** DELETE ITTT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+        bankruptButton.addActionListener(new ActionListener(){
+        
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                openTitles();
+            }
+        });
+
         rightPanel.add(bankruptButton, BorderLayout.PAGE_END);
     }
 
@@ -228,11 +301,252 @@ public class GameView extends JPanel{
     /* Utilities */
     /*****************************************/
 
-        /*Graphical utilities*/
-        public void paintComponent(Graphics g) {
-            super.paintComponent(g);
-            g.drawImage(backgroundImage, 0, 0, this);
+    /*Graphical utilities*/
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.drawImage(backgroundImage, 0, 0, this);
+    }
+
+
+    /**
+     * 
+     * 
+     * 
+     * 
+     */
+    public void openMenuPanel(){
+        if(this.menuFrame == null){
+            menuFrame =
+                new JInternalFrame("Menu");
+            menuLayerPanel = 
+                new JPanel(new GridBagLayout());
+
+            gameMenuPanel =
+                new GameMenuPanel(view);
+
+            menuFrame.setBounds(this.view.getSize().width / 2 - (gameMenuPanel.getSize().width + frameHorizontalGap) / 2,
+                                this.view.getSize().height / 2 - (gameMenuPanel.getSize().height + frameVerticalGap) / 2,
+                                gameMenuPanel.getSize().width + frameHorizontalGap,
+                                gameMenuPanel.getSize().height + frameVerticalGap);
+
+            menuLayerPanel.setPreferredSize(new Dimension(gameMenuPanel.getSize().width,
+                                                           gameMenuPanel.getSize().height));
+            
+            menuLayerPanel.add(gameMenuPanel);
+            
+            menuFrame.getContentPane().add(menuLayerPanel);
+            menuFrame.setVisible(true);
+
+            view.getLayeredPane().add(menuFrame, 1, 0);
         }
+    }
+
+
+
+
+    /**
+     * 
+     * 
+     * 
+     * 
+     */
+    public int runNewGame(Settings settings){
+        if(this.gameMenuPanel != null){
+
+            //<-- TO DO -->>
+            //Unlock possibility of playing in other languages
+            if(settings.getLanguage().equals("pl")){
+                String playersNumber = "";
+
+                if(settings.getLanguage() == "en"){
+                    playersNumber = 
+                        JOptionPane.showInputDialog(this.view, "Please enter number of players (from 2 to 6):");
+                }
+                else if(settings.getLanguage() == "pl"){
+                playersNumber = 
+                        JOptionPane.showInputDialog(this.view, "Wproawdź liczbę graczy (od 2 do 6):");
+                }
+
+                int players = 0;
+
+                try{
+                    players = (int)Double.parseDouble(playersNumber);
+                }
+                catch(Exception ex){
+                    return -1;
+                }
+                return players; 
+            }
+            else return -1;
+        }
+        else return -1;
+    }
+
+
+
+
+    /**
+     * 
+     * 
+     * 
+     * 
+     */
+    public void openLoadingMenu(){
+        if(this.gameMenuPanel != null){
+            //this.remove(this.gameMenuPanel);
+            //this.gameMenuPanel = null;
+            
+            //this.loadingView =
+            //    new LoadingView(this.view);
+            //this.add(this.loadingView);
+
+            //this.view.revalidate();
+            //this.view.repaint();
+        }
+    }
+
+    public void openSettingsMenu(){
+        if(this.gameMenuPanel != null && this.menuFrame != null){
+            menuLayerPanel.remove(this.gameMenuPanel);
+            this.gameMenuPanel = null;
+            
+            this.view.getModel().getMainMenuModel().openSettings();    
+            this.settingsView =
+                new SettingsView(this.view);
+
+            menuFrame.setBounds(this.view.getSize().width / 2 - (settingsView.getSize().width + frameHorizontalGap) / 2,
+                                this.view.getSize().height / 2 - (settingsView.getSize().height + frameVerticalGap) / 2,
+                                settingsView.getSize().width + frameHorizontalGap,
+                                settingsView.getSize().height + frameVerticalGap);
+
+            menuLayerPanel.setPreferredSize(new Dimension(settingsView.getSize().width,
+                                                          settingsView.getSize().height));
+
+            menuLayerPanel.add(settingsView);
+
+            view.getLayeredPane().add(menuFrame, 1, 0);
+
+            menuFrame.revalidate();
+            menuFrame.repaint();
+        }
+    }
+
+    public void openInstruction(){
+        if(this.gameMenuPanel != null && this.menuFrame != null){
+            menuLayerPanel.remove(this.gameMenuPanel);
+            this.gameMenuPanel = null;
+            
+            this.view.getModel().getMainMenuModel().openInstruction();    
+            this.instructionView =
+                new InstructionView(this.view);
+
+
+            menuFrame.setBounds(this.view.getSize().width / 2 - (instructionView.getSize().width + frameHorizontalGap) / 2,
+                                this.view.getSize().height / 2 - (instructionView.getSize().height + frameVerticalGap) / 2,
+                                instructionView.getSize().width + frameHorizontalGap,
+                                instructionView.getSize().height + frameVerticalGap);
+
+            menuLayerPanel.setPreferredSize(new Dimension(instructionView.getSize().width,
+                                                    instructionView.getSize().height));
+
+            menuLayerPanel.add(instructionView);
+
+            view.getLayeredPane().add(menuFrame, 1, 0);
+
+            menuFrame.revalidate();
+            menuFrame.repaint();
+        }
+    }
+
+    public void openTitles(){
+        if(this.gameMenuPanel != null && this.menuFrame != null){
+            menuLayerPanel.remove(this.gameMenuPanel);
+            this.gameMenuPanel = null;
+            
+            this.view.getModel().getMainMenuModel().openTitles();    
+            this.titlesView =
+                new TitlesView(this.view);
+
+            menuFrame.setBounds(this.view.getSize().width / 2 - (titlesView.getSize().width + frameHorizontalGap) / 2,
+                                this.view.getSize().height / 2 - (titlesView.getSize().height + frameVerticalGap) / 2,
+                                titlesView.getSize().width + frameHorizontalGap,
+                                titlesView.getSize().height + frameVerticalGap);
+
+            menuLayerPanel.setPreferredSize(new Dimension(titlesView.getSize().width,
+                                                          titlesView.getSize().height));
+
+            menuLayerPanel.add(titlesView);
+
+            view.getLayeredPane().add(menuFrame, 1, 0);
+
+            menuFrame.revalidate();
+            menuFrame.repaint();
+        }
+    }
+
+
+    public void closeChild(){
+        if(this.gameMenuPanel == null){
+            
+            //if(this.loadingView != null){
+            //    this.remove(this.loadingView);
+            //    this.loadingView = null;
+            //}
+
+            if(this.settingsView != null){
+                menuLayerPanel.remove(this.settingsView);
+                this.settingsView = null;
+            }
+
+            if(this.instructionView != null){
+                menuLayerPanel.remove(this.instructionView);
+                this.instructionView = null;
+            }
+
+            if(this.titlesView != null){
+                menuLayerPanel.remove(this.titlesView);
+                this.titlesView = null;
+            }
+
+            view.getLayeredPane().remove(menuFrame);
+            view.revalidate();
+            view.repaint();
+            menuFrame = null;
+            menuLayerPanel = null;
+            gameMenuPanel = null;
+            this.view.getModel().getMainMenuModel().closeChild();
+
+
+            menuFrame =
+                new JInternalFrame("Menu");
+            menuLayerPanel = 
+                new JPanel(new GridBagLayout());
+
+            gameMenuPanel =
+                new GameMenuPanel(view);
+
+            menuFrame.setBounds(this.view.getSize().width / 2 - (gameMenuPanel.getSize().width + frameHorizontalGap) / 2,
+                                this.view.getSize().height / 2 - (gameMenuPanel.getSize().height + frameVerticalGap) / 2,
+                                gameMenuPanel.getSize().width + frameHorizontalGap,
+                                gameMenuPanel.getSize().height + frameVerticalGap);
+
+            menuLayerPanel.setPreferredSize(new Dimension(gameMenuPanel.getSize().width,
+                                                           gameMenuPanel.getSize().height));
+            
+            menuLayerPanel.add(gameMenuPanel);
+            
+            menuFrame.getContentPane().add(menuLayerPanel);
+            menuFrame.setVisible(true);
+
+            view.getLayeredPane().add(menuFrame, 1, 0);
+        }
+    }
+
+
+
+    public void closeMenu(){
+
+    }
 }
 
 
@@ -269,15 +583,18 @@ class GameMenuPanel extends JPanel {
     /*****************************************/
 
     public GameMenuPanel(View view) {
+        super();
         this.view = view;
 
         /*Getting number of buttons to create*/
         int buttonsNumber =
-            this.view.getModel().getMainMenuModel().getMainMenu().getMenuFields().length;
+            this.view.getModel().getGameModel().getGameMenu().getMenuFields().length;
         
         this.setPreferredSize(new Dimension(this.buttonWidth,
                                             this.buttonHeight * buttonsNumber));
-        
+        this.setSize(new Dimension(this.buttonWidth,
+                                   this.buttonHeight * buttonsNumber));
+
         /*Setting MaineMenu's buttons layout*/
         this.setLayout(new FlowLayout());
         FlowLayout layout = 

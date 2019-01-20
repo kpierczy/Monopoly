@@ -211,7 +211,6 @@ public class Model {
             GameSaveInfo newGame = new GameSaveInfo(playersNumber, this.getSettings());
 
             this.state = AppState.inGame;
-            this.mainMenuModel = null;
             this.gameModel = 
                 new GameModel(this, newGame);
         }
