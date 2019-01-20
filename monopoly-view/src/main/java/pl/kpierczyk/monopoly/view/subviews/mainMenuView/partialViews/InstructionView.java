@@ -32,7 +32,6 @@ public class InstructionView extends JPanel {
     private final Font font = new Font("Arial", Font.BOLD, 18);
     private final Border border = BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED);
     private final int buttonsHeight = 30;
-    private final int arrowsWidth = 70;
 
 
     private Image instructionImage;
