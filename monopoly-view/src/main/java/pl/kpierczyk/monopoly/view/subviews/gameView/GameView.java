@@ -2,6 +2,7 @@ package pl.kpierczyk.monopoly.view.subviews.gameView;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.io.File;
@@ -44,6 +45,9 @@ public class GameView extends JPanel{
     private JLabel fivethPllayer;
     private JLabel sixthtPllayer;
 
+    private final Font font = new Font("Arial", Font.BOLD, 22);
+    private final int rollEndButtonHeight = 50;
+
 
     public GameView(View view){
         super();
@@ -76,17 +80,20 @@ public class GameView extends JPanel{
 
         /** Initializing roll/endTurn Button.*/
         this.rollEnd = new JButton();
-        if(!view.getModel().getGameModel().isHasPlayerRolled())
+        if(!view.getModel().getGameModel().isHasPlayerRolled()){
             if(view.getModel().getSettings().getLanguage() == "en")
                 this.rollEnd.setText("Roll");
-            if(view.getModel().getSettings().getLanguage() == "pl")
+            else if(view.getModel().getSettings().getLanguage() == "pl")
                 this.rollEnd.setText("Rzuć kostkami");
-        else
+        }
+        else{
             if(view.getModel().getSettings().getLanguage() == "en")
                     this.rollEnd.setText("End turn");
-            if(view.getModel().getSettings().getLanguage() == "pl")
+            else if(view.getModel().getSettings().getLanguage() == "pl")
                 this.rollEnd.setText("Zakończ turę");
-        this.rollEnd.setPreferredSize(new Dimension(20, 30));
+        }
+        this.rollEnd.setPreferredSize(new Dimension(0, rollEndButtonHeight));
+        this.rollEnd.setFont(font);
         this.add(rollEnd, BorderLayout.PAGE_END);
 
 

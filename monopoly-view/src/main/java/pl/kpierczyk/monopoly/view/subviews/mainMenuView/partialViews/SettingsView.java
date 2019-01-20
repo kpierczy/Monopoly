@@ -16,6 +16,7 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.SwingConstants;
@@ -63,7 +64,8 @@ public class SettingsView extends JPanel{
     private final JButton backButton;
     private final JButton okButton;
 
-    public SettingsView(View view){super();
+    public SettingsView(View view){
+        super();
         this.view = view;
 
         /* Settings bacground image initialization */
@@ -154,7 +156,12 @@ public class SettingsView extends JPanel{
 
 
         /*JPanel for settings*/
-        JPanel allGatherPanel = new JPanel();
+        JPanel allGatherPanel = new JPanel(){
+            public void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                g.drawImage(backgroundImage, 0, 0, this);
+            }
+        };
 
         allGatherPanel.setLayout(new BoxLayout(allGatherPanel, BoxLayout.Y_AXIS));
         allGatherPanel.setBorder(BorderFactory.createEmptyBorder(80, 160, 80, 240));
@@ -168,6 +175,7 @@ public class SettingsView extends JPanel{
         JPanel languageRow = new JPanel();
         FlowLayout languageRowLayout = new FlowLayout(FlowLayout.LEFT);
         languageRow.setLayout(languageRowLayout);
+        languageRow.setOpaque(false);
         allGatherPanel.add(languageRow);
 
         allGatherPanel.add(Box.createVerticalStrut(50));
@@ -175,6 +183,7 @@ public class SettingsView extends JPanel{
         JPanel resolutionRow = new JPanel();
         FlowLayout resolutoinRowLayout = new FlowLayout(FlowLayout.LEFT);
         resolutionRow.setLayout(resolutoinRowLayout);
+        resolutionRow.setOpaque(false);
         allGatherPanel.add(resolutionRow);
 
         allGatherPanel.add(Box.createVerticalStrut(50));
@@ -182,6 +191,7 @@ public class SettingsView extends JPanel{
         JPanel fullscreenRow = new JPanel();
         FlowLayout fullscreenRowLayout = new FlowLayout(FlowLayout.LEFT);
         fullscreenRow.setLayout(fullscreenRowLayout);
+        fullscreenRow.setOpaque(false);
         allGatherPanel.add(fullscreenRow);
 
         allGatherPanel.add(Box.createVerticalStrut(50));
@@ -189,6 +199,7 @@ public class SettingsView extends JPanel{
         JPanel soundLevelRow = new JPanel();
         FlowLayout soundLevelRowLayout = new FlowLayout(FlowLayout.LEFT);
         soundLevelRow.setLayout(soundLevelRowLayout);
+        soundLevelRow.setOpaque(false);
         allGatherPanel.add(soundLevelRow);
 
 
@@ -203,6 +214,7 @@ public class SettingsView extends JPanel{
         JPanel languageValuePanel = new JPanel();
         FlowLayout languageValuePanelLayout = new FlowLayout(FlowLayout.LEFT);
         languageValuePanel.setLayout(languageValuePanelLayout);
+        languageValuePanel.setOpaque(false);
         languageRow.add(languageValuePanel);
 
         languageValuePanel.add(this.previousLanguageButton);
@@ -227,6 +239,7 @@ public class SettingsView extends JPanel{
         JPanel resolutionValuePanel = new JPanel();
         FlowLayout resolutionValuePanelLayout = new FlowLayout(FlowLayout.LEFT);
         resolutionValuePanel.setLayout(resolutionValuePanelLayout);
+        resolutionValuePanel.setOpaque(false);
         resolutionRow.add(resolutionValuePanel);
 
         resolutionValuePanel.add(this.previousResolutionButton);
@@ -249,7 +262,8 @@ public class SettingsView extends JPanel{
 
         JPanel fullscreenValuePanel = new JPanel();
         FlowLayout fullscreenValuePanelLayout = new FlowLayout(FlowLayout.LEFT);
-        resolutionValuePanel.setLayout(fullscreenValuePanelLayout);
+        fullscreenValuePanel.setLayout(fullscreenValuePanelLayout);
+        fullscreenValuePanel.setOpaque(false);
         fullscreenRow.add(fullscreenValuePanel);
 
         fullscreenValuePanel.add(this.previousfullscreenButton);
@@ -269,6 +283,7 @@ public class SettingsView extends JPanel{
         this.soundLevelLabel.setHorizontalAlignment( SwingConstants.CENTER );
 
         soundLevelRow.add(this.soundLevelSlider);
+        soundLevelSlider.setOpaque(false);
         this.soundLevelSlider.setPreferredSize(new Dimension(280, 40));
     }
 
@@ -377,14 +392,7 @@ public class SettingsView extends JPanel{
     /*              Utilities                */
     /*****************************************/
 
-    /* Graphical utilities */
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        g.drawImage(backgroundImage, 0, 0, this);
-    }
-
     /*Logical utilities*/
-
 
     public void previousLanguage(){
         this.languageLabel.setText(this.view.getModel().getMainMenuModel().getSettingsModel().getSettingsValues(0));
@@ -435,7 +443,9 @@ public class SettingsView extends JPanel{
         this.view.getMainMenuView().closeChild();
     }
 
-    public void saveChanges(){
+    public void saveChanges(boolean resolutionChanged){
+        if(resolutionChanged)
+            JOptionPane.showMessageDialog(this, "Eggs are not supposed to be green.");
         this.view.update();
         backToMainMenu();
     }

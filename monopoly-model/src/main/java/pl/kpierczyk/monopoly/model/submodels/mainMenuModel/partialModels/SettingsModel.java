@@ -170,11 +170,18 @@ public class SettingsModel{
         return this.model.getMainMenuModel().closeChild();
     }
 
-    public boolean saveChanges(){
+    public boolean[] saveChanges(){
+        boolean answer[] = new boolean[] {true, true};
+        if(this.model.getSettings().getResolutionSetting().getValue().equals(
+            this.settingsCopy.getResolutionSetting().getValue()))
+            answer[1] = false;
+
         this.model.setSettings(this.settingsCopy);
-        if(!this.settingsCopy.writeToFile(this.configPath))
-            return false;
+        if(!this.settingsCopy.writeToFile(this.configPath)){
+            answer[0] = false;
+            return answer;
+        }
         this.model.update();
-        return true;
+        return answer;
     }
 }

@@ -192,8 +192,7 @@ public class MainMenuModel {
 
     public boolean openSettings(){
         if(getState() == MainMenuState._default){
-            this.state = MainMenuState.settings;
-            
+        
             /*Getting config file path*/
             String relativeConfigPath = "/config.txt";
             URL notConvertedConfigPath = 
@@ -258,6 +257,7 @@ public class MainMenuModel {
                                                     settingsTextPath,
                                                     settingsbackgroundImagePath);
 
+                this.state = MainMenuState.settings;
                 return true;
             }
             else

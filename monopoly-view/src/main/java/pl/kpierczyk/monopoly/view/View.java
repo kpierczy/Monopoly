@@ -48,20 +48,19 @@ public class View extends JFrame {
         
         this.model = model;
 
-        /* Checking window's size */
+        /* Setting window's size & checking fulllscreen mode*/
         if (!model.getSettings().isFullscreen()) {
             this.setSize(new Dimension(model.getSettings().getResolution()[0],
                          model.getSettings().getResolution()[1]));
         } 
-        else { 
+        else
             this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-            this.setUndecorated(true);
-        }
+
 
         /*Setting windows features*/
         this.setLocation(0, 0);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setResizable(false);
+        this.setResizable(true);
         this.setLayout(new BorderLayout());
 
         /*Initializing intro view*/
@@ -204,14 +203,13 @@ public class View extends JFrame {
      */
     public void update(){
         if (!model.getSettings().isFullscreen()) {
+            this.setExtendedState(JFrame.NORMAL);
             this.setSize(new Dimension(model.getSettings().getResolution()[0],
                          model.getSettings().getResolution()[1]));
         } 
-        else { 
+        else{
             this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-            this.setUndecorated(true);
         }
-
         this.revalidate();
         this.repaint();
     }
