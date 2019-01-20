@@ -25,7 +25,7 @@ public class GameSaveInfo{
     private ArrayList<Player> players;
 
     /** Number of ongoing turn's player*/
-    private int actualPlayerNumber;
+    private int actualPlayerIndex;
 
     /** Points if player has rolled dices this turn.*/
     private boolean hasPlayerRolled;
@@ -62,7 +62,7 @@ public class GameSaveInfo{
         }
 
         /** Initializing basic game infos.*/
-        this.actualPlayerNumber = 0;
+        this.actualPlayerIndex = 0;
         hasPlayerRolled = false;
     }
 
@@ -83,8 +83,8 @@ public class GameSaveInfo{
     /**
      * @return the actualPlayerNumber
      */
-    public int getActualPlayerNumber() {
-        return actualPlayerNumber;
+    public int getActualPlayerIndex() {
+        return actualPlayerIndex;
     }
 
     /**

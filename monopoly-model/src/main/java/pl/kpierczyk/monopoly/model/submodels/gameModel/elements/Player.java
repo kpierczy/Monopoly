@@ -22,6 +22,8 @@ public class Player{
     /** Player's name.*/
     private final String name;
 
+    private boolean inGame;
+
     /** Secutity key protecting accepting buy/sell oifferts.*/
     private String securityKey;
 
@@ -64,6 +66,13 @@ public class Player{
      */
     public String getName() {
         return name;
+    }
+
+    /**
+     * @return the inGame
+     */
+    public boolean isInGame() {
+        return inGame;
     }
 
     /**
@@ -129,6 +138,13 @@ public class Player{
     }
 
     /**
+     * @param inGame the inGame to set
+     */
+    public void setInGame(boolean inGame) {
+        this.inGame = inGame;
+    }
+
+    /**
      * @param securityKey the securityKey to set
      */
     public void setSecurityKey(String securityKey) {
@@ -148,6 +164,13 @@ public class Player{
      */
     public void setInJail(boolean inJail) {
         this.inJail = inJail;
+        if(!inJail)
+            turnsInJail = 0;
+    }
+
+
+    public void nextTurnInJail(){
+        turnsInJail++;
     }
 
 

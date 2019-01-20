@@ -6,6 +6,7 @@ import pl.kpierczyk.monopoly.model.Model;
 import pl.kpierczyk.monopoly.model.submodels.gameModel.elements.Board;
 import pl.kpierczyk.monopoly.model.submodels.gameModel.elements.Dices;
 import pl.kpierczyk.monopoly.model.submodels.gameModel.elements.Player;
+import pl.kpierczyk.monopoly.model.submodels.gameModel.elements.fields.StartField;
 import pl.kpierczyk.monopoly.model.submodels.gameModel.utilities.GameSaveInfo;
 
 
@@ -27,7 +28,11 @@ public class GameModel {
         _default, menu, auction, trade, buyoutDecision
     }
 
+    /** Id of the Jail field.*/
     private final String JailID = "#11";
+
+    /** Fee to pay to get out of jail.*/
+    private final int JailFee = 500;
 
     /** Reference to the parent-model.*/
     private final Model model;
@@ -45,7 +50,7 @@ public class GameModel {
     private ArrayList<Player> players;
 
     /** Actual turn player's number*/
-    private int actualPlayerNumber;
+    private int actualPlayerIndex;
 
     /** Has player rolles dices this turn.*/
     boolean hasPlayerRolled;
@@ -90,7 +95,7 @@ public class GameModel {
         this.players = gameSaveInfo.getPlayers();
 
         /** Get number of player that should have their turn now.*/
-        this.actualPlayerNumber = gameSaveInfo.getActualPlayerNumber();
+        this.actualPlayerIndex = gameSaveInfo.getActualPlayerIndex();
 
         /** Get information if player rolled dices this turn.*/
         this.hasPlayerRolled = gameSaveInfo.isHasPlayerRolled();
@@ -102,8 +107,8 @@ public class GameModel {
      * 
      * @return number of the actual turn's player.
      */
-    public int getActualPlayerNumber() {
-        return actualPlayerNumber;
+    public int getactualPlayerIndex() {
+        return actualPlayerIndex;
     }
 
     /**
@@ -115,7 +120,9 @@ public class GameModel {
         return hasPlayerRolled;
     }
 
-
+    private Player getActualPlayer(){
+        return players.get(actualPlayerIndex);
+    }
 
 
 
@@ -139,82 +146,208 @@ public class GameModel {
         /** Check if player has rolled this turn*/
         if(!isHasPlayerRolled()){
 
-            /** Simulate dices roll.*/
-            boolean thirdDouble = dices.roll();
+            /** Player in jail*/
+            if(getActualPlayer().isInJail()){
 
-            /** Check if player should go to jail*/
-            if(thirdDouble){
-                goToJail();
-                hasPlayerRolled = true;
-                return;
+                /** Try to get double.*/
+                dices.roll();
+
+                /** If succed rolling double.*/
+                if(dices.isDouble()){
+                    movePlayer();
+                    causeFieldEffect();
+                    return;
+                }
+                else{
+                    /** Player cannot roll anymore this turn.*/
+                    hasPlayerRolled = true;
+
+                    /** If player spent 3 turns in jail they must pay and move.*/
+                    if(getActualPlayer().getTurnsInJail() == 3){
+                        payJail();
+                        getActualPlayer().setInJail(false);
+                        movePlayer();
+                        causeFieldEffect(); 
+                        return;  
+                    }
+
+                    return;
+                }
+            }
+
+
+
+            /** Players out of jail.*/
+            else{
+                
+                /** Simulate dices roll.*/
+                boolean thirdDouble = dices.roll();
+
+                /** Check if player should go to jail*/
+                if(thirdDouble){
+                    goToJail();
+                    hasPlayerRolled = true;
+                    return;
+                }
+                /** If no third double*/
+                else{
+
+                    String startPositionID = 
+                        getActualPlayer().getPositionID();
+
+                    /** Check if double*/
+                    if(!dices.isDouble()){
+                        /** Make player unable to roll one more time.*/
+                        hasPlayerRolled = true;
+                    }
+
+                    movePlayer();
+
+                    /** Check if player crossed Start field. If so, they get Start Bonus.*/
+                    checkStartCrossing(startPositionID);
+
+                    /** Trigger effect of staying at actual field.*/
+                    causeFieldEffect();
+                    return;
+                }
             }
         }
+        else return;
+    }
+
+
+    /**
+     * Moves actual player basing on the actual position and
+     * actual values of dices.
+     */
+    public void movePlayer(){
+
+        /** Set players position.*/
+        getActualPlayer().setPositionID(
+            /** Actual Player's position index*/
+            board.getBoard().get(
+                (
+                    /** Index of the field tha player stands on.*/
+                    board.getFieldsNumberByID(
+                        getActualPlayer().getPositionID()
+                    ) +
+                
+                    /** + sum of dices.*/
+                    dices.getFirst() + dices.getSecond()
+                
+                /** Cut to the modulo(size of the board).*/
+                ) % board.BOARD_SIZE 
+            ).getID()
+        );
     }
 
 
     /** 
-     * Teleports actual player to the Jail.
+     * Teleports actual player to the Jail. Sets inJail flag
+     * on the player.
     */
     public void goToJail(){
-        this.players.get(actualPlayerNumber).setPositionID(JailID);
+        this.players.get(actualPlayerIndex).setPositionID(JailID);
+        getActualPlayer().setInJail(true);
     }
 
 
-    /*Movement utilities*/
-    public boolean payRent(){
-        return true;
+    public void checkStartCrossing(String startPositionID){
+        int startIndex = 
+            board.getFieldsNumberByID(startPositionID);
+        int finishIndex = 
+            board.getFieldsNumberByID(
+                getActualPlayer().getPositionID()
+            );
+
+        /** If player crossed start field.*/
+        if(startIndex > finishIndex)
+            /** Give Start benefit to the player.*/
+            getActualPlayer().give( 
+                ((StartField) board.getBoard().get(0)).
+                    getStartBenefit()
+            );
     }
-    public void collectMoney(){
+
+
+
+    /**
+     * Trigger effect of the field that actual players
+     * stands upon.
+     */
+    public void causeFieldEffect(){
 
     }
-    public boolean payTax(){
-        return true;
-    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     
-    /*Cards drawing*/
-    public boolean drawChanceCard(){
-        return true;
-    }
-    public boolean drawDealCard(){
-        return true;
-    }
 
 
-    /*Fields trade*/
-    public boolean buyField(){
-        return true;
-    }
-    public boolean putFieldOnAuction(){
-        return true;
-    }
-
-
-    /*Field management*/
-    public boolean pledgeField(){
-        return true;
-    }
-    public boolean buybackField(){
-        return true;
-    }
-    public boolean buildApartment(){
-        return true;
-    }
-    public boolean buildHotel(){
-        return true;
-    }
-    
-    public boolean sellApartment(){
-        return true;
-    }
-    public boolean sellHotel(){
-        return true;
-    }
-
-
-
-    /** Finishing player's turn.*/
+    /**
+     * Finishes turn of the player. Checks if the next player on
+     * the list is still in game and if they are not, look for the
+     * next player on the list. Increment turnInJail counter on the
+     * player of they stay in jail.
+     * 
+     * @return false if player has not rolled this turn.
+     */
     public boolean endTurn(){
-        return true;
+
+        /** Player can finish turn only when they rolled.*/
+        if(hasPlayerRolled){
+
+            /** If the next player on the list is in game.*/
+            if(players.get((actualPlayerIndex + 1) % players.size()).
+                isInGame()){
+
+                /** If player is in Jail add one to the turnInJail counter*/
+                if(getActualPlayer().isInJail())
+                    getActualPlayer().nextTurnInJail();
+                
+                /** Change actual player index to the next*/
+                actualPlayerIndex = (actualPlayerIndex + 1) % players.size();
+
+                /** Reset flag hasPlayerRolled for the player beggining turn.*/
+                hasPlayerRolled = false;
+
+                return true;
+            }
+            /** If the next player is out of game.*/
+            else{
+                /** Increment actualPlayerIndex*/
+                actualPlayerIndex = (actualPlayerIndex + 1) % players.size();
+
+                /** Look for the next player on the list.*/
+                return endTurn();
+            }
+        }
+        else return false;
     }
 }
