@@ -238,6 +238,17 @@ public class Settings {
         return this.resolution.setValue(resolution);
     }
 
+
+    /**
+     * Changes resolution setting to the new one given
+     * in the parameter.
+     * 
+     * @param resolution
+     */
+    public void setResolution(SelectSetting resolution){
+        this.resolution = resolution;
+    }
+
     /**
      * Sets fullscreen option on or off.
      * 

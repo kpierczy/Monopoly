@@ -57,6 +57,7 @@ public class GameView extends JPanel{
     /** Visible on action*/
     private JButton bankruptButton;
     private GameMenuPanel gameMenuPanel;
+    
 
 
     /**
@@ -78,13 +79,14 @@ public class GameView extends JPanel{
         /** Loading backgrouynd gameplay image.*/
         String backgroundPath = "/img/" + this.view.getModel().getSettings().getResolutionSetting().getValue() +
                                 "/gameBackground/background_1.png";
-        String absoluteBackgroundPath = getClass().getResource(backgroundPath).getPath(); 
+         
 
         try {
+            String absoluteBackgroundPath = getClass().getResource(backgroundPath).getPath();
             backgroundImage = 
                 ImageIO.read(new File(Util.convert(absoluteBackgroundPath)));
         }
-        catch (IOException ex) {
+        catch (Exception ex) {
             System.out.println("Couldn't open game's background image from " + 
                                "/img/" + this.view.getModel().getSettings().getResolutionSetting().getValue() +
                                "/gameBackground/background_1.png");
@@ -92,6 +94,7 @@ public class GameView extends JPanel{
 
         /** Board's initialization*/
         this.board = new Board(this.view.getModel().getSettings());
+        this.board.setOpaque(false);
         this.add(this.board, BorderLayout.CENTER);
 
 
@@ -144,10 +147,13 @@ public class GameView extends JPanel{
 
         JPanel leftPanel = new JPanel(new BorderLayout());
         leftPanel.setPreferredSize(new Dimension(panelsButtonsWidth, 0));
+        leftPanel.setOpaque(false);
         this.add(leftPanel, BorderLayout.LINE_START);
+
 
         //Left players panel//
         JPanel leftPlayersPanel = new JPanel(new FlowLayout());
+        leftPlayersPanel.setOpaque(false);
         leftPlayersPanel.setPreferredSize(new Dimension(panelsButtonsWidth, panelsButtonsHeight * 3));
         FlowLayout leftPlayersLayout = 
             (FlowLayout) leftPlayersPanel.getLayout();
@@ -179,10 +185,12 @@ public class GameView extends JPanel{
         
         JPanel rightPanel = new JPanel(new BorderLayout());
         leftPanel.setPreferredSize(new Dimension(panelsButtonsWidth, 0));
+        rightPanel.setOpaque(false);
         this.add(rightPanel, BorderLayout.LINE_END);
 
         //Right players panel//
         JPanel rightPlayersPanel = new JPanel(new FlowLayout());
+        rightPlayersPanel.setOpaque(false);
         rightPlayersPanel.setPreferredSize(new Dimension(panelsButtonsWidth, panelsButtonsHeight * 3));
         FlowLayout rightPlayersLayout = 
             (FlowLayout) rightPlayersPanel.getLayout();

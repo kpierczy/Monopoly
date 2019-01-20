@@ -6,6 +6,7 @@ import java.io.IOException;
 
 import pl.kpierczyk.monopoly.model.Model;
 import pl.kpierczyk.monopoly.model.utilities.settings.*;
+import pl.kpierczyk.monopoly.model.utilities.settings.settingsKinds.SelectSetting;
 
 
 
@@ -176,7 +177,9 @@ public class SettingsModel{
             this.settingsCopy.getResolutionSetting().getValue()))
             answer[1] = false;
 
+        SelectSetting oldResolution = model.getSettings().getResolutionSetting();
         this.model.setSettings(this.settingsCopy);
+        this.model.getSettings().setResolution(oldResolution);
         if(!this.settingsCopy.writeToFile(this.configPath)){
             answer[0] = false;
             return answer;
