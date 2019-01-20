@@ -173,6 +173,17 @@ public class Player{
         turnsInJail++;
     }
 
+    public void addOutOfJailNumber(){
+        outOfJailNumber++;
+    }
+
+    public boolean substractOuOfJailNumber(){
+        if(outOfJailNumber > 0){
+            outOfJailNumber++;
+            return true;
+        }
+        else return false;
+    }
 
 
     /********************************/
@@ -202,7 +213,9 @@ public class Player{
             this.cash -= cash;
             return true;
         }
-        else return false;
+        else{
+            return false;
+        }
     }
 
 

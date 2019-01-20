@@ -99,19 +99,20 @@ public class CardsStack{
 
     /**
      * Returns next card from the stack. If stack is empty,
-     * returns null.
+     * it refill cards from greyvard.
      * 
      * @return returns next card from the stack
      */
     public Card draw(){
         Card drawn = null;
-        if(!empty()){
-            drawn = stack.get(0);
-            greyvardStack.add(new Card(drawn));
-            stack.remove(0);
-            return drawn;
-        }
-        else return null;
+
+        if(empty())
+            refill();
+
+        drawn = stack.get(0);
+        greyvardStack.add(new Card(drawn));
+        stack.remove(0);
+        return drawn;
     }
 
 
@@ -121,7 +122,7 @@ public class CardsStack{
      * 
      * @return true if stack is not empty
      */
-    public boolean shuffle(){
+    private boolean shuffle(){
         if(!empty()){
             Collections.shuffle(stack);
             return true;
@@ -136,7 +137,7 @@ public class CardsStack{
      * 
      * @return false if greyvard is empty.
      */
-    public boolean refill(){
+    private boolean refill(){
         if(!full()){
             stack.addAll(greyvardStack);
             shuffle();

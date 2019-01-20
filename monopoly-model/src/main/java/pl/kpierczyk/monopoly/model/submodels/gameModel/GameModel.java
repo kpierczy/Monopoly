@@ -4,9 +4,18 @@ import java.util.ArrayList;
 
 import pl.kpierczyk.monopoly.model.Model;
 import pl.kpierczyk.monopoly.model.submodels.gameModel.elements.Board;
+import pl.kpierczyk.monopoly.model.submodels.gameModel.elements.Card;
 import pl.kpierczyk.monopoly.model.submodels.gameModel.elements.Dices;
 import pl.kpierczyk.monopoly.model.submodels.gameModel.elements.Player;
+import pl.kpierczyk.monopoly.model.submodels.gameModel.elements.fields.CardDrawField;
+import pl.kpierczyk.monopoly.model.submodels.gameModel.elements.fields.ColourField;
+import pl.kpierczyk.monopoly.model.submodels.gameModel.elements.fields.SpecialPropertyField;
 import pl.kpierczyk.monopoly.model.submodels.gameModel.elements.fields.StartField;
+import pl.kpierczyk.monopoly.model.submodels.gameModel.elements.fields.TaxField;
+import pl.kpierczyk.monopoly.model.submodels.gameModel.elements.fields.TeleportingField;
+import pl.kpierczyk.monopoly.model.submodels.gameModel.elements.fields.TrainStationField;
+import pl.kpierczyk.monopoly.model.submodels.gameModel.elements.fields.CardDrawField.CardKind;
+import pl.kpierczyk.monopoly.model.submodels.gameModel.elements.fields.abstracts.Field;
 import pl.kpierczyk.monopoly.model.submodels.gameModel.utilities.GameSaveInfo;
 
 
@@ -53,7 +62,20 @@ public class GameModel {
     private int actualPlayerIndex;
 
     /** Has player rolles dices this turn.*/
-    boolean hasPlayerRolled;
+    private boolean hasPlayerRolled;
+
+    /** States if player must pay something before they end turn.*/
+    /** Payment source can be in three states:                   */
+    /**     "Jail"                                               */
+    /**     "Banker"                                             */
+    /**     "Player's name"                                      */
+    /** establishing subject to pay.                             */
+    private boolean hasToPay;
+    private int toPay;
+    private String paymentSource;
+
+    private final String JAIL_SOURCE = "Jail";
+    private final String BANKER_SOURCE = "Banker";
 
     /** MenuModel handling menu services in the in-game panel.*/
     //private InGameMenuModel inGameMenuModel;
@@ -102,15 +124,36 @@ public class GameModel {
     }
 
 
+
     /**
-     * Returns number of the actual turn's player.
+     * Returns state of the GameModel.
      * 
-     * @return number of the actual turn's player.
+     * @return state of the GameModel.
      */
-    public int getactualPlayerIndex() {
-        return actualPlayerIndex;
+    public State getState() {
+        return state;
     }
 
+
+    /** 
+     * Returns refference to the board.
+     * 
+     * @return refference to the board.
+     */
+    public Board getBoard() {
+        return board;
+    }
+
+
+    /**
+     * Returns refference to the ArrayList of players.
+     * 
+     * @return refference to the ArrayList of players.
+     */
+    public ArrayList<Player> getPlayers() {
+        return players;
+    }
+    
     /**
      * Returns true if player rolled dices this turn.
      * 
@@ -120,9 +163,16 @@ public class GameModel {
         return hasPlayerRolled;
     }
 
+
+    /**
+     * Returns refference to the actual turn's player object.
+     * 
+     * @return refference to the actual turn's player object.
+     */
     private Player getActualPlayer(){
         return players.get(actualPlayerIndex);
     }
+
 
 
 
@@ -135,16 +185,14 @@ public class GameModel {
     /*****************************************/
 
 
-
-
     /**
      * Represents rolling dices by the player. Manages all possible
-     * scenarios of player's move calling appropriate methods.
+     * scenarios of player's movement calling appropriate methods.
      */
     public void rollDices(){
 
-        /** Check if player has rolled this turn*/
-        if(!isHasPlayerRolled()){
+        /** Check if player has rolled this turn and if they owe something.*/
+        if(!hasPlayerRolled && !hasToPay){
 
             /** Player in jail*/
             if(getActualPlayer().isInJail()){
@@ -164,13 +212,15 @@ public class GameModel {
 
                     /** If player spent 3 turns in jail they must pay and move.*/
                     if(getActualPlayer().getTurnsInJail() == 3){
-                        payJail();
-                        getActualPlayer().setInJail(false);
-                        movePlayer();
-                        causeFieldEffect(); 
+                        
+                        /** If player could afford Jail fee.*/
+                        if(payJail()){
+                            getActualPlayer().setInJail(false);
+                            movePlayer();
+                            causeFieldEffect(); 
+                        }
                         return;  
                     }
-
                     return;
                 }
             }
@@ -215,7 +265,6 @@ public class GameModel {
         else return;
     }
 
-
     /**
      * Moves actual player basing on the actual position and
      * actual values of dices.
@@ -241,7 +290,6 @@ public class GameModel {
         );
     }
 
-
     /** 
      * Teleports actual player to the Jail. Sets inJail flag
      * on the player.
@@ -251,7 +299,12 @@ public class GameModel {
         getActualPlayer().setInJail(true);
     }
 
-
+    /**
+     * Checks if player crossed Start field during their roll. If so
+     * they receive Start Bonus.
+     * 
+     * @param startPositionID
+     */
     public void checkStartCrossing(String startPositionID){
         int startIndex = 
             board.getFieldsNumberByID(startPositionID);
@@ -269,14 +322,371 @@ public class GameModel {
             );
     }
 
-
-
     /**
      * Trigger effect of the field that actual players
      * stands upon.
      */
     public void causeFieldEffect(){
+        Field actualField = 
+            board.getFieldByID(
+                getActualPlayer().getPositionID());
 
+
+        /** Handling colour fields.*/
+        if(actualField instanceof ColourField){
+
+        }
+        /** Handling Train Stations.*/
+        else if(actualField instanceof TrainStationField){
+
+        }
+        /** Handling Special properties*/
+        else if(actualField instanceof SpecialPropertyField){
+            
+        }
+        /** Handling Card draw fields.*/
+        else if(actualField instanceof CardDrawField ){
+            if(((CardDrawField) actualField).getKind() == CardKind.chance){
+                drawChance();
+            }
+            else if(((CardDrawField) actualField).getKind() == CardKind.deal){
+                drawDeal();
+            }
+        }
+        /** Handling Tax fields.*/
+        else if(actualField instanceof TaxField){
+            int taxAmount = ((TaxField) actualField).getTaxValue();
+            if(!getActualPlayer().takeAway(taxAmount)){
+                hasToPay = true;
+                toPay = Math.abs(getActualPlayer().getCash());
+                paymentSource = BANKER_SOURCE;
+            }
+        }
+        /** Handling "Go to jail" field.*/
+        else if(actualField instanceof TeleportingField){
+            getActualPlayer().setPositionID(JailID);
+            getActualPlayer().setInJail(true);
+        }
+    }
+
+
+    /**
+     * Take away JailFee from the player. If the player cannot afford
+     * fee hasToPay counter is set and appropriate informations about
+     * debt are saved.
+     */
+    public boolean payJail(){
+        if(getActualPlayer().takeAway(JailFee)){
+            return true;
+        }
+        else{
+            hasToPay = true;
+            toPay += Math.abs(getActualPlayer().getCash());
+            paymentSource = JAIL_SOURCE;
+            return false;
+        }
+    }
+    
+
+
+
+
+
+
+    /** 
+     * Draws card from the ChanceStack and trigger the effect of
+     * the drawn card.
+    */
+    private void drawChance(){
+        Card drawnCard = board.getChanceCards().draw();
+        String startPositionID;
+        int payAmount;
+
+        switch(drawnCard.getEffect()){
+            case Card.CH_GET_1000:
+                getActualPlayer().give(1000);
+                break;
+
+            case Card.CH_GET_1500:
+                getActualPlayer().give(1500);
+                break;
+
+            case Card.CH_GET_500:
+                getActualPlayer().give(500);
+                break;
+
+            case Card.CH_GET_OUT_OF_JAIL:
+                getActualPlayer().addOutOfJailNumber();
+                break;
+
+            case Card.CH_GO_BACK_3:
+                int actualIndex = board.getFieldsNumberByID(
+                    getActualPlayer().getPositionID()
+                );
+
+                int destinationIndex = 0;
+                if(actualIndex - 3 >=0)
+                    destinationIndex = actualIndex - 3;
+                else
+                    destinationIndex = 40 - (3 - actualIndex);
+                getActualPlayer().setPositionID(
+                    board.getBoard().get(destinationIndex).getID()
+                );
+                break;
+
+            case Card.CH_GO_TO_FIRST_PINK:
+                startPositionID = 
+                            getActualPlayer().getPositionID();
+
+                getActualPlayer().setPositionID(
+                    board.getBoard().get(11).getID()
+                );
+                checkStartCrossing(startPositionID);
+                causeFieldEffect();
+                break;
+
+            case Card.CH_GO_TO_FIRST_STATION:
+                startPositionID = 
+                            getActualPlayer().getPositionID();
+
+                getActualPlayer().setPositionID(
+                    board.getBoard().get(5).getID()
+                );
+                checkStartCrossing(startPositionID);
+                causeFieldEffect();
+                break;
+
+            case Card.CH_GO_TO_JAIL:
+                getActualPlayer().setPositionID(
+                    board.getBoard().get(10).getID()
+                );
+                getActualPlayer().setInJail(true);
+                break;
+
+            case Card.CH_GO_TO_SECOND_NAVY:
+                startPositionID = 
+                            getActualPlayer().getPositionID();
+
+                getActualPlayer().setPositionID(
+                    board.getBoard().get(39).getID()
+                );
+                checkStartCrossing(startPositionID);
+                causeFieldEffect();
+                break;
+
+            case Card.CH_GO_TO_START:
+                startPositionID = 
+                            getActualPlayer().getPositionID();
+
+                getActualPlayer().setPositionID(
+                    board.getBoard().get(0).getID()
+                );
+                checkStartCrossing(startPositionID);
+                causeFieldEffect();
+                break;
+
+            case Card.CH_GO_TO_THIRD_RED:
+                startPositionID = 
+                            getActualPlayer().getPositionID();
+
+                getActualPlayer().setPositionID(
+                    board.getBoard().get(24).getID()
+                );
+                checkStartCrossing(startPositionID);
+                causeFieldEffect();
+                break;
+
+            case Card.CH_PAY_150:
+                payAmount = 150;
+                if(!getActualPlayer().takeAway(payAmount)){
+                    hasToPay = true;
+                    toPay = Math.abs(getActualPlayer().getCash());
+                    paymentSource = BANKER_SOURCE;
+                }
+                break;
+
+            case Card.CH_PAY_1500:
+                payAmount = 1500;
+                if(!getActualPlayer().takeAway(payAmount)){
+                    hasToPay = true;
+                    toPay = Math.abs(getActualPlayer().getCash());
+                    paymentSource = BANKER_SOURCE;
+                }
+                break;
+
+            case Card.CH_PAY_200:
+                payAmount = 200;
+                if(!getActualPlayer().takeAway(payAmount)){
+                    hasToPay = true;
+                    toPay = Math.abs(getActualPlayer().getCash());
+                    paymentSource = BANKER_SOURCE;
+                }
+                break;
+
+            case Card.CH_PAY_250A_1000H:
+                for(int i = 0; i < board.BOARD_SIZE; i++){
+                    Field field = board.getBoard().get(i);
+                    if(field instanceof ColourField){
+                        ColourField colourField = 
+                            (ColourField) field;
+                        if(colourField.getOwner() == getActualPlayer()){
+                            getActualPlayer().takeAway(250*colourField.getApartmentsNumber());
+                            if(colourField.isHotel()){
+                                getActualPlayer().takeAway(750);
+                            }
+                        }
+                    }
+                }
+                if(getActualPlayer().getCash() < 0){
+                    hasToPay = true;
+                    toPay = Math.abs(getActualPlayer().getCash());
+                    paymentSource = BANKER_SOURCE;
+                }
+                break;
+
+            case Card.CH_PAY_400A_1150H:
+                for(int i = 0; i < board.BOARD_SIZE; i++){
+                    Field field = board.getBoard().get(i);
+                    if(field instanceof ColourField){
+                        ColourField colourField = 
+                            (ColourField) field;
+                        if(colourField.getOwner() == getActualPlayer()){
+                            getActualPlayer().takeAway(400*colourField.getApartmentsNumber());
+                            if(colourField.isHotel()){
+                                getActualPlayer().takeAway(750);
+                            }
+                        }
+                    }
+                }
+                if(getActualPlayer().getCash() < 0){
+                    hasToPay = true;
+                    toPay = Math.abs(getActualPlayer().getCash());
+                    paymentSource = BANKER_SOURCE;
+                }
+                break;
+        }
+
+    }
+
+
+
+    private void drawDeal(){
+        Card drawnCard = board.getChanceCards().draw();
+        String startPositionID;
+        int payAmount;
+
+        switch(drawnCard.getEffect()){
+            case Card.D_BACK_TO_START:
+                startPositionID = 
+                    getActualPlayer().getPositionID();
+
+                getActualPlayer().setPositionID(
+                    board.getBoard().get(0).getID()
+                );
+                checkStartCrossing(startPositionID);
+                causeFieldEffect();
+                break;
+            
+            case Card.D_GET_100:
+                getActualPlayer().give(100);
+                break;
+            
+            case Card.D_GET_1000_1:
+                getActualPlayer().give(1000);
+                break;
+            
+            case Card.D_GET_1000_2:
+                getActualPlayer().give(1000);
+                break;
+            
+            /*<-- TO DO --> */
+            /** Check if players than have been taken away money can afford it.*/
+            case Card.D_GET_100_PER_PLAYER:
+                for(int i = 0; i < players.size(); i++){
+                    if(players.get(i).isInGame()){
+                        players.get(i).takeAway(100);
+                        getActualPlayer().give(100);
+                    }
+                }
+                break;
+            
+            case Card.D_GET_200:
+                getActualPlayer().give(1000);
+                break;
+            
+            case Card.D_GET_2000:
+                getActualPlayer().give(2000);
+                break;
+            
+            case Card.D_GET_250:
+                getActualPlayer().give(250);
+                break;
+            
+            case Card.D_GET_500:
+                getActualPlayer().give(500);
+                break;
+                
+            
+            case Card.D_GET_OUT_OF_JAIL:
+                getActualPlayer().addOutOfJailNumber();
+                break;
+            
+            case Card.D_GO_TO_FIRST_BROWN:
+                startPositionID = 
+                    getActualPlayer().getPositionID();
+
+                getActualPlayer().setPositionID(
+                    board.getBoard().get(1).getID()
+                );
+                checkStartCrossing(startPositionID);
+                causeFieldEffect();
+                break;
+            
+            case Card.D_GO_TO_JAIL:
+                getActualPlayer().setPositionID(
+                    board.getBoard().get(10).getID()
+                );
+                getActualPlayer().setInJail(true);
+                break;
+            
+            case Card.D_PAY_1000:
+                payAmount = 100;
+                if(!getActualPlayer().takeAway(payAmount)){
+                    hasToPay = true;
+                    toPay = Math.abs(getActualPlayer().getCash());
+                    paymentSource = BANKER_SOURCE;
+                }
+                break;
+            
+            /*<-- TO DO -->*/
+            /** Give possibility to draw chance card.*/
+            case Card.D_PAY_100_OR_CHANCE:
+                payAmount = 100;
+                if(!getActualPlayer().takeAway(payAmount)){
+                    hasToPay = true;
+                    toPay = Math.abs(getActualPlayer().getCash());
+                    paymentSource = BANKER_SOURCE;
+                }
+                break;
+            
+            case Card.D_PAY_500_1:
+                payAmount = 500;
+                if(!getActualPlayer().takeAway(payAmount)){
+                    hasToPay = true;
+                    toPay = Math.abs(getActualPlayer().getCash());
+                    paymentSource = BANKER_SOURCE;
+                }
+                break;
+            
+            case Card.D_PAY_500_2:
+                payAmount = 500;
+                if(!getActualPlayer().takeAway(payAmount)){
+                    hasToPay = true;
+                    toPay = Math.abs(getActualPlayer().getCash());
+                    paymentSource = BANKER_SOURCE;
+                }
+                break;
+        }
     }
 
 
@@ -302,14 +712,6 @@ public class GameModel {
 
 
 
-
-
-
-
-
-    
-
-
     /**
      * Finishes turn of the player. Checks if the next player on
      * the list is still in game and if they are not, look for the
@@ -321,7 +723,8 @@ public class GameModel {
     public boolean endTurn(){
 
         /** Player can finish turn only when they rolled.*/
-        if(hasPlayerRolled){
+        /** Player cannot finish turn when owe something.*/
+        if(hasPlayerRolled && !hasToPay){
 
             /** If the next player on the list is in game.*/
             if(players.get((actualPlayerIndex + 1) % players.size()).
