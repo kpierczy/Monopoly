@@ -149,7 +149,7 @@ public class Settings {
 
         if (this.resolution.getValue().indexOf("x") == 3) {
             width = this.resolution.getValue().substring(0, 3);
-            height = this.resolution.getValue().substring(4, 6);
+            height = this.resolution.getValue().substring(4, 7);
         } else if (this.resolution.getValue().indexOf("x") == 4) {
             width = this.resolution.getValue().substring(0, 4);
             height = this.resolution.getValue().substring(5, 9);

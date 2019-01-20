@@ -85,7 +85,8 @@ public class SettingsController implements ActionListener, ChangeListener {//Act
             boolean answer[] = this.controller.getModel().getMainMenuModel().getSettingsModel().saveChanges();
 
             if(answer[0]){
-                this.controller.getView().getMainMenuView().getSettingsView().saveChanges(answer[1]);
+                this.controller.getView().getMainMenuView().getSettingsView().saveChanges(
+                    answer[1], this.controller.getModel().getSettings());
                 this.controller.getMainMenuController().closeChild();
             }
         }   

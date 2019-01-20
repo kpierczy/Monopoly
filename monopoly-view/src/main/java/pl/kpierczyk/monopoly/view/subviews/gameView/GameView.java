@@ -46,7 +46,7 @@ public class GameView extends JPanel{
     private JLabel sixthtPllayer;
 
     private final Font font = new Font("Arial", Font.BOLD, 22);
-    private final int rollEndButtonHeight = 50;
+    private final int rollEndButtonHeight = 30;
 
 
     public GameView(View view){

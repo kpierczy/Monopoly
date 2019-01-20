@@ -60,7 +60,7 @@ public class View extends JFrame {
         /*Setting windows features*/
         this.setLocation(0, 0);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setResizable(true);
+        this.setResizable(false);
         this.setLayout(new BorderLayout());
 
         /*Initializing intro view*/
@@ -204,8 +204,6 @@ public class View extends JFrame {
     public void update(){
         if (!model.getSettings().isFullscreen()) {
             this.setExtendedState(JFrame.NORMAL);
-            this.setSize(new Dimension(model.getSettings().getResolution()[0],
-                         model.getSettings().getResolution()[1]));
         } 
         else{
             this.setExtendedState(JFrame.MAXIMIZED_BOTH);

@@ -22,6 +22,7 @@ import javax.swing.JSlider;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 
+import pl.kpierczyk.monopoly.model.utilities.settings.Settings;
 import pl.kpierczyk.monopoly.view.View;
 
 
@@ -443,9 +444,15 @@ public class SettingsView extends JPanel{
         this.view.getMainMenuView().closeChild();
     }
 
-    public void saveChanges(boolean resolutionChanged){
-        if(resolutionChanged)
-            JOptionPane.showMessageDialog(this, "Eggs are not supposed to be green.");
+    public void saveChanges(boolean resolutionChanged, Settings settings){
+        if(resolutionChanged){
+            if(settings.getLanguage().equals("pl"))
+                JOptionPane.showMessageDialog(
+                    this, "Aby wdrożyć zmianę rozdzielczości, zrestartuj grę.");
+            else if(settings.getLanguage().equals("en"))
+                JOptionPane.showMessageDialog(
+                    this, "To apply resolution change, please restart game.");
+        }
         this.view.update();
         backToMainMenu();
     }
