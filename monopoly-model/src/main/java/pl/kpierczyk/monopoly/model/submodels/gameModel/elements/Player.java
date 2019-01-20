@@ -12,15 +12,18 @@ package pl.kpierczyk.monopoly.model.submodels.gameModel.elements;
 public class Player{
 
 
-    public final int HAT = 1;
-    public final int SHIP = 2;
-    public final int CAR = 3;
-    public final int DOG = 4;
-    public final int SHOE = 5;
-    public final int WHEELBARROW = 6;
+    public static final int HAT = 1;
+    public static final int SHIP = 2;
+    public static final int CAR = 3;
+    public static final int DOG = 4;
+    public static final int SHOE = 5;
+    public static final int WHEELBARROW = 6;
 
     /** Player's name.*/
     private final String name;
+
+    /** Secutity key protecting accepting buy/sell oifferts.*/
+    private String securityKey;
 
     /** ID of the field that player stands on.*/
     private String positionID;
@@ -61,6 +64,13 @@ public class Player{
      */
     public String getName() {
         return name;
+    }
+
+    /**
+     * @return the securityKey
+     */
+    public String getSecurityKey() {
+        return securityKey;
     }
 
     /**
@@ -116,6 +126,13 @@ public class Player{
      */
     public boolean isInJail() {
         return inJail;
+    }
+
+    /**
+     * @param securityKey the securityKey to set
+     */
+    public void setSecurityKey(String securityKey) {
+        this.securityKey = securityKey;
     }
 
     /**

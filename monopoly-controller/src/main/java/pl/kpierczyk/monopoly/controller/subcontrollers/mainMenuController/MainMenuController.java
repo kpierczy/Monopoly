@@ -131,32 +131,59 @@ public class MainMenuController{
     /*****************************************/
    
 
-    //<--- HERE END -->
-
     /**
+     * Checks if player stays in the main menu. If so, information to the
+     * MainMenuView is sent, to display dialog input to get number of players
+     * from the player. if number of players is valid, parent-controller
+     * is informed about attempt of beggining new game.
      * 
+     * @see MainMenuView
      */
     public void runNewGame(){
         if(this.mainMenuListener != null){
 
+            /** Get number of players from input dialog*/
             int playersNumber = 
-                this.controller.getView().getMainMenuView().runNewGame(this.controller.getModel().getSettings());
+                this.controller.getView().getMainMenuView().runNewGame(
+                    this.controller.getModel().getSettings());
 
+            /** Check if number of players is valid.*/
             if(playersNumber >= 2 && playersNumber <= 6){
                 this.controller.runNewGame(playersNumber);
             }
         }
     }
 
+
+    /**
+     * In future, will be initializing new loading list controller
+     * managin interaction with list of saves and giving possibility
+     * to load one of them
+     */
     public void openLoadingMenu(){
         
     }
 
+
+    /**
+     * If called when MainMenuListener exists, informs Model about
+     * opening settings tab in main menu. If model is possible to 
+     * change state, View is informed about needed changes.
+     * 
+     * @see SettingsModel
+     * @see SettingsView
+     */
     public void openSettingsMenu(){
+        /** Check if mainMenuListener is alive.*/
         if(this.mainMenuListener != null){
+
+            /** Try to change model's state*/
             if(this.controller.getModel().getMainMenuModel().openSettings()){
+
+                /** Inform View about needed change.*/
                 this.controller.getView().getMainMenuView().openSettingsMenu();
             
+                /** Crate new SettingsController to manage interaction with settings tab.*/
                 this.mainMenuListener = null;
                 this.settingsController =
                     new SettingsController(this.controller);
@@ -164,11 +191,28 @@ public class MainMenuController{
         }
     }
 
+
+    /** 
+     * If called when MainMenuListener exists, informs Model about an
+     * attempt of opening instruction in main menu view. If Model is 
+     * able to change it's state, View is informed about need of drawing
+     * new panel.
+     * 
+     * @see InstructionModel
+     * @see InstructionView
+    */
     public void openInstruction(){
+
+        /** Check if MainMenuListener is alive.*/
         if(this.mainMenuListener != null){
+
+                /** Try to change Model's state.*/
                 if(this.controller.getModel().getMainMenuModel().openInstruction()){
+
+                /** Inform view about required changes.*/
                 this.controller.getView().getMainMenuView().openInstruction();
             
+                /** Crate new InstructionController to manage interaction with instruction tab.*/
                 this.mainMenuListener = null;
                 this.instructionController =
                     new InstructionController(this.controller);
@@ -176,11 +220,29 @@ public class MainMenuController{
         }
     }
 
+
+    /**
+     * If called when MainMenuListener exists, informs Model about an
+     * attempt of opening titles in main menu view. If Model is able
+     * to change it's state, View is informed about need of drawing
+     * a new panel.
+     * 
+     * @see TitlesModel
+     * @see TitlesView
+     */
     public void openTitles(){
+
+        /** Check if MainMenuListener is alive.*/
         if(this.mainMenuListener != null){
+            
+            /** Try to change Model's state.*/
             if(this.controller.getModel().getMainMenuModel().openTitles()){
+                
+                /** Inform view about required changes.*/
                 this.controller.getView().getMainMenuView().openTitles();
 
+
+                /** Crate new InstructionController to manage interaction with instruction tab.*/
                 this.mainMenuListener = null;
                 this.titlesController =
                     new TitlesController(this.controller);
@@ -188,21 +250,32 @@ public class MainMenuController{
         }
     }
 
+
+    /** 
+     * If any of MainMenuController's children is opened (e.g
+     * settings, titles etc.) it is closed, and new MainMenuListener
+     * is created and added to the list of MainMenuView button's
+     * listeners lists.
+    */
     public void closeChild(){
+
+        /** Check if any of children is running.*/
         if(this.mainMenuListener == null){
 
-            //this.loadingController = null;
-            //this.settingsController = null;
+            /** Kill ale children.*/
+            /**this.loadingController = null;*/
+            this.settingsController = null;
             this.instructionController = null;
             this.titlesController = null;
 
+            /** Create new MainMenuListener.*/
             this.mainMenuListener =
                 new MainMenuListener(this.controller);
-            MainMenuView mainMenuView =
-                this.controller.getView().getMainMenuView();
 
-            for(int i = 0; i < mainMenuView.getMainMenuButtonsNumber(); i++){
-                mainMenuView.getMainMenuButton(i).addActionListener(this.mainMenuListener);
+            /** Add listener to MainMenuView buttons's listeners lists.*/
+            for(int i = 0; i < this.controller.getView().getMainMenuView().getMainMenuButtonsNumber(); i++){
+                this.controller.getView().getMainMenuView().getMainMenuButton(i).addActionListener(
+                    this.mainMenuListener);
             }
         }
     }
@@ -220,71 +293,68 @@ public class MainMenuController{
 
 
 
-//*******************************************//
-//
-//
-//
-//
-//
-//
-//
-//*******************************************//
-
+/**
+ * Utility class establishing listener for all buttons visible in
+ * the main menu. Checks source of the action and calls appropriate
+ * MainMenuController method to handle action.
+ * 
+ * @author  Krzysztof Pierczyk
+ * @version 1.0
+ * @since   1.0
+ * @see     MainMenuController
+ * @see     MainMenuView
+ */
 class MainMenuListener implements ActionListener{
 
-    /*****************************************/
-    /*            Class Fields               */
-    /*****************************************/
-
-    Controller controller;
+    /** Reference to the grandparent-controller.*/
+    private final Controller controller;
 
 
-
-
-    /*****************************************/
-    /*             Constructor               */
-    /*****************************************/
-
-
+    /**
+     * Default constructor saving reference to the main
+     * Controller.
+     * 
+     * @param controller
+     */
     public MainMenuListener(Controller controller){
         this.controller = controller;
     }
 
 
 
-
-
-    /*****************************************/
-    /* Listener's methods */
-    /*****************************************/
-
-
+    /**
+     * Ovverided listener's method picking up actions performed
+     * by user in the main menu and calling appropriate MainMenuController's
+     * method to handle actions.
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
+
+        /** Save refference to the action's source.*/
         JButton buttonSource = (JButton) e.getSource();
 
 
-        //New game
+        /** If "New game" button pressed.*/
         if(buttonSource == this.controller.getView().getMainMenuView().getMainMenuButton(0)){
             this.controller.getMainMenuController().runNewGame();
         }
-        //Load game
+        /** If "Load game" button pressed.*/
         else if(buttonSource == this.controller.getView().getMainMenuView().getMainMenuButton(1)){
             
         }
-        //Settings
+        /** If "Settings" button pressed*/
         else if(buttonSource == this.controller.getView().getMainMenuView().getMainMenuButton(2)){
             this.controller.getMainMenuController().openSettingsMenu();
         }
-        //Instruction
+        /** If "Instruction" buttons pressed*/
         else if(buttonSource == this.controller.getView().getMainMenuView().getMainMenuButton(3)){
             this.controller.getMainMenuController().openInstruction();
         }
-        //Titles
+        /** If "Titles" buttons pressed*/
         else if(buttonSource == this.controller.getView().getMainMenuView().getMainMenuButton(4)){
             this.controller.getMainMenuController().openTitles();
         }
-        //Quit app
+        /** If "Quit" buttons pressed*/
         else if(buttonSource == this.controller.getView().getMainMenuView().getMainMenuButton(5)){
          this.controller.quitApp();   
         }

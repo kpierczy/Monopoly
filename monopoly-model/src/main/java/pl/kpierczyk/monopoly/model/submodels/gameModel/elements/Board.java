@@ -36,7 +36,6 @@ public class Board{
 
     /** Default size of the board.*/
     public final int BOARD_SIZE = 40;
-    
 
     /** List of fields representing board*/
     private ArrayList<Field> board = new ArrayList<Field>(BOARD_SIZE);
@@ -391,5 +390,38 @@ public class Board{
             return true;
         }
         else return false;
+    }
+
+
+
+    /**
+     * Returns index of the field with ID given in the parameter.
+     * Returns -1 when field not found.
+     * 
+     * @param field
+     * @return
+     */
+    public int getFieldsNumberByID(String ID){
+        
+        /** Look for specified field by ID*/
+        for(int i = 0; i < BOARD_SIZE; i++){
+            if(board.get(i).getID().equals(ID))
+                return i;
+        }
+        
+        /** If field not found, return -1*/
+        return -1;
+    }
+
+
+
+    /**
+     * Returns refference to the field with specified ID.
+     * 
+     * @param   ID
+     * @return  refference to the field with specified ID.
+     */
+    public Field getFieldByID(String ID){
+        return board.get(getFieldsNumberByID(ID));
     }
 }

@@ -65,6 +65,13 @@ public class Dices{
         return doubles;
     }
 
+    public boolean isDouble(){
+        if(first == second)
+            return true;
+        else
+            return false;
+    }
+
 
 
 
