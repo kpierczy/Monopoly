@@ -381,12 +381,27 @@ public class GameView extends JPanel{
     }
 
 
-    public void updateCounters(){
+    public synchronized void updateCounters(){
         for(int i = 0; i < countersList.size(); i++){
             Player player = view.getModel().getGameModel().getPlayers().get(i);
             JButton field = board.getFields(view.getModel().getGameModel().getBoard().
                 getFieldsNumberByID(player.getPositionID())
             );
+
+
+            field.addComponentListener(new ComponentListener(){
+                
+                @Override
+                public void componentMoved(ComponentEvent e) {
+                    updateCounters();
+                }
+                @Override
+                public void componentHidden(ComponentEvent e) {}
+                @Override
+                public void componentResized(ComponentEvent e) {}
+                @Override
+                public void componentShown(ComponentEvent e) {}
+            });
             
             if(player.isInGame()){
                 Point glassPoint = SwingUtilities.convertPoint(

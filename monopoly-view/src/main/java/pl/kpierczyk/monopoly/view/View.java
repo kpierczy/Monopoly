@@ -162,14 +162,11 @@ public class View extends JFrame {
             gameView = null;
         }
 
-        this.revalidate();
-        this.repaint();  
-
         this.gameView = 
             new GameView(this);
-        gameView.updateCounters();
         this.getContentPane().add(gameView);
 
+        this.gameView.updateCounters();
         this.revalidate();
         this.repaint();  
     }
