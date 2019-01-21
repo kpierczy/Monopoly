@@ -155,17 +155,14 @@ public class Controller{
      */
     public void runNewGame(int playersNumber){
 
-        /** Change if user is in the main menu.*/
-        if(model.getMainMenuModel().getState() == MainMenuState._default){
-            /** Inform model and view about starting game.*/
-            model.runNewGame(playersNumber);
-            view.runNewGame();
+        /** Inform model and view about starting game.*/
+        model.runNewGame(playersNumber);
+        view.runNewGame();
 
-            /** Create GameController to manage in-game interactions.*/
-            this.mainMenuController = null;
-            this.gameController = 
-                new GameController(this);
-        }
+        /** Create GameController to manage in-game interactions.*/
+        this.mainMenuController = null;
+        this.gameController = 
+            new GameController(this);
     }
 
     /**

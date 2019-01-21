@@ -444,7 +444,7 @@ public class SettingsView extends JPanel{
 
 
     public void backToMainMenu(){
-        this.view.getMainMenuView().closeChild();
+        this.view.getGameView().closeChild();
     }
 
     public void saveChanges(boolean resolutionChanged, Settings settings){

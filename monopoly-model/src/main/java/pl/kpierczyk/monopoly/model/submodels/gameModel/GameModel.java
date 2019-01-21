@@ -144,7 +144,7 @@ public class GameModel {
                            this.model.getSettings().getLanguage() +
                            "/interfaceTexts/gameMenu.txt";
 
-        String fieldsText[] = new String[7];
+        String fieldsText[] = new String[8];
 
         try {
             BufferedReader bufferedReader =
@@ -163,7 +163,7 @@ public class GameModel {
             System.out.println("Error reading file '" + textPath + "'");
         }
 
-        this.gameMenu = new Menu(fieldsText, 7);
+        this.gameMenu = new Menu(fieldsText, 8);
     }
 
 

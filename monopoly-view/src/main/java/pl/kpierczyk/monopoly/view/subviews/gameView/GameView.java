@@ -321,6 +321,16 @@ public class GameView extends JPanel{
     }
 
 
+
+    public int getGameMenuButtonsNumber(){
+        return gameMenuPanel.getButtons().length;
+    }
+
+    public JButton getGameMenuButton(int i){
+        return gameMenuPanel.getButtons()[i];
+    }
+
+
     /**
      * 
      */
@@ -622,7 +632,12 @@ public class GameView extends JPanel{
 
 
     public void closeMenu(){
+        view.getLayeredPane().remove(menuFrame);
+        menuLayerPanel = null;
+        menuFrame = null;
 
+        view.revalidate();
+        view.repaint();
     }
 }
 

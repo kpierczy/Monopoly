@@ -162,6 +162,6 @@ public class InstructionView extends JPanel {
 
 
     public void backToMainMenu() {
-        this.view.getMainMenuView().closeChild();
+        this.view.getGameView().closeChild();
     }
 }

@@ -152,17 +152,25 @@ public class View extends JFrame {
      * 
      */
     public void loadGame(){
-        if(this.mainMenuView != null){
+        if(mainMenuView != null){
             this.getContentPane().remove(this.mainMenuView);
             this.mainMenuView = null;
+        }
+        if(gameView != null){
+            this.getContentPane().remove(this.gameView);
+            this.gameView.closeMenu();
+            gameView = null;
+        }
 
-            this.gameView = 
-                new GameView(this);
-            this.getContentPane().add(gameView);
+        this.revalidate();
+        this.repaint();  
 
-            this.revalidate();
-            this.repaint();
-        }  
+        this.gameView = 
+            new GameView(this);
+        this.getContentPane().add(gameView);
+
+        this.revalidate();
+        this.repaint();  
     }
 
 

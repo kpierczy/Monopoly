@@ -104,6 +104,6 @@ public class TitlesView extends JPanel{
 
     /*Logical utilities*/
     public void backToMainMenu(){
-        this.view.getMainMenuView().closeChild();
+        this.view.getGameView().closeChild();
     }
 }
