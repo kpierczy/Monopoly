@@ -8,6 +8,10 @@ import java.awt.Graphics;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.io.File;
 import java.util.ArrayList;
 
@@ -199,7 +203,6 @@ public class GameView extends JPanel{
         this.add(rollEnd, BorderLayout.PAGE_END);
 
 
-
         /** Players Button initialization.*/
         playersButtons = new ArrayList<JButton>();
         for(int i = 0; i < view.getModel().getGameModel().getPlayers().size(); i++){
@@ -299,10 +302,6 @@ public class GameView extends JPanel{
         bankruptButton.setVisible(false);
 
         rightPanel.add(bankruptButton, BorderLayout.PAGE_END);
-
-
-        /** Update Counters.*/
-        updateCounters();
     }
 
 
@@ -388,12 +387,10 @@ public class GameView extends JPanel{
             JButton field = board.getFields(view.getModel().getGameModel().getBoard().
                 getFieldsNumberByID(player.getPositionID())
             );
-
+            
             if(player.isInGame()){
-                Point framePoint = SwingUtilities.convertPoint(
-                    field.getParent(), field.getLocation(), view.getContentPane());
                 Point glassPoint = SwingUtilities.convertPoint(
-                    view.getContentPane(), framePoint, view.getGlassPane());
+                    field.getParent(), field.getLocation(), view.getGlassPane());
                 
                 glassPoint.setLocation(new Point(
                     (int)(glassPoint.x + field.getPreferredSize().getWidth() / 2 - countersList.get(i).getWidth() / 2),
