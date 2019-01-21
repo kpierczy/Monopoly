@@ -35,7 +35,7 @@ public class SpecialPropertyField extends BasePropertyField{
      * @param   name
      * @param   price
      * @param   pledgeValue
-     * @param   buybackMultplier
+     * @param   buybackMultiplier
      * @param   baseMultiplier
      * @param   setMultiplier
      * @see     BasePropertyField

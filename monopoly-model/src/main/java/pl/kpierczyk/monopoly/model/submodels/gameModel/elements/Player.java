@@ -50,13 +50,15 @@ public class Player{
      * Default constructor initializing player's state.
      */
     public Player(String name, String positionID, int cash,
-                  int outOfJailNumber, int counter, boolean inJail){
+                  int outOfJailNumber, int counter, boolean inJail,
+                  boolean inGame){
         this.name = name;
         this.positionID = positionID;
         this.cash = cash;
         this.outOfJailNumber = outOfJailNumber;
         this.counter = counter;
         this.inJail = inJail;
+        this.inGame = inGame;
     }
 
     /**

@@ -10,7 +10,13 @@ import pl.kpierczyk.monopoly.controller.subcontrollers.mainMenuController.partia
 import pl.kpierczyk.monopoly.controller.subcontrollers.mainMenuController.partialControllers.LoadingController;
 import pl.kpierczyk.monopoly.controller.subcontrollers.mainMenuController.partialControllers.SettingsController;
 import pl.kpierczyk.monopoly.controller.subcontrollers.mainMenuController.partialControllers.TitlesController;
+import pl.kpierczyk.monopoly.model.submodels.mainMenuModel.partialModels.InstructionModel;
+import pl.kpierczyk.monopoly.model.submodels.mainMenuModel.partialModels.SettingsModel;
+import pl.kpierczyk.monopoly.model.submodels.mainMenuModel.partialModels.TitlesModel;
+import pl.kpierczyk.monopoly.view.subviews.gameView.partialViews.InstructionView;
 import pl.kpierczyk.monopoly.view.subviews.mainMenuView.MainMenuView;
+import pl.kpierczyk.monopoly.view.subviews.mainMenuView.partialViews.SettingsView;
+import pl.kpierczyk.monopoly.view.subviews.mainMenuView.partialViews.TitlesView;
 
 
 
@@ -76,8 +82,8 @@ public class MainMenuController{
      * Returns LoadingController responsible for interaction
      * with user during browsing list of saved games.
      * 
-     * @return reference to LoadingController
-     * @see LoadingController
+     * @return  reference to LoadingController
+     * @see     LoadingController
      */
     public LoadingController getLoadingController() {
         return null;
@@ -176,7 +182,7 @@ public class MainMenuController{
     public void openSettingsMenu(){
         /** Check if mainMenuListener is alive.*/
         if(this.mainMenuListener != null){
-
+            
             /** Try to change model's state*/
             if(this.controller.getModel().getMainMenuModel().openSettings()){
 
@@ -202,7 +208,7 @@ public class MainMenuController{
      * @see InstructionView
     */
     public void openInstruction(){
-
+        
         /** Check if MainMenuListener is alive.*/
         if(this.mainMenuListener != null){
 
@@ -231,7 +237,7 @@ public class MainMenuController{
      * @see TitlesView
      */
     public void openTitles(){
-
+        
         /** Check if MainMenuListener is alive.*/
         if(this.mainMenuListener != null){
             

@@ -1,5 +1,7 @@
 package pl.kpierczyk.monopoly.model.submodels.gameModel.elements.fields.colourFields;
 
+import pl.kpierczyk.monopoly.model.submodels.gameModel.elements.fields.ColourField;
+
 /**
  * Class containing informations about cost parameters of
  * ColourField properties. It is used to initialize new

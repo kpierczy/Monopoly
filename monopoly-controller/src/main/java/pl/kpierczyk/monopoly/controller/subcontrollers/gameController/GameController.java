@@ -6,6 +6,8 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
 import pl.kpierczyk.monopoly.controller.Controller;
+import pl.kpierczyk.monopoly.controller.subcontrollers.mainMenuController.MainMenuController;
+import pl.kpierczyk.monopoly.view.subviews.mainMenuView.MainMenuView;
 
 /**
  * 
@@ -68,7 +70,6 @@ public class GameController{
 
 
 
-
 /**
  * Utility class establishing listener for all buttons visible in
  * the main menu. Checks source of the action and calls appropriate
@@ -81,7 +82,7 @@ public class GameController{
  * @see     MainMenuView
  */
 class GameInterfaceListener implements ActionListener{
-
+    
     /** Reference to the grandparent-controller.*/
     private final Controller controller;
 

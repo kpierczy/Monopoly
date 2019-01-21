@@ -34,7 +34,8 @@ public class CardsStack{
      * Constructor initializing an empty stack of a specified
      * size.
      * 
-     * @param   stackSize
+     * @param   size
+     * @param   type
      * @see     Card
      */
     public CardsStack(int size, CardType type){

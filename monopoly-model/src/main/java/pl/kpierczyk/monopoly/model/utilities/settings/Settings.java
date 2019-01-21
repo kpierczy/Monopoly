@@ -3,6 +3,7 @@ package pl.kpierczyk.monopoly.model.utilities.settings;
 import pl.kpierczyk.monopoly.model.utilities.settings.settingUtilities.SettingsWarnings;
 import pl.kpierczyk.monopoly.model.utilities.settings.settingsKinds.BooleanSetting;
 import pl.kpierczyk.monopoly.model.utilities.settings.settingsKinds.InRangeSetting;
+import pl.kpierczyk.monopoly.model.utilities.settings.settingsKinds.PathSetting;
 import pl.kpierczyk.monopoly.model.utilities.settings.settingsKinds.SelectSetting;
 
 import java.io.*;
@@ -23,7 +24,7 @@ import java.io.*;
  */
 
 public class Settings {
-
+    
     /** Number of settings in the object */
     private final int settingsNumber = 4;
 
@@ -252,8 +253,8 @@ public class Settings {
     /**
      * Sets fullscreen option on or off.
      * 
-     * @param boolean state of fullscreen
-     * @return true if change performed
+     * @param   fullscreen
+     * @return  true if change performed
      */
     public boolean setFullscreen(Boolean fullscreen) {
         return this.fullscreen.setValue(fullscreen);
@@ -263,8 +264,8 @@ public class Settings {
      * Sets level of sound from 0 to 100. If higher or
      * lower value passed, extreme value is set.
      * 
-     * @param level of sound
-     * @return true if change performed
+     * @param   soundLevel
+     * @return  true if change performed
      */
     public boolean setSoundLevel(Integer soundLevel) {
         return this.soundLevel.setValue(soundLevel);
@@ -302,11 +303,6 @@ public class Settings {
     /**
      * Returns String representation of values of setting choosen
      * by passed parameter.
-     * 
-     * <=0 - language
-     * 1 - resolution
-     * 2 - fullscreen state
-     * 3>= - volume level
      * 
      * @param settingNumber
      * @return String representation of values of choosen setting.

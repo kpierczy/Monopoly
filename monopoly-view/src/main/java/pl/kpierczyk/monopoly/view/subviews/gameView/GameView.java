@@ -7,15 +7,20 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridBagLayout;
 import java.awt.Image;
+import java.awt.Point;
 import java.io.File;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
+import pl.kpierczyk.monopoly.model.submodels.gameModel.elements.Player;
 import pl.kpierczyk.monopoly.model.submodels.gameModel.elements.fields.CardDrawField;
 import pl.kpierczyk.monopoly.model.submodels.gameModel.elements.fields.ColourField;
 import pl.kpierczyk.monopoly.model.submodels.gameModel.elements.fields.NeutralField;
@@ -66,12 +71,11 @@ public class GameView extends JPanel{
 
     private Board board;
     private JInternalFrame fieldsInfoFrame;
-    private ArrayList<JPanel> fieldsPanels;
-    
-    private JButton rollEnd;
-
+    private ArrayList<JPanel> fieldsPanels = new ArrayList<JPanel>();
+    private ArrayList<JLabel> countersList = new ArrayList<JLabel>();
     private ArrayList<JButton> playersButtons;
 
+    private JButton rollEnd;
     private JButton menuButton;
 
     
@@ -123,6 +127,49 @@ public class GameView extends JPanel{
                                "/gameBackground/background_1.png");
         }
 
+        String countersPath;
+            
+        /** Loading counters images.*/
+        try {
+            ((JPanel)view.getGlassPane()).setLayout(null);
+
+            for(int i = 0; i < view.getModel().getGameModel().getPlayers().size(); i++){
+
+                countersPath =     
+                    "/img/" + view.getModel().getSettings().getResolutionSetting().getValue() +
+                    "/counters/" + (i + 1) + ".png";
+
+                ImageIcon labelIcon = 
+                    new ImageIcon(ImageIO.read(getClass().getResourceAsStream(countersPath)));
+                countersList.add(new JLabel(labelIcon));
+                countersList.get(i).setSize(new Dimension(labelIcon.getIconWidth(),
+                                                          labelIcon.getIconHeight()));
+                countersList.get(i).setPreferredSize(new Dimension(labelIcon.getIconWidth(),
+                                                                   labelIcon.getIconHeight()));
+                countersList.get(i).setMinimumSize(new Dimension(labelIcon.getIconWidth(),
+                                                                 labelIcon.getIconHeight()));
+                countersList.get(i).setMaximumSize(new Dimension(labelIcon.getIconWidth(),
+                                                                 labelIcon.getIconHeight()));
+                ((JPanel)view.getGlassPane()).add(countersList.get(i));
+                countersList.get(i).setVisible(true);
+            }
+        }
+        catch (Exception ex) {
+            System.out.println("Couldn't open player's counter image.");
+        }
+
+
+        /** Loading bacgroundImage.*/
+        try{
+            String absoluteBackgroundPath = getClass().getResource(backgroundPath).getPath();
+            backgroundImage = 
+                ImageIO.read(new File(Util.convert(absoluteBackgroundPath)));
+        }
+        catch (Exception ex) {
+            System.out.println("Couldn't open game's background image from " + 
+                            "/img/" + this.view.getModel().getSettings().getResolutionSetting().getValue() +
+                            "/gameBackground/background_1.png");
+        }
         
 
 
@@ -252,6 +299,10 @@ public class GameView extends JPanel{
         bankruptButton.setVisible(false);
 
         rightPanel.add(bankruptButton, BorderLayout.PAGE_END);
+
+
+        /** Update Counters.*/
+        updateCounters();
     }
 
 
@@ -328,6 +379,41 @@ public class GameView extends JPanel{
 
     public JButton getGameMenuButton(int i){
         return gameMenuPanel.getButtons()[i];
+    }
+
+
+    public void updateCounters(){
+        for(int i = 0; i < countersList.size(); i++){
+            Player player = view.getModel().getGameModel().getPlayers().get(i);
+            JButton field = board.getFields(view.getModel().getGameModel().getBoard().
+                getFieldsNumberByID(player.getPositionID())
+            );
+
+            if(player.isInGame()){
+                Point framePoint = SwingUtilities.convertPoint(
+                    field.getParent(), field.getLocation(), view.getContentPane());
+                Point glassPoint = SwingUtilities.convertPoint(
+                    view.getContentPane(), framePoint, view.getGlassPane());
+                
+                glassPoint.setLocation(new Point(
+                    (int)(glassPoint.x + field.getPreferredSize().getWidth() / 2 - countersList.get(i).getWidth() / 2),
+                    (int)(glassPoint.y + field.getPreferredSize().getHeight() / 2 - countersList.get(i).getHeight() / 2)));
+                
+                countersList.get(i).setBounds(
+                    glassPoint.x,
+                    glassPoint.y,
+                    countersList.get(i).getWidth(),
+                    countersList.get(i).getHeight());
+            }
+            else countersList.get(i).setVisible(false);
+        }
+
+        view.getGlassPane().revalidate();
+        view.getGlassPane().repaint();
+        view.getGlassPane().setVisible(true);
+
+        view.revalidate();
+        view.repaint();
     }
 
 

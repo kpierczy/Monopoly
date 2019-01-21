@@ -31,7 +31,7 @@ public class TrainStationField extends BasePropertyField{
      * @param   name
      * @param   price
      * @param   pledgeValue
-     * @param   buybackMultplier
+     * @param   buybackMultiplier
      * @param   baseRent
      * @see     BasePropertyField
      */

@@ -398,8 +398,8 @@ public class Board{
      * Returns index of the field with ID given in the parameter.
      * Returns -1 when field not found.
      * 
-     * @param field
-     * @return
+     * @param   ID
+     * @return  -1 when field not found
      */
     public int getFieldsNumberByID(String ID){
         

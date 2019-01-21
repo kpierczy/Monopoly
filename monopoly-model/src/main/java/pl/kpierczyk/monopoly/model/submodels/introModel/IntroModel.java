@@ -27,7 +27,7 @@ public class IntroModel{
      * Initializes intro's model with a certain absolute path
      * of intro image.
      *  
-     * @param introPosterPath
+     * @param introPosterPath 
      */
     public IntroModel(String introPosterPath){
         this.introPosterPath = introPosterPath;

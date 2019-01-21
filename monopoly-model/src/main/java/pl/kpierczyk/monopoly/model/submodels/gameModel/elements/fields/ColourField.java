@@ -62,20 +62,19 @@ public class ColourField extends BasePropertyField{
     private ColourFieldsSet set = null;
 
 
-
     /**
      * Initializes colour buyable field on the Monopoly's board.
      * This kind of field can be gathered in to colour set by one owner
      * which makes him able to get higher rent and build apartments 
-     * and hotels.
-     * 
-     * @param   ID
-     * @param   name
-     * @param   price
-     * @param   pledgeValue
-     * @param   buybackMultiplier
-     * @param   set
-     * @param   prices
+     * and hotels. 
+     *
+     * @param ID
+     * @param name
+     * @param price
+     * @param pledgeValue
+     * @param buybackMultiplier
+     * @param prices
+     * @param colour
      * @see     BasePropertyField
      * @see     ColourFieldCashInfo
      * @see     ColourFieldsSet

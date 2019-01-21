@@ -81,9 +81,10 @@ public class Controller{
      * specified time.
      * 
      * @return  reference to the introController
-     * @see     IntroductionController
+     * @see     IntroController
      */
     public IntroController getIntroductionController() {
+
         return introductionController;
     }
 

@@ -10,6 +10,13 @@ import pl.kpierczyk.monopoly.controller.subcontrollers.gameController.partialCon
 import pl.kpierczyk.monopoly.controller.subcontrollers.gameController.partialControllers.LoadingController;
 import pl.kpierczyk.monopoly.controller.subcontrollers.gameController.partialControllers.SettingsController;
 import pl.kpierczyk.monopoly.controller.subcontrollers.gameController.partialControllers.TitlesController;
+import pl.kpierczyk.monopoly.controller.subcontrollers.mainMenuController.MainMenuController;
+import pl.kpierczyk.monopoly.model.submodels.mainMenuModel.partialModels.InstructionModel;
+import pl.kpierczyk.monopoly.model.submodels.mainMenuModel.partialModels.SettingsModel;
+import pl.kpierczyk.monopoly.model.submodels.mainMenuModel.partialModels.TitlesModel;
+import pl.kpierczyk.monopoly.view.subviews.gameView.partialViews.InstructionView;
+import pl.kpierczyk.monopoly.view.subviews.gameView.partialViews.SettingsView;
+import pl.kpierczyk.monopoly.view.subviews.gameView.partialViews.TitlesView;
 import pl.kpierczyk.monopoly.view.subviews.mainMenuView.MainMenuView;
 
 
@@ -76,8 +83,8 @@ public class GameMenuController{
      * Returns LoadingController responsible for interaction
      * with user during browsing list of saved games.
      * 
-     * @return reference to LoadingController
-     * @see LoadingController
+     * @return  reference to LoadingController
+     * @see     LoadingController
      */
     public LoadingController getLoadingController() {
         return null;
@@ -198,7 +205,7 @@ public class GameMenuController{
      * @see InstructionView
     */
     public void openInstruction(){
-
+        
         /** Check if gameMenuListener is alive.*/
         if(this.gameMenuListener != null){
 
@@ -223,7 +230,7 @@ public class GameMenuController{
      * @see TitlesView
      */
     public void openTitles(){
-
+        
         /** Check if gameMenuListener is alive.*/
         if(this.gameMenuListener != null){
 

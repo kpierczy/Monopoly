@@ -220,7 +220,7 @@ public class Model {
      * gameSaveInfo object.
      * 
      * @param   gameSaveInfo
-     * @see     gameSaveInfo
+     * @see     GameSaveInfo
      */
     public void loadGame(GameSaveInfo gameSaveInfo){
         if (getState() == AppState.mainMenu){

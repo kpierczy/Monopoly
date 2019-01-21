@@ -1,5 +1,7 @@
 package pl.kpierczyk.monopoly.model.submodels.gameModel.elements.fields.colourFields;
 
+import pl.kpierczyk.monopoly.model.submodels.gameModel.elements.fields.ColourField;
+
 /**
  * Container class with colours constants.
  * 
