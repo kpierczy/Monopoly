@@ -160,6 +160,9 @@ public class Controller{
         model.runNewGame(playersNumber);
         view.runNewGame();
 
+        view.revalidate();
+        view.repaint();
+
         /** Create GameController to manage in-game interactions.*/
         this.mainMenuController = null;
         this.gameController = 

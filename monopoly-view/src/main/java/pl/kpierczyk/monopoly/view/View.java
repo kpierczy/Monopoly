@@ -162,6 +162,8 @@ public class View extends JFrame {
             gameView = null;
         }
 
+        ((JPanel)this.getGlassPane()).removeAll();
+
         this.gameView = 
             new GameView(this);
         this.getContentPane().add(gameView);
@@ -184,6 +186,8 @@ public class View extends JFrame {
             this.mainMenuView =
                 new MainMenuView(this);
             this.getContentPane().add(mainMenuView);
+
+            ((JPanel)this.getGlassPane()).removeAll();
             
             this.revalidate();
             this.repaint();
