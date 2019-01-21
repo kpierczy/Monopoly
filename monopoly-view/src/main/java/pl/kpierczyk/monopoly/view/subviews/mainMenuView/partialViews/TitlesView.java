@@ -34,7 +34,8 @@ public class TitlesView extends JPanel{
 
     private final Font font = new Font("Arial", Font.BOLD, 18);
     private final Border border = BorderFactory.createBevelBorder(BevelBorder.RAISED);
-    
+    private final int bottomButtonsHeight = 30;
+
     private Image titlesImage;
     
     private JButton backButton;
@@ -67,7 +68,7 @@ public class TitlesView extends JPanel{
                 public boolean imageUpdate(Image img, int infoflags, int x, int y, int width, int height) {
                     return false;
                 }
-            })));
+            }) + bottomButtonsHeight));
         
 
 
@@ -78,6 +79,7 @@ public class TitlesView extends JPanel{
         this.backButton = 
             new JButton(this.view.getModel().getMainMenuModel().getTitlesModel().getBackButtonText());
         this.backButton.setFont(this.font);
+        this.backButton.setPreferredSize(new Dimension(0, bottomButtonsHeight));
         this.add(this.backButton, BorderLayout.PAGE_END);
     }
 

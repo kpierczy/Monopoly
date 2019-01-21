@@ -6,20 +6,25 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import pl.kpierczyk.monopoly.model.submodels.gameModel.elements.fields.CardDrawField;
+import pl.kpierczyk.monopoly.model.submodels.gameModel.elements.fields.ColourField;
+import pl.kpierczyk.monopoly.model.submodels.gameModel.elements.fields.NeutralField;
+import pl.kpierczyk.monopoly.model.submodels.gameModel.elements.fields.SpecialPropertyField;
+import pl.kpierczyk.monopoly.model.submodels.gameModel.elements.fields.StartField;
+import pl.kpierczyk.monopoly.model.submodels.gameModel.elements.fields.TaxField;
+import pl.kpierczyk.monopoly.model.submodels.gameModel.elements.fields.TeleportingField;
+import pl.kpierczyk.monopoly.model.submodels.gameModel.elements.fields.TrainStationField;
+import pl.kpierczyk.monopoly.model.submodels.gameModel.elements.fields.abstracts.Field;
 import pl.kpierczyk.monopoly.model.utilities.Util;
 import pl.kpierczyk.monopoly.model.utilities.settings.Settings;
 import pl.kpierczyk.monopoly.view.View;
@@ -60,6 +65,9 @@ public class GameView extends JPanel{
     private Image backgroundImage;
 
     private Board board;
+    private JInternalFrame fieldsInfoFrame;
+    private ArrayList<JPanel> fieldsPanels;
+    
     private JButton rollEnd;
 
     private ArrayList<JButton> playersButtons;
@@ -114,6 +122,9 @@ public class GameView extends JPanel{
                                "/img/" + this.view.getModel().getSettings().getResolutionSetting().getValue() +
                                "/gameBackground/background_1.png");
         }
+
+        
+
 
         /** Board's initialization*/
         this.board = new Board(this.view.getModel().getSettings());
@@ -244,6 +255,123 @@ public class GameView extends JPanel{
     }
 
 
+
+    /**
+     * @return the board
+     */
+    public Board getBoard() {
+        return board;
+    }
+
+    /**
+     * @return the rollEnd
+     */
+    public JButton getRollEnd() {
+        return rollEnd;
+    }
+
+    /**
+     * @return the playersButtons
+     */
+    public ArrayList<JButton> getPlayersButtons() {
+        return playersButtons;
+    }
+
+    /**
+     * @return the menuButton
+     */
+    public JButton getMenuButton() {
+        return menuButton;
+    }
+
+    /**
+     * @return the bankruptButton
+     */
+    public JButton getBankruptButton() {
+        return bankruptButton;
+    }
+
+
+    /**
+     * @return the gameMenuPanel
+     */
+    public GameMenuPanel getGameMenuPanel() {
+        return gameMenuPanel;
+    }
+
+    /**
+     * @return the settingsView
+     */
+    public SettingsView getSettingsView() {
+        return settingsView;
+    }
+
+    /**
+     * @return the instructionView
+     */
+    public InstructionView getInstructionView() {
+        return instructionView;
+    }
+
+    /**
+     * @return the titlesView
+     */
+    public TitlesView getTitlesView() {
+        return titlesView;
+    }
+
+
+    /**
+     * 
+     */
+    private void initializeFieldsPanels(){
+        for(int i = 0; i < board.getFields().size(); i++){
+            Field field = 
+                view.getModel().getGameModel().getBoard().getBoard().get(i);
+
+            /** Handling start field info panel.*/
+            if(field instanceof StartField){
+                
+            }
+            /** Handling ColourField field info panel.*/
+            else if(field instanceof ColourField){
+
+            }
+            /** Handling CardDraw field info panel.*/
+            else if(field instanceof CardDrawField){
+                
+            }
+            /** Handling Tax field info panel.*/
+            else if(field instanceof TaxField){
+                
+            }
+            /** Handling TrainStation field info panel.*/
+            else if(field instanceof TrainStationField){
+                
+            }
+            /** Handling NeutralField field info panel.*/
+            else if(field instanceof NeutralField){
+                
+            }
+            /** Handling SpecialProperty field info panel.*/
+            else if(field instanceof SpecialPropertyField){
+                
+            }
+            /** Handling Jail field info panel.*/
+            else if(field instanceof TeleportingField){
+                
+            }
+
+
+        }
+    }
+
+
+    public void initializeFieldsListeners(){
+        for(int i = 0; i < fieldsPanels.size(); i++){
+        
+        }
+    }
 
 
     /*****************************************/

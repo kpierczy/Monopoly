@@ -79,19 +79,19 @@ public class SettingsView extends JPanel{
         }
 
         /* Main menu's size and layout initialization */
-        this.setPreferredSize(new Dimension((
+        this.setPreferredSize(new Dimension(
             this.backgroundImage.getWidth(new ImageObserver(){
                 @Override
                 public boolean imageUpdate(Image img, int infoflags, int x, int y, int width, int height) {
                     return false;
                 }
-            })),
+            }),
             this.backgroundImage.getHeight(new ImageObserver() {
                 @Override
                 public boolean imageUpdate(Image img, int infoflags, int x, int y, int width, int height) {
                     return false;
                 }
-        })));
+        }) + bottomButtonsHeight));
 
         this.setLayout(new BorderLayout());
         this.setBorder(border);
