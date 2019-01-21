@@ -174,7 +174,7 @@ Ulica Grochowska
 8000
 1000
 1000
-BROWN
+PINK
 -----------------------------------------
 TRAIN_STATION_FIELD
 #16
