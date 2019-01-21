@@ -167,6 +167,7 @@ public class View extends JFrame {
 
         this.gameView = 
             new GameView(this);
+        gameView.updateCounters();
         this.getContentPane().add(gameView);
 
         this.revalidate();

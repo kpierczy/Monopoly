@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
+import pl.kpierczyk.monopoly.model.Model;
 import pl.kpierczyk.monopoly.controller.Controller;
 import pl.kpierczyk.monopoly.controller.subcontrollers.mainMenuController.MainMenuController;
 import pl.kpierczyk.monopoly.view.subviews.mainMenuView.MainMenuView;
@@ -32,8 +33,13 @@ public class GameController{
         this.gameInterfaceListener = 
             new GameInterfaceListener(controller);
 
-
+        /** Set listeners to all buttons in the in-game gui.*/
         this.controller.getView().getGameView().getMenuButton().addActionListener(gameInterfaceListener);
+        this.controller.getView().getGameView().getRollEnd().addActionListener(gameInterfaceListener);
+        this.controller.getView().getGameView().getBankruptButton().addActionListener(gameInterfaceListener);
+        for(int i = 0; i < this.controller.getView().getGameView().getPlayersButtons().size(); i++){
+            this.controller.getView().getGameView().getPlayersButtons().get(i).addActionListener(gameInterfaceListener);
+        }
     }
 
 
@@ -46,6 +52,9 @@ public class GameController{
 
 
 
+    /**
+     * 
+     */
     public void openMenuPanel(){
         this.controller.getView().getGameView().openMenuPanel();
         this.gameMenuController = 
@@ -54,11 +63,34 @@ public class GameController{
     }
 
 
+    /**
+     * 
+     */
     public void closeMenu(){
         this.controller.getView().getGameView().closeMenu();
         this.gameMenuController = null;
         this.gameInterfaceListener = 
             new GameInterfaceListener(controller);
+    }
+
+
+    public void rollDices(){
+        this.controller.getModel().getGameModel().rollDices();
+        this.controller.getView().getGameView().updateCounters();
+        boolean wantToBuy = false;
+        if(controller.getModel().getGameModel().isBuyable()){
+            wantToBuy =
+                this.controller.getView().getGameView().askIfBuy();
+        }
+        this.controller.getModel().getGameModel().causeFieldEffect(wantToBuy);
+        this.controller.getView().getGameView().updateButtons();
+    }
+
+
+    public void finishTurn(){
+        if(this.controller.getModel().getGameModel().endTurn()){
+            this.controller.getView().getGameView().updateButtons();
+        }
     }
 }
 
@@ -72,8 +104,8 @@ public class GameController{
 
 /**
  * Utility class establishing listener for all buttons visible in
- * the main menu. Checks source of the action and calls appropriate
- * MainMenuController method to handle action.
+ * the in-game panel. Checks source of the action and calls appropriate
+ * GameController's method to handle action.
  * 
  * @author  Krzysztof Pierczyk
  * @version 1.0
@@ -85,7 +117,6 @@ class GameInterfaceListener implements ActionListener{
     
     /** Reference to the grandparent-controller.*/
     private final Controller controller;
-
 
     /**
      * Default constructor saving reference to the main
@@ -115,6 +146,22 @@ class GameInterfaceListener implements ActionListener{
         if(buttonSource == this.controller.getView().getGameView().getMenuButton()){
             this.controller.getGameController().openMenuPanel();
         }
+        /** If roll/finish turn button pressed.*/
+        else if(buttonSource == this.controller.getView().getGameView().getRollEnd()){
+            if(this.controller.getModel().getGameModel().isHasPlayerRolled()){
+                this.controller.getGameController().finishTurn();;
+            }
+            else{
+                this.controller.getGameController().rollDices();
+            }
+        }
+        else if(buttonSource == this.controller.getView().getGameView().getBankruptButton()){
+            
+        }
+        else if(this.controller.getView().getGameView().getPlayersButtons().indexOf(buttonSource) != -1){
+            
+        }
+
         
     }
 }

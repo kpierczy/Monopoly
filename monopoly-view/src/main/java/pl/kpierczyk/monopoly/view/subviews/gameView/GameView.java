@@ -414,6 +414,40 @@ public class GameView extends JPanel{
     }
 
 
+
+    public void updateButtons(){
+        for(int i = 0; i < playersButtons.size(); i++){
+            playersButtons.get(i).setText(
+                view.getModel().getGameModel().getPlayers().get(i).getName() + 
+                "    " + 
+                view.getModel().getGameModel().getPlayers().get(i).getCash() + 
+                "$"
+            );
+        }
+
+        if(!view.getModel().getGameModel().isHasPlayerRolled()){
+            if(view.getModel().getSettings().getLanguage() == "en")
+                this.rollEnd.setText("Roll");
+            else if(view.getModel().getSettings().getLanguage() == "pl")
+                this.rollEnd.setText("Rzuć kostkami");
+        }
+        else{
+            if(view.getModel().getSettings().getLanguage() == "en")
+                    this.rollEnd.setText("End turn");
+            else if(view.getModel().getSettings().getLanguage() == "pl")
+                this.rollEnd.setText("Zakończ turę");
+        }
+
+        if(view.getModel().getGameModel().isHasToPay())
+            bankruptButton.setVisible(true);
+        else
+            bankruptButton.setVisible(false);
+
+
+        view.revalidate();
+        view.repaint();
+    }
+
     /**
      * 
      */
@@ -477,6 +511,31 @@ public class GameView extends JPanel{
         g.drawImage(backgroundImage, 0, 0, this);
     }
 
+
+
+    /**
+     * 
+     * @return
+     */
+    public boolean askIfBuy(){
+        if(view.getModel().getSettings().getLanguage() == "en"){
+            if(JOptionPane.showConfirmDialog(view,
+               "Do you want to buy this field?",
+               "Buyout possibility",
+               JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
+               return true;
+            else return false;
+        }
+        else if(view.getModel().getSettings().getLanguage() == "pl"){
+            if(JOptionPane.showConfirmDialog(view,
+               "Czy chciałbyś kupić tę parcelę?",
+               "Kupno",
+               JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
+               return true;
+            else return false;
+        }
+        return false;
+    }
 
     /**
      * 

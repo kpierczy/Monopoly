@@ -18,6 +18,7 @@ import pl.kpierczyk.monopoly.model.submodels.gameModel.elements.fields.TaxField;
 import pl.kpierczyk.monopoly.model.submodels.gameModel.elements.fields.TeleportingField;
 import pl.kpierczyk.monopoly.model.submodels.gameModel.elements.fields.TrainStationField;
 import pl.kpierczyk.monopoly.model.submodels.gameModel.elements.fields.CardDrawField.CardKind;
+import pl.kpierczyk.monopoly.model.submodels.gameModel.elements.fields.abstracts.BasePropertyField;
 import pl.kpierczyk.monopoly.model.submodels.gameModel.elements.fields.abstracts.Field;
 import pl.kpierczyk.monopoly.model.submodels.gameModel.utilities.GameSaveInfo;
 import pl.kpierczyk.monopoly.model.utilities.menu.Menu;
@@ -204,6 +205,13 @@ public class GameModel {
      */
     public boolean isHasPlayerRolled() {
         return hasPlayerRolled;
+    }
+
+    /**
+     * @return the hasToPay
+     */
+    public boolean isHasToPay() {
+        return hasToPay;
     }
 
 
@@ -816,6 +824,18 @@ public class GameModel {
 
 
 
+    public boolean isBuyable(){
+        Field actualField = 
+            board.getFieldByID(getActualPlayer().getPositionID());
+        if(actualField instanceof BasePropertyField){
+            if(((BasePropertyField)actualField).getOwner() == null)
+                return true;
+        }
+        return false;
+    }
+
+
+
 
 
 
@@ -864,7 +884,10 @@ public class GameModel {
 
                 /** Reset flag hasPlayerRolled for the player beggining turn.*/
                 hasPlayerRolled = false;
-
+                
+                /** Resets dices.*/
+                dices.reset();
+                
                 return true;
             }
             /** If the next player is out of game.*/
